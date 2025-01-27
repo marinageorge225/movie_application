@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:graduation_movie_app/home_screen.dart';
-
+// test commit 2
 class SplashScreen extends StatefulWidget {
   static const String routename = 'splash screen';
 
