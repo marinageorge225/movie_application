@@ -19,7 +19,7 @@ class AppStyles{
       fontSize: 24,fontWeight: FontWeight.bold
       ,color: AppColors.whiteColor);
   static TextStyle regular20WhiteInter=GoogleFonts.inter(
-      fontSize: 20,fontWeight: FontWeight.w400,
+      fontSize: 20,fontWeight: FontWeight.w200,
       color: AppColors.whiteColor);
   static TextStyle bold20DarkBlackInter=GoogleFonts.inter(
       fontSize: 20,fontWeight: FontWeight.bold,
