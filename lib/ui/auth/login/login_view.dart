@@ -6,13 +6,21 @@ import 'package:graduation_movie_app/utils/app_color.dart';
 import 'package:graduation_movie_app/utils/app_styles.dart';
 import 'package:graduation_movie_app/utils/assets_manager.dart';
 
-class LoginView extends StatelessWidget {
+class LoginView extends StatefulWidget {
   static const String routeName = 'Login_screen';
+
+  @override
+  State<LoginView> createState() => _LoginViewState();
+}
+
+class _LoginViewState extends State<LoginView> {
+  bool showPassword = false;
 
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: height * 0.015, vertical: height * 0.1),
@@ -20,20 +28,31 @@ class LoginView extends StatelessWidget {
           spacing: height * 0.025,
           children: [
             Image.asset(AssetsManager.loginScreenImage,),
-            
+
             SizedBox(height: height * 0.02,),
-            
+
             CustomTextField(
+              keyBoardType: TextInputType.emailAddress,
               prefixIcon: ImageIcon(AssetImage(AssetsManager.emailIcon)),
               hintText: 'Email',
             ),
-            
+
             CustomTextField(
               prefixIcon: ImageIcon(AssetImage(AssetsManager.passwordIcon)),
               hintText: 'Password',
-              suffixIcon: Icon(Icons.visibility_off),
+              obscureText: showPassword == true ? false : true,
+              suffixIcon: IconButton(
+                  onPressed: (){
+                    showPassword = !showPassword;
+                    setState(() {
+
+                    });
+                  }, icon: Icon(
+                showPassword == false ?
+                  Icons.visibility_off_sharp
+              : Icons.visibility)),
             ),
-            
+
             TextButton(
                 onPressed: (){},
                 child: Align(
@@ -85,13 +104,6 @@ class LoginView extends StatelessWidget {
                 color: AppColors.blackColor,),
                 buttonTitle: 'Login With Google'),
 
-            Container(
-              child: Row(
-                children: [
-
-                ],
-              )
-            ),
 
           ],
         ),

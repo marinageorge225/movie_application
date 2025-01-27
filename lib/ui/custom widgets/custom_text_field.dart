@@ -11,10 +11,12 @@ class CustomTextField extends StatelessWidget {
   bool obscureText;
   MyValidator? validator;
   TextEditingController? controller;
+  TextInputType? keyBoardType;
   CustomTextField(
       {this.suffixIcon,
       this.prefixIcon,
       this.hintText,
+        this.keyBoardType,
       this.controller,
       this.obscureText = false,
       this.validator});
@@ -23,6 +25,7 @@ class CustomTextField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       validator: validator,
+      keyboardType: keyBoardType,
       style: AppStyles.regular16WhiteRoboto,
       obscureText: obscureText,
       obscuringCharacter: '*',
