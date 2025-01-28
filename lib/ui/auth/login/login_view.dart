@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:graduation_movie_app/ui/auth/login/forget_password/forget_password.dart';
 import 'package:graduation_movie_app/ui/custom%20widgets/custom_elevated_button.dart';
 import 'package:graduation_movie_app/ui/custom%20widgets/custom_text_field.dart';
 import 'package:graduation_movie_app/ui/tabs/profile_tab/update_profile.dart';
@@ -17,11 +18,11 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   bool showPassword = false;
 
-  // Example text editing controllers for validation
+
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  // Toggle password visibility
+
   void togglePasswordVisibility() {
     setState(() {
       showPassword = !showPassword;
@@ -43,7 +44,6 @@ class _LoginViewState extends State<LoginView> {
           ),
           child: Column(
             children: [
-              // Login Screen Image
               Image.asset(
                 AssetsManager.loginScreenImage,
                 height: height * 0.25,
@@ -51,7 +51,6 @@ class _LoginViewState extends State<LoginView> {
 
               SizedBox(height: height * 0.02),
 
-              // Email TextField
               CustomTextField(
                 keyBoardType: TextInputType.emailAddress,
                 prefixIcon: ImageIcon(AssetImage(AssetsManager.emailIcon)),
@@ -61,7 +60,7 @@ class _LoginViewState extends State<LoginView> {
 
               SizedBox(height: height * 0.02),
 
-              // Password TextField
+
               CustomTextField(
                 prefixIcon: ImageIcon(AssetImage(AssetsManager.passwordIcon)),
                 hintText: 'Password',
@@ -77,12 +76,12 @@ class _LoginViewState extends State<LoginView> {
                 controller: passwordController,
               ),
 
-              // Forget Password Button
+
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
                   onPressed: () {
-                    // Navigate to Forget Password Screen
+                    ForgetPassword();
                   },
                   child: Text(
                     'Forget Password?',
