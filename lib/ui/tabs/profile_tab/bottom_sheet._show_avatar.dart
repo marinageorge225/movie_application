@@ -3,8 +3,19 @@ import 'package:graduation_movie_app/utils/app_color.dart';
 import '../../../utils/assets_manager.dart';
 import 'image_item.dart';
 
-class BottomSheetShowAvatars extends StatelessWidget {
-  List<String> avatars=
+class BottomSheetShowAvatars extends StatefulWidget {
+  Function(String) saveImage;
+  final String? selectedAvatar;
+
+  BottomSheetShowAvatars({required this.selectedAvatar, required this.saveImage});
+
+
+  @override
+  State<BottomSheetShowAvatars> createState() => _BottomSheetShowAvatarsState();
+}
+
+class _BottomSheetShowAvatarsState extends State<BottomSheetShowAvatars> {
+   List<String> avatars=
   [
     AssetsManager.avatar1,
     AssetsManager.avatar2,
@@ -16,7 +27,12 @@ class BottomSheetShowAvatars extends StatelessWidget {
     AssetsManager.avatar8,
     AssetsManager.avatar9,
   ];
-
+  String? selectedAvatar;
+   @override
+   void initState() {
+     super.initState();
+     selectedAvatar = widget.selectedAvatar;
+   }
   @override
   Widget build(BuildContext context) {
     var width=MediaQuery.of(context).size.width;
@@ -29,7 +45,17 @@ class BottomSheetShowAvatars extends StatelessWidget {
           child: GridView.builder(gridDelegate:
           const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
               itemBuilder:(context,index){
-                return ImageItem(imageName: avatars[index]);
+                return InkWell(
+                  onTap: (){
+                    setState(() {
+                      widget.saveImage(avatars[index]);
+
+                    });
+                  },
+                    child:
+                ImageItem(imageName: avatars[index],
+                    saveImage: widget.saveImage,
+                    isSelected: avatars[index] == selectedAvatar));
               },
               itemCount: avatars.length,
 
