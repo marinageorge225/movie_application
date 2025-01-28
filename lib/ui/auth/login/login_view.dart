@@ -1,12 +1,13 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:graduation_movie_app/ui/auth/login/forget_password/forget_password.dart';
 import 'package:graduation_movie_app/ui/custom%20widgets/custom_elevated_button.dart';
 import 'package:graduation_movie_app/ui/custom%20widgets/custom_text_field.dart';
 import 'package:graduation_movie_app/ui/tabs/profile_tab/update_profile.dart';
 import 'package:graduation_movie_app/utils/app_color.dart';
 import 'package:graduation_movie_app/utils/app_styles.dart';
 import 'package:graduation_movie_app/utils/assets_manager.dart';
+import '../forget_password/forget_password.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginView extends StatefulWidget {
   static const String routeName = 'Login_screen';
@@ -47,15 +48,15 @@ class _LoginViewState extends State<LoginView> {
             children: [
               Image.asset(
                 AssetsManager.loginScreenImage,
-                height: height * 0.25,
+                height: height * 0.2,
               ),
 
               SizedBox(height: height * 0.02),
 
               CustomTextField(
                 keyBoardType: TextInputType.emailAddress,
-                prefixIcon: ImageIcon(AssetImage(AssetsManager.emailIcon)),
-                hintText: 'Email',
+                prefixIcon: const ImageIcon(AssetImage(AssetsManager.emailIcon)),
+                hintText: AppLocalizations.of(context)!.email,
                 controller: emailController,
               ),
 
@@ -63,8 +64,8 @@ class _LoginViewState extends State<LoginView> {
 
 
               CustomTextField(
-                prefixIcon: ImageIcon(AssetImage(AssetsManager.passwordIcon)),
-                hintText: 'Password',
+                prefixIcon: const ImageIcon(AssetImage(AssetsManager.passwordIcon)),
+                hintText: AppLocalizations.of(context)!.password,
                 obscureText: !showPassword,
                 suffixIcon: IconButton(
                   onPressed: togglePasswordVisibility,
@@ -85,7 +86,7 @@ class _LoginViewState extends State<LoginView> {
                     Navigator.pushNamed(context, ForgetPassword.routeName);
                   },
                   child: Text(
-                    'Forget Password?',
+                    AppLocalizations.of(context)!.forgetPassword,
                     style: AppStyles.regular16OrangeRoboto,
                   ),
                 ),
@@ -100,7 +101,7 @@ class _LoginViewState extends State<LoginView> {
                 Navigator.pushNamed(context, UpdateProfile.routeName);
 
                 },
-                buttonTitle: 'Login',
+                buttonTitle: AppLocalizations.of(context)!.login,
               ),
 
               SizedBox(height: height * 0.02),
@@ -110,11 +111,11 @@ class _LoginViewState extends State<LoginView> {
                 TextSpan(
                   children: [
                     TextSpan(
-                      text: "Don't Have an Account? ",
+                      text: AppLocalizations.of(context)!.dontHaveAccount,
                       style: AppStyles.regular16WhiteRoboto,
                     ),
                     TextSpan(
-                      text: 'Create One',
+                      text: AppLocalizations.of(context)!.createOne,
                       style: AppStyles.bold16Orange,
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
@@ -138,7 +139,7 @@ class _LoginViewState extends State<LoginView> {
                     ),
                   ),
                   Text(
-                    'OR',
+                    AppLocalizations.of(context)!.or,
                     style: AppStyles.regular16OrangeRoboto,
                   ),
                   Expanded(
@@ -158,12 +159,12 @@ class _LoginViewState extends State<LoginView> {
                 buttonOnClick: () {
                   // Add Google login logic here
                 },
-                buttonIcon: ImageIcon(
+                buttonIcon: const ImageIcon(
                   AssetImage(AssetsManager.googleIcon),
                   size: 30,
                   color: AppColors.blackColor,
                 ),
-                buttonTitle: 'Login With Google',
+                buttonTitle: AppLocalizations.of(context)!.loginWithGoogle,
               ),
             ],
           ),
