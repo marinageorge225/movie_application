@@ -94,7 +94,6 @@ class _OnBoardingState extends State<OnBoarding> {
                 TextBottom2Style:TextBottomStyle ,
 
 
-
                 titleStyle:titleStyle ,
                   onpressed2:onpressed2,
                   onpressed: onpressed, TextBottom: TextBottom,title:title , Body: Body,backgroungColor:backgroundColor,),

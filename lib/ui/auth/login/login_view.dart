@@ -2,7 +2,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:graduation_movie_app/ui/custom%20widgets/custom_elevated_button.dart';
 import 'package:graduation_movie_app/ui/custom%20widgets/custom_text_field.dart';
-import 'package:graduation_movie_app/ui/tabs/profile_tab/update_profile.dart';
 import 'package:graduation_movie_app/utils/app_color.dart';
 import 'package:graduation_movie_app/utils/app_styles.dart';
 import 'package:graduation_movie_app/utils/assets_manager.dart';
@@ -63,9 +62,7 @@ class _LoginViewState extends State<LoginView> {
                 )),
 
             CustomElevatedButton(
-                buttonOnClick: (){
-                  Navigator.pushNamed(context, UpdateProfile.routeName);
-                },
+                buttonOnClick: (){},
                 buttonTitle: 'Login'),
 
             Text.rich(TextSpan(children: [
