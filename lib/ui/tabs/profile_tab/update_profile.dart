@@ -10,11 +10,15 @@ import 'package:graduation_movie_app/utils/assets_manager.dart';
 class UpdateProfile extends StatefulWidget {
   static const String routeName="update_profile";
 
+
   @override
   State<UpdateProfile> createState() => _UpdateProfileState();
 }
 
 class _UpdateProfileState extends State<UpdateProfile> {
+  String? selectedAvatar;
+
+
 
 
   @override
@@ -24,18 +28,19 @@ class _UpdateProfileState extends State<UpdateProfile> {
 
     return Scaffold(
       backgroundColor: AppColors.blackColor,
-  appBar: AppBar(title:Text("Pick Avatar", style:AppStyles.bold16Orange),
-    backgroundColor: AppColors.blackColor,
-  centerTitle: true,),
+  appBar: AppBar(title:Text("Pick Avatar"),),
   body: Container(
     margin: EdgeInsets.only(right: width*(16/430),left:  width*(16/430),top: height*(59/932),bottom: height*(33/932) ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Center(child: InkWell(onTap: (){
-          showBottomSheet(context, BottomSheetShowAvatars());
+          showBottomSheet(context, BottomSheetShowAvatars(saveImage: saveAvatarImage,
+              selectedAvatar: selectedAvatar));
         },
-            child: Image.asset(AssetsManager.avatar1))),
+            child: Image.asset( selectedAvatar != null?
+            selectedAvatar!
+                : AssetsManager.avatar1))),
         SizedBox(height: height*(35/932),),
         CustomTextField(prefixIcon:const ImageIcon(AssetImage(AssetsManager.nameIcon)),hintText: "name",),
         SizedBox(height: height*(19/932),),
@@ -61,7 +66,11 @@ class _UpdateProfileState extends State<UpdateProfile> {
 
   onClickDelete() {
   }
-
+  void saveAvatarImage(String image) {
+    setState(() {
+      selectedAvatar = image;
+    });
+  }
   void showBottomSheet(BuildContext context,Widget widget) {
     showModalBottomSheet(backgroundColor: AppColors.Transparent,
         context: context,
