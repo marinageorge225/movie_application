@@ -46,24 +46,19 @@ class CustomizedOnboardingContainer extends StatelessWidget {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return  Container(
-      decoration: BoxDecoration(borderRadius: BorderRadius.only(topLeft: Radius.circular(50),topRight: Radius.circular(50)),color:backgroungColor?? AppColors.blackColor),
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: width*0.03),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [  SizedBox(height: height*0.04,),
+      decoration: BoxDecoration(borderRadius: BorderRadius.only(topLeft: Radius.circular(40),topRight: Radius.circular(40)),color:backgroungColor?? AppColors.blackColor),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+           Text(title??"",style:titleStyle?? AppStyles.bold24WhiteInter,textAlign: TextAlign.center,),
+           Text(Body??"",style:BodyStyle?? AppStyles.regular20WhiteInter,textAlign: TextAlign.center),
+           SizedBox(height:height *0.01,),
+          CustomeizedElevatedButtom(text:TextBottom,style:TextBottomStyle??AppStyles.semiBold20BlackInter ,onpressed: onpressed,),
+          SizedBox(height:height *0.02,),
 
-            Text(title??"",style:titleStyle?? AppStyles.bold24WhiteInter,textAlign: TextAlign.center,),
-            Text(Body??"",style:BodyStyle?? AppStyles.regular20WhiteInter,textAlign: TextAlign.center),
-            SizedBox(height:height *0.01,),
-            CustomeizedElevatedButtom(text:TextBottom,style:TextBottomStyle??AppStyles.semiBold20BlackInter ,onpressed: onpressed,),
-            SizedBox(height:height *0.02,),
+          TextBottom2==null?SizedBox(height: 0,): CustomeizedElevatedButtom(text:TextBottom2??"",style:TextBottom2Style??AppStyles.semiBold20BlackInter ,onpressed: onpressed2,color:BottomColor ,),
+        ],
 
-            TextBottom2==null?SizedBox(height: 0,): CustomeizedElevatedButtom(text:TextBottom2??"",style:TextBottom2Style??AppStyles.semiBold20BlackInter ,onpressed: onpressed2,color:BottomColor ,),
-           // SizedBox(height: height*,)
-
-          ],
-        ),
       ),
     );
 

@@ -22,13 +22,18 @@ class OnBoarding extends StatefulWidget {
 class _OnBoardingState extends State<OnBoarding> {
   final GlobalKey<IntroductionScreenState> introKey =
       GlobalKey<IntroductionScreenState>();
+  int pageIndex=0;
+
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
 
     return IntroductionScreen(
+
       key: introKey,
+
+     controlsPadding: EdgeInsets.zero,
       showBackButton: false,
       showDoneButton: false,
       showSkipButton: false,
@@ -37,6 +42,14 @@ class _OnBoardingState extends State<OnBoarding> {
       isProgress: false,
       showBottomPart: false,
       freeze: true,
+      onChange: (index){
+        pageIndex=index;
+        print("the pageIndex=$pageIndex");
+        setState(() {
+
+        });
+      },
+
 
       pages: [
         CustomizedPageViewModel(
@@ -73,10 +86,13 @@ class _OnBoardingState extends State<OnBoarding> {
 
     return PageViewModel(
 
-      useScrollView: false,
 
-        decoration: PageDecoration(footerPadding: EdgeInsets.zero,safeArea: 0,pageMargin:EdgeInsets.zero,
-            imagePadding: EdgeInsets.zero, fullScreen: true, footerFlex:2, ),
+      useScrollView: true,
+
+
+        decoration: PageDecoration( pageColor: AppColors.blackColor,
+          footerPadding: EdgeInsets.only(top: 20),safeArea: 0,pageMargin:EdgeInsets.zero,
+            imagePadding: EdgeInsets.zero, fullScreen: true, footerFlex: 2, bodyFlex:2),
         image: Image.asset(
           ImagePath,
           height: height, // Full screen height
@@ -86,22 +102,15 @@ class _OnBoardingState extends State<OnBoarding> {
         ),
         title: "",
         body: "",
-        footer: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(height: height*Boxheight,),
-              CustomizedOnboardingContainer(
-                TextBottom2: TextBottom2,
-                BottomColor: BottomColor,
-                TextBottom2Style:TextBottomStyle ,
+        footer: CustomizedOnboardingContainer(
+          TextBottom2: TextBottom2,
+          BottomColor: BottomColor,
+          TextBottom2Style:TextBottomStyle ,
 
 
-                titleStyle:titleStyle ,
-                  onpressed2:onpressed2,
-                  onpressed: onpressed, TextBottom: TextBottom,title:title , Body: Body,backgroungColor:backgroundColor,),
-            ],
-          ),
-        ));
+          titleStyle:titleStyle ,
+            onpressed2:onpressed2,
+            onpressed: onpressed, TextBottom: TextBottom,title:title , Body: Body,backgroungColor:backgroundColor,));
   }
    Future<void> saveOnBoarding ()async{
     final SharedPreferences prefs =await SharedPreferences.getInstance();

@@ -34,6 +34,10 @@ class AssetsManager{
   static const String avatar9 = 'assets/images/avatar_9.png';
   static const String nameIcon = 'assets/images/name_icon.png';
   static const String phoneIcon = 'assets/images/phone_icon.png';
+  static const String NameID = 'assets/images/Name id.png';
+  static const String languageSwatch = 'assets/images/Language Switch.png';
+
+
 
 
 }

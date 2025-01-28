@@ -3,6 +3,7 @@ import 'package:graduation_movie_app/OnBoarding_Screen/OnBoarding.dart';
 import 'package:graduation_movie_app/home_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:graduation_movie_app/splash_screen.dart';
+import 'package:graduation_movie_app/ui/auth/Reigster/Resister_Screen.dart';
 import 'package:graduation_movie_app/ui/auth/login/forget_password/forget_password.dart';
 import 'package:graduation_movie_app/ui/auth/login/login_view.dart';
 import 'package:graduation_movie_app/ui/tabs/profile_tab/update_profile.dart';
@@ -35,10 +36,12 @@ class MyApp extends StatelessWidget  {
       routes: {
         HomeScreen.routename: (context) => HomeScreen(),
         OnBoarding.routeName: (context) => OnBoarding(),
-        SplashScreen.routeName: (context) => SplashScreen(),
+        SplashScreen.routeName: (context) => SplashScreen(ShowOnBorading: ShowOnBorading??false,),
         LoginView.routeName: (context) => LoginView(),
         ForgetPassword.routeName: (context) => ForgetPassword(),
-        UpdateProfile.routeName:(context) => UpdateProfile()
+        UpdateProfile.routeName:(context) => UpdateProfile(),
+        RegisterScreen.routeName:(context) => RegisterScreen(),
+
       }
     );
 
