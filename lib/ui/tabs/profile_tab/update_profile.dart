@@ -23,7 +23,10 @@ class _UpdateProfileState extends State<UpdateProfile> {
     var width=MediaQuery.of(context).size.width;
 
     return Scaffold(
-  appBar: AppBar(title:const Text("Pick Avatar",),),
+      backgroundColor: AppColors.blackColor,
+  appBar: AppBar(title:Text("Pick Avatar", style:AppStyles.bold16Orange),
+    backgroundColor: AppColors.blackColor,
+  centerTitle: true,),
   body: Container(
     margin: EdgeInsets.only(right: width*(16/430),left:  width*(16/430),top: height*(59/932),bottom: height*(33/932) ),
     child: Column(

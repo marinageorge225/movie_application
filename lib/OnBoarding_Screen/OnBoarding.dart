@@ -10,6 +10,8 @@ import 'package:graduation_movie_app/utils/reusable%20widgets/Customized%20Eleva
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../ui/auth/login/login_view.dart';
+
 class OnBoarding extends StatefulWidget {
   static String routeName = "OnBoardingScreen";
 
@@ -58,7 +60,7 @@ class _OnBoardingState extends State<OnBoarding> {
   }
   void OnFinishBotton() {
     saveOnBoarding();
-   Navigator.of(context).pushNamed(LoginView.routename);
+   Navigator.of(context).pushNamed(LoginView.routeName);
   }
 
   PageViewModel CustomizedPageViewModel(BuildContext context, String ImagePath, double Boxheight,

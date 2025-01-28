@@ -22,6 +22,10 @@ class ForgetPassword extends StatelessWidget {
           'Forget Password',
           style: AppStyles.regular16OrangeRoboto,
         ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: AppColors.orangeColor),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
         centerTitle: true,
       ),
       body: SingleChildScrollView(

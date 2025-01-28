@@ -35,6 +35,7 @@ class _LoginViewState extends State<LoginView> {
     var width = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      backgroundColor: AppColors.blackColor,
 
       body: SingleChildScrollView(
         child: Padding(
@@ -81,7 +82,7 @@ class _LoginViewState extends State<LoginView> {
                 alignment: Alignment.centerRight,
                 child: TextButton(
                   onPressed: () {
-                    ForgetPassword();
+                    Navigator.pushNamed(context, ForgetPassword.routeName);
                   },
                   child: Text(
                     'Forget Password?',
