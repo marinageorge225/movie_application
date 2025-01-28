@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:graduation_movie_app/home_screen.dart';
+import 'package:graduation_movie_app/ui/auth/login/login_view.dart';
 
 class SplashScreen extends StatefulWidget {
   static const String routename = 'splash screen';
@@ -21,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
       () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => HomeScreen(),
+          builder: (context) => LoginView(),
         ),
       ),
     );

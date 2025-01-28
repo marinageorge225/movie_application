@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graduation_movie_app/home_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:graduation_movie_app/splash_screen.dart';
+import 'package:graduation_movie_app/utils/app_theme.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
         SplashScreen.routename: (context) =>SplashScreen(),
 
       },
+      theme: AppTheme.themeData
     );
   }
 }

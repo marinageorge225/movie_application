@@ -15,6 +15,7 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   bool showPassword = false;
+  bool arabicIsSelected = false;
 
   @override
   Widget build(BuildContext context) {
@@ -103,6 +104,55 @@ class _LoginViewState extends State<LoginView> {
                 size: 30,
                 color: AppColors.blackColor,),
                 buttonTitle: 'Login With Google'),
+
+            Container(
+              width: width * 0.19,
+              padding: EdgeInsets.symmetric(horizontal: width * 0.005, vertical: height * 0.002),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                border: Border.all(
+                  color: AppColors.orangeColor,
+                  width: 2,
+                )
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                      child:  Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                          border: Border.all(
+                            color: arabicIsSelected ? AppColors.transparentColor : AppColors.orangeColor,
+                            width: 3,
+                          )
+                        ),
+                          child: Image.asset(AssetsManager.englishLanguageIcon)),
+                  onTap: (){
+                        arabicIsSelected = false;
+                        setState(() {
+
+                        });
+                  },),
+                  InkWell(
+                    child:  Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                            border: Border.all(
+                              color: arabicIsSelected ? AppColors.orangeColor : AppColors.transparentColor,
+                              width: 3,
+                            )
+                        ),
+                        child: Image.asset(AssetsManager.arabicLanguageIcon)),
+                    onTap: (){
+                      arabicIsSelected = true;
+                      setState(() {
+
+                      });
+                    },),
+                ],
+              ),
+            )
 
 
           ],
