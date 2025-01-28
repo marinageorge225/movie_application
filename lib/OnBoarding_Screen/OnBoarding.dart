@@ -1,5 +1,5 @@
 import 'dart:ffi';
-
+import '../ui/auth/login/login_view.dart';
 import 'package:flutter/material.dart';
 import 'package:graduation_movie_app/OnBoarding_Screen/Customized_OnBoarding_Container.dart';
 import 'package:graduation_movie_app/home_screen.dart';
@@ -58,7 +58,7 @@ class _OnBoardingState extends State<OnBoarding> {
   }
   void OnFinishBotton() {
     saveOnBoarding();
-   Navigator.of(context).pushNamed(LoginView.routename);
+   Navigator.of(context).pushNamed(LoginView.routeName);
   }
 
   PageViewModel CustomizedPageViewModel(BuildContext context, String ImagePath, double Boxheight,
