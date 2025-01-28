@@ -58,7 +58,7 @@ class _OnBoardingState extends State<OnBoarding> {
   }
   void OnFinishBotton() {
     saveOnBoarding();
-   Navigator.of(context).pushNamed(HomeScreen.routename);
+   Navigator.of(context).pushNamed(LoginView.routename);
   }
 
   PageViewModel CustomizedPageViewModel(BuildContext context, String ImagePath, double Boxheight,
