@@ -6,6 +6,8 @@ import 'package:graduation_movie_app/splash_screen.dart';
 import 'package:graduation_movie_app/ui/auth/login/forget_password/forget_password.dart';
 import 'package:graduation_movie_app/ui/auth/login/login_view.dart';
 import 'package:graduation_movie_app/ui/tabs/profile_tab/update_profile.dart';
+import 'package:graduation_movie_app/utils/app_theme.dart';
+
 
 import 'package:shared_preferences/shared_preferences.dart';
 void main() async{
@@ -28,6 +30,7 @@ class MyApp extends StatelessWidget  {
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       debugShowCheckedModeBanner: false,
+      theme: AppTheme.themeData,
       initialRoute:SplashScreen.routeName,
       routes: {
         HomeScreen.routename: (context) => HomeScreen(),
