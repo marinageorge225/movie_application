@@ -36,6 +36,8 @@ class MyApp extends StatelessWidget  {
         OnBoarding.routeName:(context)=>OnBoarding(),
         SplashScreen.routeName:(context)=>SplashScreen(),
          UpdateProfile.routeName:(context)=>UpdateProfile(),
+          LoginView.routeName:(context)=>LoginView(),
+
 
       },
     );
