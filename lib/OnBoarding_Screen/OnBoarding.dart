@@ -1,5 +1,5 @@
 import 'dart:ffi';
-
+import '../ui/auth/login/login_view.dart';
 import 'package:flutter/material.dart';
 import 'package:graduation_movie_app/OnBoarding_Screen/Customized_OnBoarding_Container.dart';
 import 'package:graduation_movie_app/home_screen.dart';
