@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:graduation_movie_app/OnBoarding_Screen/OnBoarding.dart';
 import 'package:graduation_movie_app/home_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:graduation_movie_app/ui/auth/login/login_view.dart';
+import 'package:graduation_movie_app/ui/tabs/profile_tab/update_profile.dart';
+import 'package:graduation_movie_app/utils/app_theme.dart';
+import 'package:graduation_movie_app/splash_screen.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 void main() async{
@@ -25,9 +29,13 @@ class MyApp extends StatelessWidget  {
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       debugShowCheckedModeBanner: false,
-      initialRoute:ShowOnBorading==true?HomeScreen.routename:OnBoarding.routeName,
-      routes: {HomeScreen.routename: (context) => HomeScreen(),
+      theme: AppTheme.themeData,
+      initialRoute:SplashScreen.routeName,
+      routes: {
+        HomeScreen.routename: (context) => HomeScreen(),
         OnBoarding.routeName:(context)=>OnBoarding(),
+        SplashScreen.routeName:(context)=>SplashScreen(),
+         UpdateProfile.routeName:(context)=>UpdateProfile(),
 
       },
     );
