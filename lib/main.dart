@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graduation_movie_app/OnBoarding_Screen/OnBoarding.dart';
 import 'package:graduation_movie_app/home_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -9,6 +10,7 @@ void main() async{
  final bool ShowOnBorading= prefs.getBool(OnBoarding.routeName)?? false;
 
   runApp( MyApp(ShowOnBorading:ShowOnBorading ,));
+
 }
 
 class MyApp extends StatelessWidget  {
@@ -26,6 +28,7 @@ class MyApp extends StatelessWidget  {
       initialRoute:ShowOnBorading==true?HomeScreen.routename:OnBoarding.routeName,
       routes: {HomeScreen.routename: (context) => HomeScreen(),
         OnBoarding.routeName:(context)=>OnBoarding(),
+
       },
     );
   }
