@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'app_color.dart';
 
+
 class AppStyles {
   static TextStyle medium36WhiteInter = GoogleFonts.inter(
       fontSize: 36, fontWeight: FontWeight.w500, color: AppColors.whiteColor);
@@ -19,7 +20,7 @@ class AppStyles {
       fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.orangeColor);
 
   static TextStyle regular20WhiteInter = GoogleFonts.inter(
-      fontSize: 20, fontWeight: FontWeight.w400, color: AppColors.whiteColor);
+      fontSize: 20, fontWeight: FontWeight.w200, color: AppColors.whiteColor);
   static TextStyle bold20DarkBlackInter = GoogleFonts.inter(
       fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.darkBlackColor);
   static TextStyle bold20OrangeInter = GoogleFonts.inter(

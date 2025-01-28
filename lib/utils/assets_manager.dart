@@ -5,7 +5,7 @@ class AssetsManager{
   static const String forgetPasswordImage = 'assets/images/forget_password_image.png';
   static const String loginScreenImage = 'assets/images/login_screen_image.png';
   static const String noItemsFoundImage = 'assets/images/no_items_found.png';
-  static const String onboarding1StImage = 'assets/images/onboarding_1st_image.png';
+  static const String onboarding1StImage = 'assets/images/on boarding the frist.png';
   static const String onboarding2NdImage = 'assets/images/onboarding_2nd_image.png';
   static const String onboarding3RdImage = 'assets/images/onboarding_3rd_image.png';
   static const String onboarding4ThImage = 'assets/images/onboarding_4th_image.png';
