@@ -5,6 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:graduation_movie_app/splash_screen.dart';
 import 'package:graduation_movie_app/ui/auth/login/forget_password/forget_password.dart';
 import 'package:graduation_movie_app/ui/auth/login/login_view.dart';
+import 'package:graduation_movie_app/ui/tabs/profile_tab/update_profile.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 void main() async{
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget  {
         SplashScreen.routeName: (context) => SplashScreen(),
         LoginView.routeName: (context) => LoginView(),
         ForgetPassword.routeName: (context) => ForgetPassword(),
+        UpdateProfile.routeName:(context) => UpdateProfile()
       }
     );
 
