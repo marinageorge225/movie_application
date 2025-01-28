@@ -17,98 +17,156 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   bool showPassword = false;
 
+  // Example text editing controllers for validation
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  // Toggle password visibility
+  void togglePasswordVisibility() {
+    setState(() {
+      showPassword = !showPassword;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: height * 0.015, vertical: height * 0.1),
-        child: Column(
-          spacing: height * 0.025,
-          children: [
-            Image.asset(AssetsManager.loginScreenImage,),
 
-            SizedBox(height: height * 0.02,),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: height * 0.015,
+            vertical: height * 0.1,
+          ),
+          child: Column(
+            children: [
+              // Login Screen Image
+              Image.asset(
+                AssetsManager.loginScreenImage,
+                height: height * 0.25,
+              ),
 
-            CustomTextField(
-              keyBoardType: TextInputType.emailAddress,
-              prefixIcon: ImageIcon(AssetImage(AssetsManager.emailIcon)),
-              hintText: 'Email',
-            ),
+              SizedBox(height: height * 0.02),
 
-            CustomTextField(
-              prefixIcon: ImageIcon(AssetImage(AssetsManager.passwordIcon)),
-              hintText: 'Password',
-              obscureText: showPassword == true ? false : true,
-              suffixIcon: IconButton(
-                  onPressed: (){
-                    showPassword = !showPassword;
-                    setState(() {
+              // Email TextField
+              CustomTextField(
+                keyBoardType: TextInputType.emailAddress,
+                prefixIcon: ImageIcon(AssetImage(AssetsManager.emailIcon)),
+                hintText: 'Email',
+                controller: emailController,
+              ),
 
-                    });
-                  }, icon: Icon(
-                showPassword == false ?
-                  Icons.visibility_off_sharp
-              : Icons.visibility)),
-            ),
+              SizedBox(height: height * 0.02),
 
-            TextButton(
-                onPressed: (){},
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: Text('Forget Password ?',
-                  style: AppStyles.regular16OrangeRoboto,),
-                )),
+              // Password TextField
+              CustomTextField(
+                prefixIcon: ImageIcon(AssetImage(AssetsManager.passwordIcon)),
+                hintText: 'Password',
+                obscureText: !showPassword,
+                suffixIcon: IconButton(
+                  onPressed: togglePasswordVisibility,
+                  icon: Icon(
+                    showPassword
+                        ? Icons.visibility
+                        : Icons.visibility_off_sharp,
+                  ),
+                ),
+                controller: passwordController,
+              ),
 
-            CustomElevatedButton(
-                buttonOnClick: (){
-                  Navigator.pushNamed(context, UpdateProfile.routeName);
+              // Forget Password Button
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                  onPressed: () {
+                    // Navigate to Forget Password Screen
+                  },
+                  child: Text(
+                    'Forget Password?',
+                    style: AppStyles.regular16OrangeRoboto,
+                  ),
+                ),
+              ),
+
+              SizedBox(height: height * 0.02),
+
+              // Login Button
+              CustomElevatedButton(
+                buttonOnClick: () {
+                  // Add login logic here
+                Navigator.pushNamed(context, UpdateProfile.routeName);
+
                 },
-                buttonTitle: 'Login'),
+                buttonTitle: 'Login',
+              ),
 
-            Text.rich(TextSpan(children: [
-              TextSpan(
-                  text: "Don't Have Account ? ",
-                  style:  AppStyles.regular16WhiteRoboto),
-              TextSpan(
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () {},
-                  text: 'Create One',
-                  style: AppStyles.bold16Orange)
-            ])),
+              SizedBox(height: height * 0.02),
 
-            Row(
-              children: [
-                Expanded(
-                  child: Divider(
-                    color: AppColors.orangeColor,
-                    indent: width * 0.18,
-                    endIndent: width * 0.03,
-                  ),
+              // Create Account RichText
+              Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: "Don't Have an Account? ",
+                      style: AppStyles.regular16WhiteRoboto,
+                    ),
+                    TextSpan(
+                      text: 'Create One',
+                      style: AppStyles.bold16Orange,
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          // Navigate to Create Account Screen
+                        },
+                    ),
+                  ],
                 ),
-                Text('OR',
-                style: AppStyles.regular16OrangeRoboto,),
-                Expanded(
-                  child: Divider(
-                    color: AppColors.orangeColor,
-                    indent: width * 0.03,
-                    endIndent: width * 0.18,
+              ),
+
+              SizedBox(height: height * 0.03),
+
+              // OR Divider
+              Row(
+                children: [
+                  Expanded(
+                    child: Divider(
+                      color: AppColors.orangeColor,
+                      indent: width * 0.18,
+                      endIndent: width * 0.03,
+                    ),
                   ),
+                  Text(
+                    'OR',
+                    style: AppStyles.regular16OrangeRoboto,
+                  ),
+                  Expanded(
+                    child: Divider(
+                      color: AppColors.orangeColor,
+                      indent: width * 0.03,
+                      endIndent: width * 0.18,
+                    ),
+                  ),
+                ],
+              ),
+
+              SizedBox(height: height * 0.03),
+
+              // Login with Google Button
+              CustomElevatedButton(
+                buttonOnClick: () {
+                  // Add Google login logic here
+                },
+                buttonIcon: ImageIcon(
+                  AssetImage(AssetsManager.googleIcon),
+                  size: 30,
+                  color: AppColors.blackColor,
                 ),
-              ],
-            ),
-
-            CustomElevatedButton(
-                buttonOnClick: (){},
-                buttonIcon: ImageIcon(AssetImage(AssetsManager.googleIcon),
-                size: 30,
-                color: AppColors.blackColor,),
-                buttonTitle: 'Login With Google'),
-
-
-          ],
+                buttonTitle: 'Login With Google',
+              ),
+            ],
+          ),
         ),
       ),
     );
