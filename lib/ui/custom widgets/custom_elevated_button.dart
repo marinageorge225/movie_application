@@ -6,7 +6,7 @@ class CustomElevatedButton extends StatelessWidget {
   Function buttonOnClick;
   String buttonTitle;
   Widget? buttonIcon;
-  Color buttonColor;
+  Color? buttonColor;
   TextStyle? buttonTitleStyle;
 
   CustomElevatedButton(
@@ -14,17 +14,17 @@ class CustomElevatedButton extends StatelessWidget {
         required this.buttonTitle,
         this.buttonTitleStyle,
         this.buttonIcon,
-        this.buttonColor = AppColors.orangeColor});
+        this.buttonColor});
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
-            backgroundColor: buttonColor,
+            backgroundColor: buttonColor?? AppColors.orangeColor,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15),
-                side: const BorderSide(color: AppColors.orangeColor, width: 1.5))),
+                side:  BorderSide(color: buttonColor??AppColors.orangeColor, width: 1.5))),
         onPressed: () {
           buttonOnClick();
         },
