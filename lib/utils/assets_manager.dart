@@ -34,4 +34,6 @@ class AssetsManager{
   static const String avatar9 = 'assets/images/avatar_9.png';
   static const String arabicLanguageIcon = 'assets/images/arabic_language_image.png';
   static const String englishLanguageIcon = 'assets/images/english_language_image.png';
+  static const String nameIcon = 'assets/images/name_icon.png';
+  static const String phoneIcon = 'assets/images/phone_icon.png';
 }
