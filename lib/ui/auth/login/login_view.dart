@@ -18,6 +18,7 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   bool showPassword = false;
+  bool arabicIsSelected = false;
 
 
   final TextEditingController emailController = TextEditingController();
@@ -166,6 +167,61 @@ class _LoginViewState extends State<LoginView> {
                 ),
                 buttonTitle: AppLocalizations.of(context)!.loginWithGoogle,
               ),
+
+              SizedBox(height: height * 0.03),
+
+              Container(
+                width: width * 0.19,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  border: Border.all(
+                    color: AppColors.orangeColor,
+                    width: 2
+                  )
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    InkWell(
+                      onTap: (){
+                        arabicIsSelected = false;
+                        setState(() {
+
+                        });
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            border: Border.all(
+                                color: arabicIsSelected ? AppColors.Transparent : AppColors.orangeColor,
+                                width: 3
+                            ),
+                        ),
+                        child: Image.asset(AssetsManager.englishLanguageIcon),
+                      ),
+                    ),
+
+                    InkWell(
+                      onTap: (){
+                        arabicIsSelected = true;
+                        setState(() {
+
+                        });
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          border: Border.all(
+                              color: arabicIsSelected ? AppColors.orangeColor : AppColors.Transparent,
+                              width: 3
+                          ),
+                        ),
+                        child: Image.asset(AssetsManager.arabicLanguageIcon),
+                      ),
+                    )
+                  ],
+                ),
+              )
             ],
           ),
         ),
