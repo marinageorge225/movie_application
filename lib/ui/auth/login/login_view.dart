@@ -1,5 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+
+import 'package:graduation_movie_app/ui/auth/Reigster/Resister_Screen.dart';
+import 'package:graduation_movie_app/ui/auth/login/forget_password/forget_password.dart';
+
 import 'package:graduation_movie_app/ui/custom%20widgets/custom_elevated_button.dart';
 import 'package:graduation_movie_app/ui/custom%20widgets/custom_text_field.dart';
 import 'package:graduation_movie_app/ui/tabs/profile_tab/update_profile.dart';
@@ -121,6 +125,7 @@ class _LoginViewState extends State<LoginView> {
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
                           // Navigate to Create Account Screen
+                          Navigator.of(context).pushNamed(RegisterScreen.routeName);
                         },
                     ),
                   ],

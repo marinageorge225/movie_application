@@ -3,6 +3,10 @@ import 'package:graduation_movie_app/OnBoarding_Screen/OnBoarding.dart';
 import 'package:graduation_movie_app/home_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:graduation_movie_app/splash_screen.dart';
+
+import 'package:graduation_movie_app/ui/auth/Reigster/Resister_Screen.dart';
+import 'package:graduation_movie_app/ui/auth/login/forget_password/forget_password.dart';
+
 import 'package:graduation_movie_app/ui/auth/login/login_view.dart';
 import 'package:graduation_movie_app/ui/tabs/profile_tab/update_profile.dart';
 import 'package:graduation_movie_app/utils/app_theme.dart';
@@ -27,18 +31,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.themeData,
-        initialRoute: SplashScreen.routeName,
-        routes: {
-          HomeScreen.routename: (context) => HomeScreen(),
-          OnBoarding.routeName: (context) => OnBoarding(),
-          SplashScreen.routeName: (context) => SplashScreen(),
-          LoginView.routeName: (context) => LoginView(),
-          ForgetPassword.routeName: (context) => ForgetPassword(),
-          UpdateProfile.routeName: (context) => UpdateProfile()
-        });
-  }
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      debugShowCheckedModeBanner: false,
+      theme: AppTheme.themeData,
+      initialRoute:SplashScreen.routeName,
+      routes: {
+        HomeScreen.routename: (context) => HomeScreen(),
+        OnBoarding.routeName: (context) => OnBoarding(),
+        SplashScreen.routeName: (context) => SplashScreen(ShowOnBorading: ShowOnBorading??false,),
+        LoginView.routeName: (context) => LoginView(),
+        ForgetPassword.routeName: (context) => ForgetPassword(),
+        UpdateProfile.routeName:(context) => UpdateProfile(),
+        RegisterScreen.routeName:(context) => RegisterScreen(),
+
+      }
+    );
+
+}
+
 }
