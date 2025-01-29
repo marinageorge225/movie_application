@@ -5,7 +5,7 @@ class AssetsManager{
   static const String forgetPasswordImage = 'assets/images/forget_password_image.png';
   static const String loginScreenImage = 'assets/images/login_screen_image.png';
   static const String noItemsFoundImage = 'assets/images/no_items_found.png';
-  static const String onboarding1StImage = 'assets/images/on boarding the frist.png';
+  static const String onboarding1StImage = 'assets/images/onboarding_1st_image.png';
   static const String onboarding2NdImage = 'assets/images/onboarding_2nd_image.png';
   static const String onboarding3RdImage = 'assets/images/onboarding_3rd_image.png';
   static const String onboarding4ThImage = 'assets/images/onboarding_4th_image.png';
@@ -32,6 +32,8 @@ class AssetsManager{
   static const String avatar7 = 'assets/images/avatar_7.png';
   static const String avatar8 = 'assets/images/avatar_8.png';
   static const String avatar9 = 'assets/images/avatar_9.png';
+  static const String arabicLanguageIcon = 'assets/images/arabic_language_image.png';
+  static const String englishLanguageIcon = 'assets/images/english_language_image.png';
   static const String nameIcon = 'assets/images/name_icon.png';
   static const String phoneIcon = 'assets/images/phone_icon.png';
   static const String NameID = 'assets/images/Name id.png';
