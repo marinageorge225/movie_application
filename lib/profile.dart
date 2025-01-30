@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'localization/language.dart';
+import 'bloc/language_screen.dart';
+
 
 class Profile extends StatelessWidget {
   static const String routeName = 'profile';
