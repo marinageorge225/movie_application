@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: AppLocalizations.supportedLocales,
       debugShowCheckedModeBanner: false,
       theme: AppTheme.themeData,
-      initialRoute: OnBoarding.routeName,
+      initialRoute: SplashScreen.routeName,
       routes: {
         HomeScreen.routename: (context) => HomeScreen(),
         OnBoarding.routeName: (context) => OnBoarding(),
