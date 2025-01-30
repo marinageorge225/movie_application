@@ -53,10 +53,16 @@ class CustomizedOnboardingContainer extends StatelessWidget {
            Text(title??"",style:titleStyle?? AppStyles.bold24WhiteInter,textAlign: TextAlign.center,),
            Text(Body??"",style:BodyStyle?? AppStyles.regular20WhiteInter,textAlign: TextAlign.center),
            SizedBox(height:height *0.01,),
-          CustomeizedElevatedButtom(text:TextBottom,style:TextBottomStyle??AppStyles.semiBold20BlackInter ,onpressed: onpressed,),
+          Padding(
+            padding:EdgeInsets.symmetric(horizontal:20),
+            child: CustomeizedElevatedButtom(text:TextBottom,style:TextBottomStyle??AppStyles.semiBold20BlackInter ,onpressed: onpressed,),
+          ),
           SizedBox(height:height *0.02,),
 
-          TextBottom2==null?SizedBox(height: 0,): CustomeizedElevatedButtom(text:TextBottom2??"",style:TextBottom2Style??AppStyles.semiBold20BlackInter ,onpressed: onpressed2,color:BottomColor ,),
+          TextBottom2==null?SizedBox(height: 0,): Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: CustomeizedElevatedButtom(text:TextBottom2??"",style:TextBottom2Style??AppStyles.semiBold20BlackInter ,onpressed: onpressed2,color:BottomColor ,),
+          ),
         ],
 
       ),

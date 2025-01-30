@@ -85,11 +85,7 @@ class _OnBoardingState extends State<OnBoarding> {
     var width = MediaQuery.of(context).size.width;
 
     return PageViewModel(
-
-
       useScrollView: true,
-
-
         decoration: PageDecoration( pageColor: AppColors.blackColor,
           footerPadding: EdgeInsets.only(top: 20),safeArea: 0,pageMargin:EdgeInsets.zero,
             imagePadding: EdgeInsets.zero, fullScreen: true, footerFlex: 2, bodyFlex:2),
@@ -110,7 +106,8 @@ class _OnBoardingState extends State<OnBoarding> {
 
           titleStyle:titleStyle ,
             onpressed2:onpressed2,
-            onpressed: onpressed, TextBottom: TextBottom,title:title , Body: Body,backgroungColor:backgroundColor,));
+            onpressed: onpressed, TextBottom: TextBottom,title:title ,
+          Body: Body,backgroungColor:backgroundColor,));
   }
    Future<void> saveOnBoarding ()async{
     final SharedPreferences prefs =await SharedPreferences.getInstance();
