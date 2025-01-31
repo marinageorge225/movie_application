@@ -25,7 +25,7 @@ class _ImageItemState extends State<ImageItem> {
     return InkWell(onTap: (){
       setState(() {
         widget.saveImage(widget.imageName);
-widget.isSelected=!widget.isSelected;
+        widget.isSelected=!widget.isSelected;
         Navigator.pop(context);
       });
 

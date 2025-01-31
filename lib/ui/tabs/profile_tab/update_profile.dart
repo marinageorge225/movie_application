@@ -35,31 +35,37 @@ class _UpdateProfileState extends State<UpdateProfile> {
     return Scaffold(
       backgroundColor: AppColors.blackColor,
   appBar: AppBar(title:Text("Pick Avatar"),),
-  body: Container(
-    margin: EdgeInsets.only(right: width*(16/430),left:  width*(16/430),top: height*(59/932),bottom: height*(33/932) ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Center(child: InkWell(onTap: (){
-          showBottomSheet(context, BottomSheetShowAvatars(saveImage: saveAvatarImage,
-              selectedAvatar: selectedAvatar));
-        },
-            child: Image.asset( selectedAvatar != null?
-            selectedAvatar!
-                : AssetsManager.avatar1))),
-        SizedBox(height: height*(35/932),),
-        CustomTextField(prefixIcon:const ImageIcon(AssetImage(AssetsManager.nameIcon)),hintText: "name",),
-        SizedBox(height: height*(19/932),),
-        CustomTextField(prefixIcon:const ImageIcon(AssetImage(AssetsManager.phoneIcon)),hintText: "phone",),
-        TextButton(onPressed: (){},
-            child: Text("Reset Password",style: AppStyles.regular20WhiteRoboto,),),
-        const Spacer(),
-        CustomElevatedButton(buttonOnClick: onClickDelete, buttonTitle: "Delete Account",
-          buttonColor:AppColors.redColor ,buttonTitleStyle: AppStyles.regular20WhiteRoboto,),
-        SizedBox(height: height*(19/932),),
 
-        CustomElevatedButton(buttonOnClick: onClickUpdate, buttonTitle: "Update Data")
-      ],
+  body: SingleChildScrollView(
+    child: Container(
+      margin: EdgeInsets.only(right: width*(16/430),left:  width*(16/430),
+          top: height*(59/932),bottom: height*(33/932) ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Center(child: InkWell(onTap: (){
+            showBottomSheet(context, BottomSheetShowAvatars(saveImage: saveAvatarImage,
+                selectedAvatar: selectedAvatar));
+          },
+              child: Image.asset( selectedAvatar != null?
+              selectedAvatar!
+                  : AssetsManager.avatar1))),
+          SizedBox(height: height*(35/932),),
+          CustomTextField(prefixIcon:const ImageIcon(AssetImage(AssetsManager.nameIcon)),hintText: "name",),
+          SizedBox(height: height*(19/932),),
+          CustomTextField(prefixIcon:const ImageIcon(AssetImage(AssetsManager.phoneIcon)),hintText: "phone",),
+          TextButton(onPressed: (){},
+              child: Text("Reset Password",style: AppStyles.regular20WhiteRoboto,),),
+
+          SizedBox(height: height*(150/932),),
+
+          CustomElevatedButton(buttonOnClick: onClickDelete, buttonTitle: "Delete Account",
+            buttonColor:AppColors.redColor ,buttonTitleStyle: AppStyles.regular20WhiteRoboto,),
+          SizedBox(height: height*(19/932),),
+
+          CustomElevatedButton(buttonOnClick: onClickUpdate, buttonTitle: "Update Data")
+        ],
+      ),
     ),
   ),
 
