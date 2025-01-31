@@ -1,5 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation_movie_app/cubit/app_language_cubit.dart';
 import 'package:graduation_movie_app/ui/auth/Reigster/Resister_Screen.dart';
 import 'package:graduation_movie_app/ui/custom%20widgets/custom_elevated_button.dart';
 import 'package:graduation_movie_app/ui/custom%20widgets/custom_text_field.dart';
@@ -19,12 +21,8 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   bool showPassword = false;
-  bool arabicIsSelected = false;
-
-
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-
 
   void togglePasswordVisibility() {
     setState(() {
@@ -36,10 +34,10 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
+    var appLanguage = context.watch<AppLanguageCubit>().state;
 
     return Scaffold(
       backgroundColor: AppColors.blackColor,
-
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(
@@ -52,19 +50,14 @@ class _LoginViewState extends State<LoginView> {
                 AssetsManager.loginScreenImage,
                 height: height * 0.2,
               ),
-
               SizedBox(height: height * 0.02),
-
               CustomTextField(
                 keyBoardType: TextInputType.emailAddress,
                 prefixIcon: const ImageIcon(AssetImage(AssetsManager.emailIcon)),
                 hintText: AppLocalizations.of(context)!.email,
                 controller: emailController,
               ),
-
               SizedBox(height: height * 0.02),
-
-
               CustomTextField(
                 prefixIcon: const ImageIcon(AssetImage(AssetsManager.passwordIcon)),
                 hintText: AppLocalizations.of(context)!.password,
@@ -72,15 +65,11 @@ class _LoginViewState extends State<LoginView> {
                 suffixIcon: IconButton(
                   onPressed: togglePasswordVisibility,
                   icon: Icon(
-                    showPassword
-                        ? Icons.visibility
-                        : Icons.visibility_off_sharp,
+                    showPassword ? Icons.visibility : Icons.visibility_off_sharp,
                   ),
                 ),
                 controller: passwordController,
               ),
-
-
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
@@ -93,22 +82,14 @@ class _LoginViewState extends State<LoginView> {
                   ),
                 ),
               ),
-
               SizedBox(height: height * 0.02),
-
-              // Login Button
               CustomElevatedButton(
                 buttonOnClick: () {
-                  // Add login logic here
-                Navigator.pushNamed(context, UpdateProfile.routeName);
-
+                  Navigator.pushNamed(context, UpdateProfile.routeName);
                 },
                 buttonTitle: AppLocalizations.of(context)!.login,
               ),
-
               SizedBox(height: height * 0.02),
-
-              // Create Account RichText
               Text.rich(
                 TextSpan(
                   children: [
@@ -121,17 +102,13 @@ class _LoginViewState extends State<LoginView> {
                       style: AppStyles.bold16Orange,
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          // Navigate to Create Account Screen
                           Navigator.of(context).pushNamed(RegisterScreen.routeName);
                         },
                     ),
                   ],
                 ),
               ),
-
               SizedBox(height: height * 0.03),
-
-              // OR Divider
               Row(
                 children: [
                   Expanded(
@@ -154,13 +131,10 @@ class _LoginViewState extends State<LoginView> {
                   ),
                 ],
               ),
-
               SizedBox(height: height * 0.03),
-
-              // Login with Google Button
               CustomElevatedButton(
                 buttonOnClick: () {
-                  // Add Google login logic here
+                  // Google login logic
                 },
                 buttonIcon: const ImageIcon(
                   AssetImage(AssetsManager.googleIcon),
@@ -169,61 +143,51 @@ class _LoginViewState extends State<LoginView> {
                 ),
                 buttonTitle: AppLocalizations.of(context)!.loginWithGoogle,
               ),
-
               SizedBox(height: height * 0.03),
 
+
               Container(
-                width: width * (92/430),
+                width: width * (92 / 430),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50),
-                  border: Border.all(
-                    color: AppColors.orangeColor,
-                    width: 2
-                  )
+                  border: Border.all(color: AppColors.orangeColor, width: 2),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     InkWell(
-                      onTap: (){
-                        arabicIsSelected = false;
-                        setState(() {
-
-                        });
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            border: Border.all(
-                                color: arabicIsSelected ? AppColors.Transparent : AppColors.orangeColor,
-                                width: 3
-                            ),
-                        ),
-                        child: Image.asset(AssetsManager.englishLanguageIcon),
-                      ),
-                    ),
-
-                    InkWell(
-                      onTap: (){
-                        arabicIsSelected = true;
-                        setState(() {
-
-                        });
+                      onTap: () {
+                        context.read<AppLanguageCubit>().changeLanguage('en');
                       },
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(50),
                           border: Border.all(
-                              color: arabicIsSelected ? AppColors.orangeColor : AppColors.Transparent,
-                              width: 3
+                            color: appLanguage == 'en' ? AppColors.orangeColor : AppColors.Transparent,
+                            width: 3,
+                          ),
+                        ),
+                        child: Image.asset(AssetsManager.englishLanguageIcon),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        context.read<AppLanguageCubit>().changeLanguage('ar');
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          border: Border.all(
+                            color: appLanguage == 'ar' ? AppColors.orangeColor : AppColors.Transparent,
+                            width: 3,
                           ),
                         ),
                         child: Image.asset(AssetsManager.arabicLanguageIcon),
                       ),
-                    )
+                    ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),

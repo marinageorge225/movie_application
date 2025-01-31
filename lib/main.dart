@@ -5,12 +5,18 @@ import 'package:graduation_movie_app/home_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:graduation_movie_app/profile.dart';
 import 'package:graduation_movie_app/splash_screen.dart';
+
 import 'package:graduation_movie_app/ui/auth/Reigster/Resister_Screen.dart';
 import 'package:graduation_movie_app/ui/auth/login/login_view.dart';
 import 'package:graduation_movie_app/ui/tabs/profile_tab/update_profile.dart';
 import 'package:graduation_movie_app/utils/app_theme.dart';
 import 'package:graduation_movie_app/ui/auth/forget_password/forget_password.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:graduation_movie_app/ui/auth/login/login_view.dart';
+import 'package:provider/provider.dart';
+
+
 import 'cubit/app_language_cubit.dart';
 
 void main() async {
@@ -32,6 +38,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return BlocBuilder<AppLanguageCubit, String>(
       builder: (context, appLanguage) {
         return MaterialApp(
@@ -53,6 +60,10 @@ class MyApp extends StatelessWidget {
           locale: Locale(appLanguage),
         );
       },
+
+
+
+
     );
   }
 }
