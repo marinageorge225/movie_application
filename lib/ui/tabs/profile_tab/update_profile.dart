@@ -17,7 +17,13 @@ class UpdateProfile extends StatefulWidget {
 
 class _UpdateProfileState extends State<UpdateProfile> {
   String? selectedAvatar;
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    selectedAvatar=AssetsManager.avatar1;
 
+  }
 
 
 
