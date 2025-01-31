@@ -173,7 +173,7 @@ class _LoginViewState extends State<LoginView> {
               SizedBox(height: height * 0.03),
 
               Container(
-                width: width * 0.19,
+                width: width * (92/430),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50),
                   border: Border.all(
