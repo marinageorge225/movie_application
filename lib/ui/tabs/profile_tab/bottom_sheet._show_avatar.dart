@@ -31,7 +31,7 @@ class _BottomSheetShowAvatarsState extends State<BottomSheetShowAvatars> {
    @override
    void initState() {
      super.initState();
-     selectedAvatar = widget.selectedAvatar;
+      selectedAvatar =widget.selectedAvatar;
    }
   @override
   Widget build(BuildContext context) {
