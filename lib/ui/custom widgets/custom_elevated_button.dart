@@ -8,23 +8,26 @@ class CustomElevatedButton extends StatelessWidget {
   Widget? buttonIcon;
   Color? buttonColor;
   TextStyle? buttonTitleStyle;
+  Color? borderColor;
 
   CustomElevatedButton(
       {required this.buttonOnClick,
-        required this.buttonTitle,
-        this.buttonTitleStyle,
-        this.buttonIcon,
-        this.buttonColor});
+      required this.buttonTitle,
+      this.buttonTitleStyle,
+      this.buttonIcon,
+      this.borderColor,
+      this.buttonColor});
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
-            backgroundColor: buttonColor?? AppColors.orangeColor,
+            backgroundColor: buttonColor ?? AppColors.orangeColor,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15),
-                side:  BorderSide(color: buttonColor??AppColors.orangeColor, width: 1.5))),
+                side: BorderSide(
+                    color: borderColor ?? AppColors.Transparent, width: 1.5))),
         onPressed: () {
           buttonOnClick();
         },
@@ -33,7 +36,7 @@ class CustomElevatedButton extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              buttonIcon ?? SizedBox(),
+              buttonIcon ?? const SizedBox(),
               SizedBox(
                 width: width * 0.02,
               ),

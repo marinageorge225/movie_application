@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graduation_movie_app/utils/app_color.dart';
-import '../../../utils/assets_manager.dart';
+import '../../../../utils/assets_manager.dart';
 import 'image_item.dart';
 
 class BottomSheetShowAvatars extends StatefulWidget {

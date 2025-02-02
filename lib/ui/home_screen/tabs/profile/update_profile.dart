@@ -2,10 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:graduation_movie_app/ui/custom%20widgets/custom_elevated_button.dart';
 import 'package:graduation_movie_app/ui/custom%20widgets/custom_text_field.dart';
-import 'package:graduation_movie_app/ui/tabs/profile_tab/bottom_sheet._show_avatar.dart';
 import 'package:graduation_movie_app/utils/app_color.dart';
 import 'package:graduation_movie_app/utils/app_styles.dart';
 import 'package:graduation_movie_app/utils/assets_manager.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import 'bottom_sheet._show_avatar.dart';
 
 class UpdateProfile extends StatefulWidget {
   static const String routeName="update_profile";
@@ -55,15 +57,15 @@ class _UpdateProfileState extends State<UpdateProfile> {
           SizedBox(height: height*(19/932),),
           CustomTextField(prefixIcon:const ImageIcon(AssetImage(AssetsManager.phoneIcon)),hintText: "phone",),
           TextButton(onPressed: (){},
-              child: Text("Reset Password",style: AppStyles.regular20WhiteRoboto,),),
+              child: Text(AppLocalizations.of(context)!.resetPassword,style: AppStyles.regular20WhiteRoboto,),),
 
           SizedBox(height: height*(150/932),),
 
-          CustomElevatedButton(buttonOnClick: onClickDelete, buttonTitle: "Delete Account",
+          CustomElevatedButton(buttonOnClick: onClickDelete, buttonTitle: AppLocalizations.of(context)!.deleteAccount,
             buttonColor:AppColors.redColor ,buttonTitleStyle: AppStyles.regular20WhiteRoboto,),
           SizedBox(height: height*(19/932),),
 
-          CustomElevatedButton(buttonOnClick: onClickUpdate, buttonTitle: "Update Data")
+          CustomElevatedButton(buttonOnClick: onClickUpdate, buttonTitle: AppLocalizations.of(context)!.updateData)
         ],
       ),
     ),

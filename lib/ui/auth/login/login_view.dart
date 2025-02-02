@@ -2,13 +2,13 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_movie_app/cubit/app_language_cubit.dart';
-import 'package:graduation_movie_app/ui/auth/Reigster/Resister_Screen.dart';
+import 'package:graduation_movie_app/ui/auth/Reigster/Register_Screen.dart';
 import 'package:graduation_movie_app/ui/custom%20widgets/custom_elevated_button.dart';
 import 'package:graduation_movie_app/ui/custom%20widgets/custom_text_field.dart';
-import 'package:graduation_movie_app/ui/tabs/profile_tab/update_profile.dart';
 import 'package:graduation_movie_app/utils/app_color.dart';
 import 'package:graduation_movie_app/utils/app_styles.dart';
 import 'package:graduation_movie_app/utils/assets_manager.dart';
+import '../../home_screen/tabs/profile/update_profile.dart';
 import '../forget_password/forget_password.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -56,6 +56,18 @@ class _LoginViewState extends State<LoginView> {
                 prefixIcon: const ImageIcon(AssetImage(AssetsManager.emailIcon)),
                 hintText: AppLocalizations.of(context)!.email,
                 controller: emailController,
+                validator: (text) {
+                  if (text == null || text.trim().isEmpty) {
+                    return 'Please Enter E-mail';
+                  }
+                  final bool emailValid = RegExp(
+                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                      .hasMatch(text);
+                  if (!emailValid) {
+                    return 'Please Enter Valid E-mail';
+                  }
+                  return null;
+                },
               ),
               SizedBox(height: height * 0.02),
               CustomTextField(
@@ -69,6 +81,15 @@ class _LoginViewState extends State<LoginView> {
                   ),
                 ),
                 controller: passwordController,
+                validator: (text) {
+                  if (text == null || text.trim().isEmpty) {
+                    return 'Please Enter Password';
+                  }
+                  if (text.length < 6) {
+                    return 'Password should be at least 6 chars';
+                  }
+                  return null;
+                },
               ),
               Align(
                 alignment: Alignment.centerRight,
