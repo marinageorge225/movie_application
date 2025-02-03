@@ -8,7 +8,7 @@ import 'package:graduation_movie_app/splash_screen.dart';
 import 'package:graduation_movie_app/ui/auth/Reigster/Register_Screen.dart';
 import 'package:graduation_movie_app/ui/auth/login/login_view.dart';
 import 'package:graduation_movie_app/ui/auth/login/login_view_model.dart';
-import 'package:graduation_movie_app/ui/tabs/profile_tab/update_profile.dart';
+import 'package:graduation_movie_app/ui/home_screen/tabs/profile/update_profile.dart';
 import 'package:graduation_movie_app/utils/app_theme.dart';
 import 'package:graduation_movie_app/ui/auth/forget_password/forget_password.dart';
 import 'package:shared_preferences/shared_preferences.dart';
