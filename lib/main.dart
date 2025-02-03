@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_movie_app/OnBoarding_Screen/OnBoarding.dart';
+import 'package:graduation_movie_app/ui/auth/forget_password/reset_password.dart';
 import 'package:graduation_movie_app/ui/home_screen/home_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:graduation_movie_app/profile.dart';
@@ -58,6 +59,8 @@ class MyApp extends StatelessWidget {
             ForgetPassword.routeName: (context) => ForgetPassword(),
             UpdateProfile.routeName: (context) => UpdateProfile(),
             RegisterScreen.routeName: (context) => RegisterScreen(),
+            ResetPassword.routeName: (context) => ResetPassword(),
+
             Profile.routeName: (context) => Profile(),
           },
           locale: Locale(appLanguage),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graduation_movie_app/ui/auth/forget_password/reset_password.dart';
 import 'package:graduation_movie_app/ui/custom%20widgets/custom_elevated_button.dart';
 import 'package:graduation_movie_app/ui/custom%20widgets/custom_text_field.dart';
 import 'package:graduation_movie_app/utils/app_color.dart';
@@ -55,7 +56,10 @@ class ForgetPassword extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: width * 0.05),
               child: CustomElevatedButton(
-                  buttonOnClick: () {}, buttonTitle: AppLocalizations.of(context)!.verifyEmail),
+                  buttonOnClick: () {
+
+                    Navigator.pushNamed(context, ResetPassword.routeName);
+                  }, buttonTitle: AppLocalizations.of(context)!.verifyEmail),
             )
           ],
         ),
