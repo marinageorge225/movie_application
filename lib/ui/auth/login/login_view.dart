@@ -55,7 +55,7 @@ class _LoginViewState extends State<LoginView> implements LoginConnector {
       child: BlocListener<LoginViewModel, LoginState>(
         listener: (context, state) {
           if (state is LoginLoading) {
-            showLoading("LOADING.....");
+            showLoading();
 
           } else if (state is LoginFailure) {
             hideLoading();
@@ -266,7 +266,7 @@ class _LoginViewState extends State<LoginView> implements LoginConnector {
   }
 
   @override
-  void showLoading(String massage) {
+  void showLoading() {
     DialogUtils.showLoading(context: context) ;
   }
 
