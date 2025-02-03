@@ -8,6 +8,7 @@ import 'package:graduation_movie_app/splash_screen.dart';
 
 import 'package:graduation_movie_app/ui/auth/Reigster/Resister_Screen.dart';
 import 'package:graduation_movie_app/ui/auth/login/login_view.dart';
+import 'package:graduation_movie_app/ui/auth/login/login_view_model.dart';
 import 'package:graduation_movie_app/ui/tabs/profile_tab/update_profile.dart';
 import 'package:graduation_movie_app/utils/app_theme.dart';
 import 'package:graduation_movie_app/ui/auth/forget_password/forget_password.dart';
@@ -17,6 +18,7 @@ import 'package:graduation_movie_app/ui/auth/login/login_view.dart';
 import 'package:provider/provider.dart';
 
 
+import 'api/api_manger.dart';
 import 'cubit/app_language_cubit.dart';
 
 void main() async {
@@ -25,11 +27,12 @@ void main() async {
   final bool showOnBoarding = prefs.getBool(OnBoarding.routeName) ?? false;
 
   runApp(
-    BlocProvider(
-      create: (context) => AppLanguageCubit(),
-      child: MyApp(showOnBoarding: showOnBoarding),
-    ),
-  );
+      MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => AppLanguageCubit()),
+        ],
+        child: MyApp(showOnBoarding: showOnBoarding),
+  ));
 }
 
 class MyApp extends StatelessWidget {
