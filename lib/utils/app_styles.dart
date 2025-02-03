@@ -7,7 +7,9 @@ class AppStyles {
   static TextStyle medium36WhiteInter = GoogleFonts.inter(
       fontSize: 36, fontWeight: FontWeight.w500, color: AppColors.whiteColor);
   static TextStyle regular20TransparentWhiteInter = GoogleFonts.inter(
-      fontSize: 20, fontWeight: FontWeight.w400, color: AppColors.whiteColor.withOpacity(0.6));
+      fontSize: 20,
+      fontWeight: FontWeight.w400,
+      color: AppColors.whiteColor.withOpacity(0.6));
   static TextStyle semiBold20BlackInter = GoogleFonts.inter(
       fontSize: 20, fontWeight: FontWeight.w600, color: AppColors.blackColor);
   static TextStyle semiBold20OrangeInter = GoogleFonts.inter(
@@ -21,7 +23,9 @@ class AppStyles {
   static TextStyle regular20WhiteInter = GoogleFonts.inter(
       fontSize: 20, fontWeight: FontWeight.w400, color: AppColors.whiteColor);
   static TextStyle bold20DarkBlackInter = GoogleFonts.inter(
-      fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.darkBlackColor);
+      fontSize: 20,
+      fontWeight: FontWeight.bold,
+      color: AppColors.darkBlackColor);
   static TextStyle bold20OrangeInter = GoogleFonts.inter(
       fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.orangeColor);
   static TextStyle regular16WhiteRoboto = GoogleFonts.roboto(
@@ -30,6 +34,7 @@ class AppStyles {
       fontSize: 15, fontWeight: FontWeight.w400, color: AppColors.whiteColor);
   static TextStyle regular16DarkGrayRoboto = GoogleFonts.roboto(
       fontSize: 16, fontWeight: FontWeight.w400, color: AppColors.darkGrayColor);
+
   static TextStyle regular16RedRoboto = GoogleFonts.roboto(
       fontSize: 16, fontWeight: FontWeight.w400, color: AppColors.redColor);
   static TextStyle regular20DarkGrayRoboto = GoogleFonts.roboto(
