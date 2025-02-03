@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_movie_app/OnBoarding_Screen/OnBoarding.dart';
-import 'package:graduation_movie_app/home_screen.dart';
+import 'package:graduation_movie_app/ui/home_screen/home_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:graduation_movie_app/profile.dart';
 import 'package:graduation_movie_app/splash_screen.dart';
-
-import 'package:graduation_movie_app/ui/auth/Reigster/Resister_Screen.dart';
+import 'package:graduation_movie_app/ui/auth/Reigster/Register_Screen.dart';
 import 'package:graduation_movie_app/ui/auth/login/login_view.dart';
 import 'package:graduation_movie_app/ui/auth/login/login_view_model.dart';
 import 'package:graduation_movie_app/ui/tabs/profile_tab/update_profile.dart';
@@ -19,6 +18,7 @@ import 'package:provider/provider.dart';
 
 
 import 'api/api_manger.dart';
+
 import 'cubit/app_language_cubit.dart';
 
 void main() async {
@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
           routes: {
             HomeScreen.routename: (context) => HomeScreen(),
             OnBoarding.routeName: (context) => OnBoarding(),
-            SplashScreen.routeName: (context) => SplashScreen(ShowOnBorading: showOnBoarding),
+            SplashScreen.routeName: (context) => SplashScreen(showOnBoarding: showOnBoarding,),
             LoginView.routeName: (context) => LoginView(),
             ForgetPassword.routeName: (context) => ForgetPassword(),
             UpdateProfile.routeName: (context) => UpdateProfile(),

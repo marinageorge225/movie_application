@@ -4,14 +4,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_movie_app/cubit/app_language_cubit.dart';
 import 'package:graduation_movie_app/ui/auth/Reigster/Resister_Screen.dart';
 import 'package:graduation_movie_app/ui/auth/login/login_connector.dart';
+
 import 'package:graduation_movie_app/ui/custom%20widgets/custom_elevated_button.dart';
 import 'package:graduation_movie_app/ui/custom%20widgets/custom_text_field.dart';
-import 'package:graduation_movie_app/ui/tabs/profile_tab/update_profile.dart';
 import 'package:graduation_movie_app/utils/app_color.dart';
 import 'package:graduation_movie_app/utils/app_styles.dart';
 import 'package:graduation_movie_app/utils/assets_manager.dart';
 import '../../../api/api_manger.dart';
 import '../../../utils/reusable widgets/dialog_utils.dart';
+import '../../home_screen/tabs/profile/update_profile.dart';
 import '../forget_password/forget_password.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -73,6 +74,7 @@ class _LoginViewState extends State<LoginView> implements LoginConnector {
               padding: EdgeInsets.symmetric(
                 horizontal: height * 0.015,
                 vertical: height * 0.1,
+
               ),
               child: Form(
                 key: viewModel.formKey,

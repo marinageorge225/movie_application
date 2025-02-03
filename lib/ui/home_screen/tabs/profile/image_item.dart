@@ -31,6 +31,7 @@ class _ImageItemState extends State<ImageItem> {
 
     },
       child: Container(clipBehavior: Clip.antiAlias,
+        alignment: Alignment.center,
         margin:EdgeInsets.symmetric(vertical:height*(19/932) ,horizontal:width*(13/430) ) ,
         padding: EdgeInsets.symmetric(vertical:height*(9/932) ,horizontal:width*(10/430) ),
         decoration: BoxDecoration(
