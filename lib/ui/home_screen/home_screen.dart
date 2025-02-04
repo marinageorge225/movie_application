@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/browse_tab/browse_tab_widget.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/home_tab/home_tab_widget.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/profile/profile_tab_widget.dart';
-import 'package:graduation_movie_app/ui/home_screen/tabs/profile/update_profile.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/search_tab/search_tab_widget.dart';
 import 'package:graduation_movie_app/utils/app_color.dart';
 
