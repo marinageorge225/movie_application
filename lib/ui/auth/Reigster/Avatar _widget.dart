@@ -14,7 +14,8 @@ class AvatarWidget  extends StatelessWidget {
 
 
     return
-      Container(//decoration: BoxDecoration(shape: BoxShape.circle,color: AppColors.orangeColor ),
+      Container(
+        //decoration: BoxDecoration(shape: BoxShape.circle,color: AppColors.orangeColor ),
       height:  height*0.07,
       width:  width*0.2,
       //color: AppColors.orangeColor,
