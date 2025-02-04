@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
           theme: AppTheme.themeData,
           initialRoute: SplashScreen.routeName,
           routes: {
-            HomeScreen.routename: (context) => HomeScreen(),
+            HomeScreen.routeName: (context) => HomeScreen(),
             OnBoarding.routeName: (context) => OnBoarding(),
             SplashScreen.routeName: (context) => SplashScreen(showOnBoarding: showOnBoarding,),
             LoginView.routeName: (context) => LoginView(),
