@@ -9,7 +9,7 @@ class AppTheme{
         ,centerTitle: true,
         backgroundColor:  AppColors.blackColor
         ,iconTheme: const IconThemeData(color: AppColors.orangeColor)),
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       selectedItemColor: AppColors.orangeColor,
       unselectedItemColor: AppColors.whiteColor,
       showSelectedLabels: false,

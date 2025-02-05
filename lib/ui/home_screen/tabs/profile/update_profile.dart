@@ -86,7 +86,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
     });
   }
   void showBottomSheet(BuildContext context,Widget widget) {
-    showModalBottomSheet(backgroundColor: AppColors.Transparent,
+    showModalBottomSheet(backgroundColor: AppColors.transparentColor,
         context: context,
         builder: (context)=>widget
 

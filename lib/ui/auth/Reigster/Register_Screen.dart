@@ -228,7 +228,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
                             border: Border.all(
-                              color: appLanguage == 'en' ? AppColors.orangeColor : AppColors.Transparent,
+                              color: appLanguage == 'en' ? AppColors.orangeColor : AppColors.transparentColor,
                               width: 3,
                             ),
                           ),
@@ -243,7 +243,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
                             border: Border.all(
-                              color: appLanguage == 'ar' ? AppColors.orangeColor : AppColors.Transparent,
+                              color: appLanguage == 'ar' ? AppColors.orangeColor : AppColors.transparentColor,
                               width: 3,
                             ),
                           ),

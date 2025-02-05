@@ -27,7 +27,7 @@ class CustomElevatedButton extends StatelessWidget {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15),
                 side: BorderSide(
-                    color: borderColor ?? AppColors.Transparent, width: 1.5))),
+                    color: borderColor ?? AppColors.transparentColor, width: 1.5))),
         onPressed: () {
           buttonOnClick();
         },

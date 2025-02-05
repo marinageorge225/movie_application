@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:graduation_movie_app/api/api_constant.dart';
+import 'package:graduation_movie_app/api/end_points.dart';
+import 'package:graduation_movie_app/model/MovieListResponse.dart';
 import 'package:http/http.dart' as http;
 import '../model/LoginResponse.dart';
 
@@ -32,4 +34,20 @@ class ApiManager {
       throw Exception('Error occurred while making API request: $e');
     }
   }
+
+  static Future<MovieListResponse?> getMovieListByGenre(String genre) async {
+    Uri url = Uri.https(ApiConstant.movieListBaseServer, EndPoints.listMoviesApi,
+    {'genre' : genre});
+    try {
+      var response = await http.get(url);
+      var responseBody = response.body;
+      var json = jsonDecode(responseBody);
+      return MovieListResponse.fromJson(json);
+    } catch (e) {
+      throw e;
+    }
+  }
+
 }
+
+

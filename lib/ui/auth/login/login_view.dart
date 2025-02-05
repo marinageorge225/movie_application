@@ -6,6 +6,7 @@ import 'package:graduation_movie_app/ui/auth/login/login_connector.dart';
 
 import 'package:graduation_movie_app/ui/custom%20widgets/custom_elevated_button.dart';
 import 'package:graduation_movie_app/ui/custom%20widgets/custom_text_field.dart';
+import 'package:graduation_movie_app/ui/home_screen/home_screen.dart';
 import 'package:graduation_movie_app/utils/app_color.dart';
 import 'package:graduation_movie_app/utils/app_styles.dart';
 import 'package:graduation_movie_app/utils/assets_manager.dart';
@@ -220,7 +221,7 @@ class _LoginViewState extends State<LoginView> implements LoginConnector {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50),
                                 border: Border.all(
-                                  color: appLanguage == 'en' ? AppColors.orangeColor : AppColors.Transparent,
+                                  color: appLanguage == 'en' ? AppColors.orangeColor : AppColors.transparentColor,
                                   width: 3,
                                 ),
                               ),
@@ -235,7 +236,7 @@ class _LoginViewState extends State<LoginView> implements LoginConnector {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50),
                                 border: Border.all(
-                                  color: appLanguage == 'ar' ? AppColors.orangeColor : AppColors.Transparent,
+                                  color: appLanguage == 'ar' ? AppColors.orangeColor : AppColors.transparentColor,
                                   width: 3,
                                 ),
                               ),
@@ -262,7 +263,7 @@ class _LoginViewState extends State<LoginView> implements LoginConnector {
 
   @override
   void navigateToScreen() {
-    Navigator.pushReplacementNamed(context,UpdateProfile.routeName);
+    Navigator.pushNamed(context,HomeScreen.routeName);
   }
 
   @override

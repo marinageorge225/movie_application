@@ -73,7 +73,8 @@ class CustomizedOnboardingContainer extends StatelessWidget {
               : Padding(
                   padding: EdgeInsets.symmetric(horizontal: width * 0.02),
                   child: CustomElevatedButton(
-                      buttonColor: AppColors.Transparent,
+                    borderColor: AppColors.orangeColor,
+                      buttonColor: AppColors.transparentColor,
                       buttonTitleStyle:
                           textBottom2Style ?? AppStyles.semiBold20BlackInter,
                       buttonOnClick: onPressed2 ?? () {},

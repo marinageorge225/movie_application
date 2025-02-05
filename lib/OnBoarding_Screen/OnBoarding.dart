@@ -48,7 +48,7 @@ class _OnBoardingState extends State<OnBoarding> {
             OnNextBotton,
             "Explore Now",
             AppStyles.medium36WhiteInter,
-            AppColors.Transparent,
+            AppColors.transparentColor,
             null,
             null,
             null,
