@@ -60,8 +60,8 @@ class MyApp extends StatelessWidget {
             UpdateProfile.routeName: (context) => UpdateProfile(),
             RegisterScreen.routeName: (context) => RegisterScreen(),
             ResetPassword.routeName: (context) => ResetPassword(),
-
             Profile.routeName: (context) => Profile(),
+
           },
           locale: Locale(appLanguage),
         );

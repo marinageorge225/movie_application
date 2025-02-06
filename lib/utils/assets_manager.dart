@@ -38,6 +38,7 @@ class AssetsManager{
   static const String phoneIcon = 'assets/images/phone_icon.png';
   static const String NameID = 'assets/images/Name id.png';
   static const String languageSwatch = 'assets/images/Language Switch.png';
+  static const String availableNow='assets/images/Available Now.png';
 
 
 
