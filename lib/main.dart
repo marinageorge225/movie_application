@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_movie_app/OnBoarding_Screen/OnBoarding.dart';
-import 'package:graduation_movie_app/cubit/register_view_model.dart';
 import 'package:graduation_movie_app/home_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:graduation_movie_app/profile.dart';
@@ -14,8 +13,10 @@ import 'package:graduation_movie_app/utils/app_theme.dart';
 import 'package:graduation_movie_app/ui/auth/forget_password/forget_password.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:graduation_movie_app/ui/auth/login/login_view.dart';
+import 'package:provider/provider.dart';
 
-import 'api/api_service_register.dart';
+
 import 'cubit/app_language_cubit.dart';
 
 void main() async {
@@ -24,13 +25,8 @@ void main() async {
   final bool showOnBoarding = prefs.getBool(OnBoarding.routeName) ?? false;
 
   runApp(
-    MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => AppLanguageCubit()),
-        BlocProvider(
-          create: (_) => RegisterCubit(ApiService()),
-        ),
-      ],
+    BlocProvider(
+      create: (context) => AppLanguageCubit(),
       child: MyApp(showOnBoarding: showOnBoarding),
     ),
   );

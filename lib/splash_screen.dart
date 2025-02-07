@@ -6,9 +6,9 @@ import 'package:graduation_movie_app/ui/auth/login/login_view.dart';
 
 class SplashScreen extends StatefulWidget {
   static const String routeName = 'splash screen';
-  final bool ShowOnBorading;
+  final bool showOnBoarding;
 
-   SplashScreen({required this.ShowOnBorading});
+   SplashScreen({required this.showOnBoarding});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
       () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => widget.ShowOnBorading==true?LoginView():OnBoarding()
+          builder: (context) => widget.showOnBoarding==true?LoginView():OnBoarding()
         ),
       ),
     );
@@ -32,7 +32,6 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF000000),
       body: Center(
         child: Image.asset('assets/images/splash_screen.png'),
       ),

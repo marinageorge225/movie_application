@@ -8,6 +8,12 @@ class AppTheme{
     appBarTheme: AppBarTheme(titleTextStyle: AppStyles.regular16OrangeRoboto
         ,centerTitle: true,
         backgroundColor:  AppColors.blackColor
-        ,iconTheme: const IconThemeData(color: AppColors.orangeColor))
+        ,iconTheme: const IconThemeData(color: AppColors.orangeColor)),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      selectedItemColor: AppColors.orangeColor,
+      unselectedItemColor: AppColors.whiteColor,
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
+    ),
   );
 }
