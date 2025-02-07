@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:graduation_movie_app/ui/auth/forget_password/reset_password.dart';
-import 'package:graduation_movie_app/ui/custom%20widgets/custom_elevated_button.dart';
-import 'package:graduation_movie_app/ui/custom%20widgets/custom_text_field.dart';
-import 'package:graduation_movie_app/utils/app_color.dart';
-import 'package:graduation_movie_app/utils/app_styles.dart';
-import 'package:graduation_movie_app/utils/assets_manager.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../../core/utils/app_color.dart';
+import '../../../core/utils/app_styles.dart';
+import '../../../core/utils/assets_manager.dart';
+import '../../widgets/custom_elevated_button.dart';
+import '../../widgets/custom_text_field.dart';
 
 class ForgetPassword extends StatelessWidget {
   static const String routeName = 'Forget Password';
