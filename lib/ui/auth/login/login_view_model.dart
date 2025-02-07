@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../api/api_manger.dart';
 import 'cubit/login_states.dart';
 import 'login_connector.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 
 class LoginViewModel extends Cubit<LoginState> {
@@ -25,7 +26,7 @@ class LoginViewModel extends Cubit<LoginState> {
         if (response.data !=null) {
 
 
-            emit(LoginSuccess(response.data!,response.message!));
+            emit(LoginSuccess(response.message!));
         } else {
 
           emit(LoginFailure(response.message!));
@@ -35,6 +36,34 @@ class LoginViewModel extends Cubit<LoginState> {
 
       }
     }
+  }
+
+  Future<GoogleSignInAccount?> signInWithGoogle() async {
+    emit(LoginLoading());
+
+    try {
+      final GoogleSignInAccount? user = await GoogleSignIn().signIn();
+    if(user==null) {
+    print("Google Sign-In canceled.");
+    }
+      if (user != null) {
+        print("User signed in: ${user.displayName}, Email: ${user.email}");
+      }
+      return user;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  loginWithGoogle() async {
+
+    final user = await signInWithGoogle();
+
+    if (user == null) {
+      emit(LoginFailure("Google Sign-In failed"));
+      return;
+    }
+    emit(LoginSuccess( "Google Sign-In successful"));
   }
 }
 
