@@ -25,8 +25,7 @@ class _HomeTabState extends State<HomeTab> {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-    return Scaffold(
-      body: SingleChildScrollView(
+    return SingleChildScrollView(
         child: BlocProvider(
           create: (context) => viewModel,
           child: Column(
@@ -46,6 +45,15 @@ class _HomeTabState extends State<HomeTab> {
                       fit: BoxFit.cover,
                     ),
                   ),
+                  // Container(
+                  //   height: height * 0.075,
+                  //   decoration: const BoxDecoration(
+                  //       color: AppColors.transparentColor,
+                  //       gradient: LinearGradient(colors: [Colors.grey,
+                  //         AppColors.blackColor
+                  //       ], begin: Alignment.topCenter, end: Alignment.bottomCenter)
+                  //   ),
+                  // ),
                   Column(
                     children: [
                       Image.asset(AssetsManager.availableNowImage),
@@ -94,7 +102,6 @@ class _HomeTabState extends State<HomeTab> {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 }

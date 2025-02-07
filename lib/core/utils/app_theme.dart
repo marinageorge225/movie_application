@@ -11,6 +11,7 @@ class AppTheme{
         backgroundColor:  AppColors.blackColor
         ,iconTheme: const IconThemeData(color: AppColors.orangeColor)),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      elevation: 0,
       selectedItemColor: AppColors.orangeColor,
       unselectedItemColor: AppColors.whiteColor,
       showSelectedLabels: false,

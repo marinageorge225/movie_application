@@ -38,6 +38,7 @@ class ApiManager {
     }
   }
 
+
   Future<MovieListResponse?> getMovieListByGenre(String genre) async {
     Uri url = Uri.https(ApiConstant.movieListBaseServer, EndPoints.listMoviesApi,
     {'genre' : genre});
