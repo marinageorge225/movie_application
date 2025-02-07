@@ -5,10 +5,10 @@ class LoginInitial extends LoginState {}
 class LoginLoading extends LoginState {}
 
 class LoginSuccess extends LoginState {
-   String data;
+   // String data;
    String message;
 
-  LoginSuccess(this.data,this.message);
+  LoginSuccess(this.message);
 }
 
 class LoginFailure extends LoginState {
