@@ -1,12 +1,14 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:graduation_movie_app/home_screen.dart';
+import 'package:graduation_movie_app/OnBoarding_Screen/OnBoarding.dart';
+import 'package:graduation_movie_app/ui/auth/login/login_view.dart';
+
 
 class SplashScreen extends StatefulWidget {
-  static const String routename = 'splash screen';
+  static const String routeName = 'splash screen';
+  final bool showOnBoarding;
 
-  const SplashScreen({super.key});
+   SplashScreen({required this.showOnBoarding});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -21,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
       () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => HomeScreen(),
+          builder: (context) => widget.showOnBoarding==true?LoginView():OnBoarding()
         ),
       ),
     );
@@ -30,7 +32,6 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF2FEFF),
       body: Center(
         child: Image.asset('assets/images/splash_screen.png'),
       ),

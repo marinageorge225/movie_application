@@ -1,0 +1,22 @@
+[33m99dec68[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/added-register-logic[m[33m)[m HEAD@{0}: pull origin added-register-logic: Fast-forward
+[33m143ed12[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mfeature-loclization[m[33m)[m HEAD@{1}: pull origin master: Fast-forward
+[33m0f8d81c[m[33m ([m[1;32madded-register-logic[m[33m)[m HEAD@{2}: checkout: moving from added-register-logic to master
+[33m0f8d81c[m[33m ([m[1;32madded-register-logic[m[33m)[m HEAD@{3}: reset: moving to 0f8d81c
+[33m143ed12[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mfeature-loclization[m[33m)[m HEAD@{4}: reset: moving to HEAD~1
+[33m99dec68[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/added-register-logic[m[33m)[m HEAD@{5}: reset: moving to HEAD
+[33m99dec68[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/added-register-logic[m[33m)[m HEAD@{6}: commit (merge): Fixed registration validation issues
+[33m143ed12[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mfeature-loclization[m[33m)[m HEAD@{7}: reset: moving to origin/master
+[33m143ed12[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mfeature-loclization[m[33m)[m HEAD@{8}: reset: moving to origin/master
+[33m143ed12[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mfeature-loclization[m[33m)[m HEAD@{9}: reset: moving to origin/master
+[33m763ce66[m HEAD@{10}: commit (merge): Fixed merge conflicts
+[33m65d52e2[m HEAD@{11}: commit: register logic
+[33m7f2c150[m[33m ([m[1;32mdevelopment[m[33m)[m HEAD@{12}: checkout: moving from development to added-register-logic
+[33m7f2c150[m[33m ([m[1;32mdevelopment[m[33m)[m HEAD@{13}: merge origin/development: Merge made by the 'ort' strategy.
+[33m150c453[m HEAD@{14}: commit (amend): Changed language in the app and updated Register and Login pages
+[33mdaebabd[m HEAD@{15}: commit: Changed language in the app and updated Register and Login pages
+[33m4516f35[m HEAD@{16}: checkout: moving from feature-loclization to development
+[33m143ed12[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mfeature-loclization[m[33m)[m HEAD@{17}: reset: moving to HEAD
+[33m143ed12[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mfeature-loclization[m[33m)[m HEAD@{18}: pull origin master: Fast-forward
+[33m804d22e[m[33m ([m[1;31morigin/feature-loclization[m[33m)[m HEAD@{19}: commit: added localization with bloc
+[33m0f8d81c[m[33m ([m[1;32madded-register-logic[m[33m)[m HEAD@{20}: checkout: moving from master to feature-loclization
+[33m0f8d81c[m[33m ([m[1;32madded-register-logic[m[33m)[m HEAD@{21}: clone: from https://github.com/marinageorge225/movie_application.git
