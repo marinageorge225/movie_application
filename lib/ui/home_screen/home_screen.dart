@@ -31,8 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
-        height: height * 0.065,
-        padding: EdgeInsets.zero,
+        padding: EdgeInsets.symmetric(horizontal: width * 0.03),
         color: AppColors.transparentColor,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(16),
