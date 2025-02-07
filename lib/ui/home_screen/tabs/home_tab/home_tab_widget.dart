@@ -81,7 +81,7 @@ class _HomeTabState extends State<HomeTab> {
                                     return Stack(
                                       children: [
                                         ClipRRect(
-                                          borderRadius: BorderRadius.circular(10),
+                                          borderRadius: BorderRadius.circular(20),
                                           child: Image.network(
                                             height: height * 0.37,
                                             movie.largeCoverImage ?? '',
