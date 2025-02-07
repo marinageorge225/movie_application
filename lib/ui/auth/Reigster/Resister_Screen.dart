@@ -68,7 +68,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
       body:BlocListener<RegisterCubit, RegisterState>(
         listener: (context, state) {
           if (state is RegisterSuccess) {
-
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('✅ Registration Successful!')),
+            );
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => LoginView()),
