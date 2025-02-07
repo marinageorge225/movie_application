@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation_movie_app/core/di/di.dart';
 import 'package:graduation_movie_app/ui/auth/login/login_connector.dart';
 import 'package:graduation_movie_app/ui/home_screen/home_screen.dart';
 import '../../../core/api/api_manger.dart';
@@ -27,7 +28,7 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> implements LoginConnector {
   bool showPassword = false;
 
-  var viewModel=LoginViewModel(ApiManager());
+  var viewModel=getIt<LoginViewModel>();
 
   void togglePasswordVisibility() {
     setState(() {
@@ -38,7 +39,7 @@ class _LoginViewState extends State<LoginView> implements LoginConnector {
   void initState() {
     // TODO: implement initState
     super.initState();
-    viewModel.connector=this ;
+    // viewModel.connector=this ;
 
   }
   @override
