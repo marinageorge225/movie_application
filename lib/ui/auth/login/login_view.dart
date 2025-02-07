@@ -57,11 +57,12 @@ class _LoginViewState extends State<LoginView> implements LoginConnector {
 
           } else if (state is LoginFailure) {
             hideLoading();
-            showMassage(state.errorMessage);
+            DialogUtils.showMessage(context: context, message: state.errorMessage);
+            // showMassage(state.errorMessage);
           }else if (state is LoginSuccess) {
             hideLoading();
             showMassage(state.message);
-            navigateToScreen();
+            // navigateToScreen();
 
           }
         },
@@ -189,8 +190,9 @@ class _LoginViewState extends State<LoginView> implements LoginConnector {
                     SizedBox(height: height * 0.03),
                     CustomElevatedButton(
                       buttonOnClick: () {
-                        // Google login logic
-                      },
+                        viewModel.loginWithGoogle();
+
+                        },
                       buttonIcon: const ImageIcon(
                         AssetImage(AssetsManager.googleIcon),
                         size: 30,
@@ -270,7 +272,8 @@ class _LoginViewState extends State<LoginView> implements LoginConnector {
 
   @override
   void showMassage(String massage) {
-    DialogUtils.showMessage(context: context, message: massage,posActionName: "ok");
+    DialogUtils.showMessage(context: context, message: massage,posActionName:
+    "ok",posAction:navigateToScreen, );
   }
 
 }

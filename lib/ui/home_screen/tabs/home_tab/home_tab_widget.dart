@@ -1,9 +1,13 @@
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_movie_app/core/di/di.dart';
 import 'package:graduation_movie_app/core/utils/assets_manager.dart';
+import 'package:graduation_movie_app/model/MovieListResponse.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/home_tab/cubit/home_tap_view_model.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/home_tab/home_tap_bottom_part.dart';
+import '../../../../core/api/api_manger.dart';
 import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/app_styles.dart';
 
@@ -13,11 +17,13 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
+  late Future<MovieListResponse?> movieListResponse ;
   HomeTabViewModel viewModel = getIt<HomeTabViewModel>();
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    movieListResponse = ApiManager.getMovies();
     viewModel.changeGenre();
   }
 
@@ -48,6 +54,81 @@ class _HomeTabState extends State<HomeTab> {
                       Column(
                     children: [
                       Image.asset(AssetsManager.availableNowImage),
+                      FutureBuilder<MovieListResponse?>(
+                        future: movieListResponse,
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState == ConnectionState.waiting) {
+                            return Center(
+                              child: CircularProgressIndicator(
+                                color: AppColors.orangeColor,
+                              ),
+                            );
+                          } else if (snapshot.hasError) {
+                            return Center(child: Text("Error: ${snapshot.error}"));
+                          } else if (snapshot.hasData) {
+                            var movies = snapshot.data?.data?.movies ?? [];
+
+                            // Sort movies by year (newest to oldest)
+                            movies.sort((a, b) => (b.year ?? 0).compareTo(a.year ?? 0));
+
+                            return Column(
+                              children: [
+                                CarouselSlider.builder(
+                                  itemCount: movies.length,
+                                  itemBuilder: (context, index, realIndex) {
+                                    var movie = movies[index];
+                                    return Stack(
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(10),
+                                          child: Image.network(
+                                            movie.largeCoverImage ?? '',
+                                            fit: BoxFit.cover,
+                                            width: double.infinity,
+                                          ),
+                                        ),
+                                        Positioned(
+                                          top: 10,
+                                          left: 10,
+                                          child: Container(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 10, vertical: 5),
+                                            decoration: BoxDecoration(
+                                              color: Colors.black.withOpacity(0.6),
+                                              borderRadius: BorderRadius.circular(8),
+                                            ),
+                                            child: Row(
+                                              children: [
+                                                Text(
+                                                  movie.rating?.toStringAsFixed(1) ?? 'N/A',
+                                                  style: TextStyle(
+                                                      color: Colors.white, fontSize: 14),
+                                                ),
+                                                SizedBox(width: 4),
+                                                Icon(Icons.star,
+                                                    color: Colors.yellow, size: 16),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                  options: CarouselOptions(
+                                    height: 250,
+                                    autoPlay: false,
+                                    enlargeCenterPage: true,
+                                    viewportFraction: 0.4,
+                                    aspectRatio: 1,
+                                  ),
+                                ),
+                              ],
+                            );
+                          } else {
+                            return Center(child: Text("No data found"));
+                          }
+                        },
+                      ),
                       Image.asset(AssetsManager.watchNowImage)
                     ],
                   )
