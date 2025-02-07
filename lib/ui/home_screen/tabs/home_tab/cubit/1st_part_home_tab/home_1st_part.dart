@@ -38,7 +38,10 @@ class FirstPartHome extends StatelessWidget {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(10),
                         child: Image.network(
-                          movie.largeCoverImage ?? '',
+                          movie.mediumCoverImage ?? '',
+                          errorBuilder: (context, error, stackTrace) {
+                            return Image.asset(AssetsManager.onboarding6ThImage);
+                          },
                           fit: BoxFit.fill,
                           width: double.infinity,
                         ),

@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_movie_app/model/MovieResponse.dart';
-
 import '../../../../../../core/api/api_manger.dart';
 
 abstract class HomeTabState {}
@@ -32,7 +31,13 @@ class FirstPartHomeViewModel extends Cubit<HomeTabState> {
       if (response != null && response.data?.movies != null) {
         var movies = response.data!.movies!;
 
-        movies.sort((a, b) => (b.year ?? 0).compareTo(a.year ?? 0));
+        movies.sort((a, b) {
+          int yearComparison = (b.year ?? 0).compareTo(a.year ?? 0);
+          if (yearComparison != 0) {
+            return yearComparison;
+          }
+          return (b.dateUploadedUnix ?? 0).compareTo(a.dateUploadedUnix ?? 0);
+        });
 
         emit(HomeTabLoaded(movies));
       } else {
