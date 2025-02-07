@@ -30,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: AppColors.transparentColor,
       bottomNavigationBar: BottomAppBar(
         padding: EdgeInsets.symmetric(horizontal: width * 0.03),
         color: AppColors.transparentColor,
