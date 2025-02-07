@@ -194,7 +194,7 @@ packages:
     dependency: transitive
     description:
       name: convert
-      sha256: a1ace0a119f20aabc852d165077c036cd864315bd99b7eaa10a60100341941bf
+      sha256: b30acd5944035672bc15c6b7a8b47d773e41e2f17de064350988c5d02adb1c68
       url: "https://pub.dev"
     source: hosted
     version: "3.1.2"
@@ -939,7 +939,7 @@ packages:
     dependency: transitive
     description:
       name: synchronized
-      sha256: "688af5ed3402a4bde5b3a6c15fd768dbf2621a614950b17f04626c431ab3c4c3"
+      sha256: "69fe30f3a8b04a0be0c15ae6490fc859a78ef4c43ae2dd5e8a623d45bfcf9225"
       url: "https://pub.dev"
     source: hosted
     version: "3.3.0+3"
@@ -966,7 +966,7 @@ packages:
       sha256: "62ee18aca144e4a9f29d212f5a4c6a053be252b895ab14b5821996cff4ed90fe"
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.3"
+    version: "1.0.2"
   typed_data:
     dependency: transitive
     description:
@@ -999,6 +999,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "14.3.0"
+  watcher:
+    dependency: transitive
+    description:
+      name: watcher
+      sha256: "69da27e49efa56a15f8afe8f4438c4ec02eff0a117df1b22ea4aad194fe1c104"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.1"
   web:
     dependency: transitive
     description:

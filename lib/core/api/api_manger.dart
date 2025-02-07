@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'package:graduation_movie_app/model/MovieListResponse.dart';
-import 'package:graduation_movie_app/api/api_constant.dart';
-import 'package:graduation_movie_app/api/end_points.dart';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 import '../../model/LoginResponse.dart';
@@ -56,7 +54,7 @@ class ApiManager {
 //https://yts.mx/api/v2/list_movies.json
 
   static Future<MovieListResponse?> getMovies() async {
-    Uri url = Uri.https(ApiConstant.movieListBaseServer, EndPoints.movieApi, {
+    Uri url = Uri.https(ApiConstant.movieListBaseServer, EndPoints.listMoviesApi, {
       'sort_by': 'date_added',
       'order_by': 'desc',
     });
@@ -75,7 +73,4 @@ class ApiManager {
   }
 
 }
-
-}
-
 
