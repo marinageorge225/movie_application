@@ -21,16 +21,16 @@ class _HomeScreenState extends State<HomeScreen> {
     HomeTab(),
     SearchTab(),
     BrowseTab(),
-    //ProfileTab(),
     UpdateProfile()
   ];
 
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
-        padding: EdgeInsets.symmetric(horizontal: width * 0.03),
+        padding: EdgeInsets.symmetric(horizontal: width * 0.05,vertical: height*0.01),
         color: AppColors.transparentColor,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(16),
