@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_movie_app/utils/app_color.dart';
-import 'package:graduation_movie_app/utils/app_styles.dart';
+
+import 'app_color.dart';
+import 'app_styles.dart';
 
 class AppTheme{
   static ThemeData themeData = ThemeData(
@@ -9,7 +10,8 @@ class AppTheme{
         ,centerTitle: true,
         backgroundColor:  AppColors.blackColor
         ,iconTheme: const IconThemeData(color: AppColors.orangeColor)),
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      elevation: 0,
       selectedItemColor: AppColors.orangeColor,
       unselectedItemColor: AppColors.whiteColor,
       showSelectedLabels: false,

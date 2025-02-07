@@ -2,14 +2,14 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation_movie_app/cubit/app_language_cubit.dart';
 import 'package:graduation_movie_app/ui/auth/login/login_view.dart';
-import 'package:graduation_movie_app/ui/custom widgets/custom_elevated_button.dart';
-import 'package:graduation_movie_app/utils/app_color.dart';
-import 'package:graduation_movie_app/utils/app_styles.dart';
-import 'package:graduation_movie_app/utils/assets_manager.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../custom widgets/custom_text_field.dart';
+import '../../../core/cubit/app_language_cubit.dart';
+import '../../../core/utils/app_color.dart';
+import '../../../core/utils/app_styles.dart';
+import '../../../core/utils/assets_manager.dart';
+import '../../widgets/custom_elevated_button.dart';
+import '../../widgets/custom_text_field.dart';
 import 'Avatar _widget.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -20,16 +20,16 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  var formkey = GlobalKey<FormState>();
+  var formKey = GlobalKey<FormState>();
   var emailController = TextEditingController();
   var nameController = TextEditingController();
   var passwordController = TextEditingController();
-  var confirmpasswordController = TextEditingController();
-  var phonenumberController = TextEditingController();
-  int selectedindex = 0;
-  String selectedAvater = "";
-  bool ShowPassword = false;
-  bool ShowConfirmPassword = false;
+  var confirmPasswordController = TextEditingController();
+  var phoneNumberController = TextEditingController();
+  int selectedIndex = 0;
+  String selectedAvatar = "";
+  bool showPassword = false;
+  bool showConfirmPassword = false;
 
   List<String> avatarPath = [
     AssetsManager.avatar1,
@@ -58,7 +58,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: width * 0.04),
           child: Form(
-            key: formkey,
+            key: formKey,
             child: Column(
               children: [
                 CarouselSlider.builder(
@@ -77,8 +77,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     enlargeFactor: 0.6,
                     viewportFraction: 0.37,
                     onPageChanged: (index, changereson) {
-                      selectedindex = index;
-                      selectedAvater = avatarPath[selectedindex];
+                      selectedIndex = index;
+                      selectedAvatar = avatarPath[selectedIndex];
                       setState(() {});
                     },
                   ),
@@ -95,7 +95,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     }
                   },
                   keyBoardType: TextInputType.text,
-                  prefixIcon: ImageIcon(AssetImage(AssetsManager.NameID)),
+                  prefixIcon: const ImageIcon(AssetImage(AssetsManager.nameID)),
                   hintText: AppLocalizations.of(context)!.name,
                   controller: nameController,
                 ),
@@ -133,14 +133,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   suffixIcon: IconButton(
                     onPressed: () {
                       setState(() {
-                        ShowPassword = !ShowPassword;
+                        showPassword = !showPassword;
                       });
                     },
                     icon: Icon(
-                      ShowPassword ? Icons.visibility : Icons.visibility_off_sharp,
+                      showPassword ? Icons.visibility : Icons.visibility_off_sharp,
                     ),
                   ),
-                  obscureText: !ShowPassword,
+                  obscureText: !showPassword,
                   controller: passwordController,
                 ),
                 SizedBox(height: height * 0.02),
@@ -149,7 +149,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     if (text == null || text.isEmpty) {
                       return "* required please enter ConfirmPassword";
                     }
-                    if (text != confirmpasswordController.text) {
+                    if (text != confirmPasswordController.text) {
                       return "* ConfirmedPassword doesn't match the password";
                     }
                     return null;
@@ -159,15 +159,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   suffixIcon: IconButton(
                     onPressed: () {
                       setState(() {
-                        ShowConfirmPassword = !ShowConfirmPassword;
+                        showConfirmPassword = !showConfirmPassword;
                       });
                     },
                     icon: Icon(
-                      ShowConfirmPassword ? Icons.visibility : Icons.visibility_off_sharp,
+                      showConfirmPassword ? Icons.visibility : Icons.visibility_off_sharp,
                     ),
                   ),
-                  obscureText: !ShowConfirmPassword,
-                  controller: confirmpasswordController,
+                  obscureText: !showConfirmPassword,
+                  controller: confirmPasswordController,
                 ),
                 SizedBox(height: height * 0.02),
                 CustomTextField(
@@ -183,11 +183,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   keyBoardType: TextInputType.phone,
                   prefixIcon: ImageIcon(AssetImage(AssetsManager.phoneIcon)),
                   hintText: AppLocalizations.of(context)!.phoneNumber,
-                  controller: phonenumberController,
+                  controller: phoneNumberController,
                 ),
                 SizedBox(height: height * 0.02),
                 CustomElevatedButton(
-                  buttonOnClick: onCreateAccountBotton,
+                  buttonOnClick: onCreateAccountButton,
                   buttonTitle: AppLocalizations.of(context)!.createAccount,
                   buttonTitleStyle: AppStyles.regular20BlackRoboto,
                 ),
@@ -228,7 +228,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
                             border: Border.all(
-                              color: appLanguage == 'en' ? AppColors.orangeColor : AppColors.Transparent,
+                              color: appLanguage == 'en' ? AppColors.orangeColor : AppColors.transparentColor,
                               width: 3,
                             ),
                           ),
@@ -243,7 +243,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
                             border: Border.all(
-                              color: appLanguage == 'ar' ? AppColors.orangeColor : AppColors.Transparent,
+                              color: appLanguage == 'ar' ? AppColors.orangeColor : AppColors.transparentColor,
                               width: 3,
                             ),
                           ),
@@ -261,8 +261,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  void onCreateAccountBotton() {
-    if (formkey.currentState?.validate() == true) {
+  void onCreateAccountButton() {
+    if (formKey.currentState?.validate() == true) {
       Navigator.of(context).pushReplacementNamed(LoginView.routeName);
     }
   }

@@ -1,10 +1,14 @@
 import 'dart:convert';
+import 'package:graduation_movie_app/model/MovieListResponse.dart';
 import 'package:graduation_movie_app/api/api_constant.dart';
 import 'package:graduation_movie_app/api/end_points.dart';
 import 'package:http/http.dart' as http;
-import '../model/LoginResponse.dart';
-import '../model/MovieResponse.dart';
+import 'package:injectable/injectable.dart';
+import '../../model/LoginResponse.dart';
+import 'api_constant.dart';
+import 'end_points.dart';
 
+@singleton
 class ApiManager {
   final Uri url = Uri.parse(ApiConstant.urlLoginAuth);
 
@@ -35,10 +39,24 @@ class ApiManager {
     }
   }
 
+
+  Future<MovieListResponse?> getMovieListByGenre(String genre) async {
+    Uri url = Uri.https(ApiConstant.movieListBaseServer, EndPoints.listMoviesApi,
+    {'genre' : genre});
+    try {
+      var response = await http.get(url);
+      var responseBody = response.body;
+      var json = jsonDecode(responseBody);
+      return MovieListResponse.fromJson(json);
+    } catch (e) {
+      throw e;
+    }
+  }
+
 //https://yts.mx/api/v2/list_movies.json
 
-  static Future<MovieResponse?> getMovies() async {
-    Uri url = Uri.https(ApiConstant.baseUrl, EndPoints.movieApi, {
+  static Future<MovieListResponse?> getMovies() async {
+    Uri url = Uri.https(ApiConstant.movieListBaseServer, EndPoints.movieApi, {
       'sort_by': 'date_added',
       'order_by': 'desc',
     });
@@ -47,7 +65,7 @@ class ApiManager {
       var response = await http.get(url);
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
-        return MovieResponse.fromJson(json);
+        return MovieListResponse.fromJson(json);
       } else {
         throw Exception('Failed to load movies: ${response.statusCode}');
       }
@@ -57,3 +75,7 @@ class ApiManager {
   }
 
 }
+
+}
+
+

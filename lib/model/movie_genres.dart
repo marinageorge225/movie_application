@@ -1,0 +1,32 @@
+class MovieGenres {
+  static List<String> movieGenresList = [
+    'Drama',
+    'Comedy',
+    'Romance',
+    'Animation',
+    'Anime',
+    'Adventure',
+    'Crime',
+    'Documentary',
+    'Family',
+    'Fantasy',
+    'Game-Show',
+    'Horror',
+    'Lifestyle',
+    'Music',
+    'Musical',
+    'Mystery',
+    'Reality-TV',
+    'Sci-Fi',
+    'Seasonal',
+    'Short',
+    'Sport',
+    'Thriller',
+    'Western',
+    'War',
+    'Talk-Show',
+    'Biography',
+    'Film-Noir',
+    'News'
+  ];
+}

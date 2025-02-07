@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_movie_app/utils/app_color.dart';
-import 'package:graduation_movie_app/utils/app_styles.dart';
+
+import '../../core/utils/app_color.dart';
+import '../../core/utils/app_styles.dart';
 
 typedef MyValidator = String? Function(String?);
 

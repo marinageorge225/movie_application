@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_movie_app/utils/app_color.dart';
-import 'package:graduation_movie_app/utils/app_styles.dart';
+
+import '../../core/utils/app_color.dart';
+import '../../core/utils/app_styles.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   Function buttonOnClick;
@@ -27,7 +28,7 @@ class CustomElevatedButton extends StatelessWidget {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15),
                 side: BorderSide(
-                    color: borderColor ?? AppColors.Transparent, width: 1.5))),
+                    color: borderColor ?? AppColors.transparentColor, width: 1.5))),
         onPressed: () {
           buttonOnClick();
         },
