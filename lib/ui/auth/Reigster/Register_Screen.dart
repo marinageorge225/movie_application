@@ -3,14 +3,14 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_movie_app/ui/auth/login/login_view.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../../core/cubit/app_language_cubit.dart';
+ import '../../../core/cubit/app_language_cubit.dart';
 import '../../../core/utils/app_color.dart';
 import '../../../core/utils/app_styles.dart';
 import '../../../core/utils/assets_manager.dart';
 import '../../widgets/custom_elevated_button.dart';
 import '../../widgets/custom_text_field.dart';
 import 'Avatar _widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegisterScreen extends StatefulWidget {
   static String routeName = "Register ";
