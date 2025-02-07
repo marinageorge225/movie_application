@@ -9,7 +9,7 @@ import 'package:graduation_movie_app/ui/auth/forget_password/forget_password.dar
 import 'package:graduation_movie_app/ui/auth/forget_password/reset_password.dart';
 import 'package:graduation_movie_app/ui/auth/login/login_view.dart';
 import 'package:graduation_movie_app/ui/home_screen/home_screen.dart';
-import 'package:graduation_movie_app/ui/home_screen/tabs/home_tab/home_tab_widget.dart';
+import 'package:graduation_movie_app/ui/home_screen/tabs/home_tab/cubit/home_tab_widget.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/profile/update_profile.dart';
 import 'package:graduation_movie_app/utils/app_theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
           supportedLocales: AppLocalizations.supportedLocales,
           debugShowCheckedModeBanner: false,
           theme: AppTheme.themeData,
-          initialRoute: LoginView.routeName,
+          initialRoute: HomeTab.routeName,
           routes: {
             HomeScreen.routeName: (context) => HomeScreen(),
             OnBoarding.routeName: (context) => OnBoarding(),
