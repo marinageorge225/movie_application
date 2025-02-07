@@ -10,13 +10,13 @@ class MovieGenres {
     'Documentary',
     'Family',
     'Fantasy',
-    'Game Show',
+    'Game-Show',
     'Horror',
-    'Life Style',
+    'Lifestyle',
     'Music',
     'Musical',
     'Mystery',
-    'Reality TV',
+    'Reality-TV',
     'Sci-Fi',
     'Seasonal',
     'Short',
@@ -24,9 +24,9 @@ class MovieGenres {
     'Thriller',
     'Western',
     'War',
-    'Talk Show',
+    'Talk-Show',
     'Biography',
-    'Film Noir',
+    'Film-Noir',
     'News'
   ];
 }

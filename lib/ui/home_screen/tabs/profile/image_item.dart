@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_movie_app/utils/app_color.dart';
+
+import '../../../../core/utils/app_color.dart';
 
 class ImageItem extends StatefulWidget {
   String imageName;

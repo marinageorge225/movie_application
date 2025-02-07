@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_movie_app/utils/app_color.dart';
 
-import '../app_styles.dart';
+import 'app_color.dart';
+import 'app_styles.dart';
 
 class DialogUtils {
   static void showLoading (

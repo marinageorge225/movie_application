@@ -1,9 +1,9 @@
+import '../core/utils/app_color.dart';
+import '../core/utils/app_styles.dart';
+import '../core/utils/assets_manager.dart';
 import '../ui/auth/login/login_view.dart';
 import 'package:flutter/material.dart';
 import 'package:graduation_movie_app/OnBoarding_Screen/Customized_OnBoarding_Container.dart';
-import 'package:graduation_movie_app/utils/app_color.dart';
-import 'package:graduation_movie_app/utils/app_styles.dart';
-import 'package:graduation_movie_app/utils/assets_manager.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -40,6 +40,8 @@ class _OnBoardingState extends State<OnBoarding> {
       },
       pages: [
         CustomizedPageViewModel(
+          Colors.grey,
+          Colors.grey,
             context,
             AssetsManager.onboarding1StImage,
             0.03,
@@ -54,6 +56,8 @@ class _OnBoardingState extends State<OnBoarding> {
             null,
             null),
         CustomizedPageViewModel(
+            Colors.white,
+            Color(0xff084250),
             context,
             AssetsManager.onboarding2NdImage,
             0.23,
@@ -68,6 +72,8 @@ class _OnBoardingState extends State<OnBoarding> {
             null,
             null),
         CustomizedPageViewModel(
+            Colors.white,
+            Color(0xff85210E),
             context,
             AssetsManager.onboarding3RdImage,
             0.11,
@@ -82,6 +88,8 @@ class _OnBoardingState extends State<OnBoarding> {
             AppColors.blackColor,
             AppStyles.semiBold20OrangeInter),
         CustomizedPageViewModel(
+            Colors.white,
+            Color(0xff4C2471),
             context,
             AssetsManager.onboarding4ThImage,
             0.105,
@@ -96,6 +104,8 @@ class _OnBoardingState extends State<OnBoarding> {
             AppColors.blackColor,
             AppStyles.semiBold20OrangeInter),
         CustomizedPageViewModel(
+            Colors.white,
+            AppColors.redColor,
             context,
             AssetsManager.onboarding5ThImage,
             0.068,
@@ -110,6 +120,8 @@ class _OnBoardingState extends State<OnBoarding> {
             AppColors.blackColor,
             AppStyles.semiBold20OrangeInter),
         CustomizedPageViewModel(
+            Colors.white,
+            AppColors.darkGrayColor,
             context,
             AssetsManager.onboarding6ThImage,
             0.23,
@@ -141,6 +153,8 @@ class _OnBoardingState extends State<OnBoarding> {
   }
 
   PageViewModel CustomizedPageViewModel(
+      Color gradientTopColor,
+      Color gradientBottomColor,
       BuildContext context,
       String imagePath,
       double boxHeight,
@@ -155,25 +169,24 @@ class _OnBoardingState extends State<OnBoarding> {
       Color? bottomColor,
       TextStyle? textBottomStyle) {
     var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
 
     return PageViewModel(
-        //useScrollView: true,
+        useScrollView: true,
         decoration: const PageDecoration(
-            pageColor: AppColors.blackColor,
-            footerPadding: EdgeInsets.only(top: 20),
             safeArea: 0,
-            pageMargin: EdgeInsets.zero,
-            imagePadding: EdgeInsets.zero,
             fullScreen: true,
             footerFlex: 2,
-            bodyFlex: 2),
-        image: Image.asset(
-          imagePath,
-          height: height, // Full screen height
-          width: width, // Full screen width
-          fit: BoxFit.cover,
-          // Ensures the image scales to fill the screen while maintaining its aspect ratio
+            bodyFlex: 2
+        ),
+        image: ShaderMask(
+          shaderCallback: (bounds) => LinearGradient(colors: [gradientTopColor, gradientBottomColor], begin: Alignment.topCenter, end: Alignment.bottomCenter,).createShader(bounds),
+          child: Image.asset(
+            imagePath,
+            height: height * 0.7, // Full screen height
+            width: double.infinity, // Full screen width
+            fit: BoxFit.cover,
+            // Ensures the image scales to fill the screen while maintaining its aspect ratio
+          ),
         ),
         title: "",
         body: "",

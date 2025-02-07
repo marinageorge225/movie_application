@@ -5,18 +5,20 @@ import 'package:graduation_movie_app/ui/auth/forget_password/reset_password.dart
 import 'package:graduation_movie_app/ui/home_screen/home_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:graduation_movie_app/profile.dart';
-import 'package:graduation_movie_app/splash_screen.dart';
+import 'package:graduation_movie_app/ui/splash_screen/splash_screen.dart';
 import 'package:graduation_movie_app/ui/auth/Reigster/Register_Screen.dart';
 import 'package:graduation_movie_app/ui/auth/login/login_view.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/profile/update_profile.dart';
-import 'package:graduation_movie_app/utils/app_theme.dart';
 import 'package:graduation_movie_app/ui/auth/forget_password/forget_password.dart';
-import 'package:graduation_movie_app/utils/my_bloc_observer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'cubit/app_language_cubit.dart';
+import 'core/cubit/app_language_cubit.dart';
+import 'core/di/di.dart';
+import 'core/utils/app_theme.dart';
+import 'core/utils/my_bloc_observer.dart';
 
 void main() async {
   Bloc.observer = MyBlocObserver();
+  configureDependencies();
   WidgetsFlutterBinding.ensureInitialized();
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final bool showOnBoarding = prefs.getBool(OnBoarding.routeName) ?? false;

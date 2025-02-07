@@ -1,10 +1,13 @@
 import 'dart:convert';
-import 'package:graduation_movie_app/api/api_constant.dart';
-import 'package:graduation_movie_app/api/end_points.dart';
 import 'package:graduation_movie_app/model/MovieListResponse.dart';
 import 'package:http/http.dart' as http;
-import '../model/LoginResponse.dart';
+import 'package:injectable/injectable.dart';
 
+import '../../model/LoginResponse.dart';
+import 'api_constant.dart';
+import 'end_points.dart';
+
+@singleton
 class ApiManager {
   final Uri url = Uri.parse(ApiConstant.urlLoginAuth);
 
@@ -35,7 +38,7 @@ class ApiManager {
     }
   }
 
-  static Future<MovieListResponse?> getMovieListByGenre(String genre) async {
+  Future<MovieListResponse?> getMovieListByGenre(String genre) async {
     Uri url = Uri.https(ApiConstant.movieListBaseServer, EndPoints.listMoviesApi,
     {'genre' : genre});
     try {

@@ -1,22 +1,19 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation_movie_app/cubit/app_language_cubit.dart';
 import 'package:graduation_movie_app/ui/auth/login/login_connector.dart';
-
-import 'package:graduation_movie_app/ui/custom%20widgets/custom_elevated_button.dart';
-import 'package:graduation_movie_app/ui/custom%20widgets/custom_text_field.dart';
 import 'package:graduation_movie_app/ui/home_screen/home_screen.dart';
-import 'package:graduation_movie_app/utils/app_color.dart';
-import 'package:graduation_movie_app/utils/app_styles.dart';
-import 'package:graduation_movie_app/utils/assets_manager.dart';
-import '../../../api/api_manger.dart';
-import '../../../utils/reusable widgets/dialog_utils.dart';
-import '../../home_screen/tabs/profile/update_profile.dart';
+import '../../../core/api/api_manger.dart';
+import '../../../core/cubit/app_language_cubit.dart';
+import '../../../core/utils/app_color.dart';
+import '../../../core/utils/app_styles.dart';
+import '../../../core/utils/assets_manager.dart';
+import '../../../core/utils/dialog_utils.dart';
+import '../../widgets/custom_elevated_button.dart';
+import '../../widgets/custom_text_field.dart';
 import '../Reigster/Register_Screen.dart';
 import '../forget_password/forget_password.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import 'cubit/login_states.dart';
 import 'login_view_model.dart';
 

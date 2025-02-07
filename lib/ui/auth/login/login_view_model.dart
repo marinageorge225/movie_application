@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../api/api_manger.dart';
+import '../../../core/api/api_manger.dart';
 import 'cubit/login_states.dart';
 import 'login_connector.dart';
 
