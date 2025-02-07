@@ -13,7 +13,6 @@ import 'package:graduation_movie_app/ui/home_screen/tabs/profile/update_profile.
  import 'package:graduation_movie_app/utils/app_theme.dart';
 import 'package:graduation_movie_app/ui/auth/forget_password/forget_password.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'api/api_service_register.dart';
 import 'cubit/app_language_cubit.dart';
 

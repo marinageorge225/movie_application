@@ -1,0 +1,104 @@
+[33m7ee2801[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mlogic-register[m[33m)[m Saved changes before switching branches
+[33mb761721[m[33m ([m[1;31morigin/logic-register[m[33m)[m Merged all features
+[33m2ce6a63[m Merge branch 'development' of https://github.com/marinageorge225/movie_application into logic-register
+[33m338c5ca[m ,
+[33mf859eba[m logic register
+[33mf949115[m Merge pull request #26 from marinageorge225/feature/login_with_google
+[33ma429284[m[33m ([m[1;31morigin/feature/login_with_google[m[33m)[m Added login with google logic.
+[33m6791d10[m Merge pull request #25 from marinageorge225/feature/1st_half_of_home_tab
+[33m62ff659[m[33m ([m[1;31morigin/feature/1st_half_of_home_tab[m[33m)[m added the 1st half of Home_Tab
+[33m43b6a4f[m added the 1st half of Home_Tab
+[33m08e402e[m add endpoint api
+[33mb99941b[m add endpoint api
+[33m99dec68[m[33m ([m[1;31morigin/added-register-logic[m[33m, [m[1;32mnew-branch-name[m[33m, [m[1;32mmaster[m[33m)[m Fixed registration validation issues
+[33mf945236[m Merge pull request #24 from marinageorge225/feature/bottom_navigation_bar
+[33m83b8833[m[33m ([m[1;31morigin/feature/bottom_navigation_bar[m[33m)[m Make bottom navigation bar
+[33mee2bd23[m Make bottom navigation bar
+[33med0307c[m Merge pull request #23 from marinageorge225/feature/bottom_navigation_bar
+[33m318053f[m Make bottom navigation bar
+[33m65d52e2[m register logic
+[33m1a9b4fa[m Merge pull request #22 from marinageorge225/feature/forget_password_logic
+[33m1af4545[m[33m ([m[1;31morigin/feature/forget_password_logic[m[33m)[m Added Reset Password screen.
+[33m6ae962f[m Edit in Dialog message.
+[33m1fb1862[m Edit in Imports.
+[33mdd6321f[m Merge pull request #21 from marinageorge225/feature/logic_login_screen
+[33mf75a29b[m[33m ([m[1;31morigin/feature/logic_login_screen[m[33m)[m Merge branch 'development' into feature/logic_login_screen
+[33mcdc25f0[m Added Logic for Login Screen.
+[33m1f18d47[m Files edits.
+[33m7f2c150[m Merge remote-tracking branch 'origin/development' into development
+[33m150c453[m Changed language in the app and updated Register and Login pages
+[33m1a4b746[m Merge remote-tracking branch 'origin/development' into development
+[33m7b25b43[m Edit in Update profile.
+[33m4516f35[m Update main
+[33m894c6d9[m Merge remote-tracking branch 'origin/feature-loclization' into development
+[33mb5e4260[m edit in update profile Screen
+[33m07f9d15[m Update login_view.dart
+[33m143ed12[m[33m ([m[1;32mfeature-loclization[m[33m)[m Merge pull request #20 from marinageorge225/feature-loclization
+[33m804d22e[m[33m ([m[1;31morigin/feature-loclization[m[33m)[m added localization with bloc
+[33m37ddafa[m Edit in App Styles.
+[33mb7e37a0[m Add some Padding to OnBoarding buttons
+[33m81f177b[m Add some Padding to OnBoarding buttons
+[33mf60b410[m Merge pull request #19 from marinageorge225/Register_Screen
+[33m0a09b63[m[33m ([m[1;31morigin/Register_Screen[m[33m)[m Merge branch 'development' into Register_Screen
+[33mcab796b[m Merge pull request #18 from marinageorge225/feature/login_screen
+[33mbe2c37f[m[33m ([m[1;31morigin/feature/login_screen[m[33m)[m Added localization bar in login screen.
+[33mb7fb9fa[m Merge branch 'development' into feature/login_screen
+[33mdc33084[m Added localization bar in login screen.
+[33m70fc338[m Merge pull request #17 from marinageorge225/feature/edit_in_update_profile
+[33mbd82031[m[33m ([m[1;31morigin/feature/edit_in_update_profile[m[33m)[m Edit in Update Profile Screen.
+[33mec3c891[m Added Register Screen ui.
+[33ma513104[m Files edit.
+[33md4eb247[m Merge pull request #16 from marinageorge225/localization-and-color
+[33m6737481[m Update main.dart
+[33mbfbd58e[m Merge remote-tracking branch 'origin/development' into development
+[33m9b02fe0[m Resolve Conflects . And Change Scaffold Background
+[33mba4a30e[m Update OnBoarding.dart
+[33m6c323bf[m Merge remote-tracking branch 'origin/development' into development
+[33m8a7fe9b[m Resolve Conflects
+[33md71c19e[m Update OnBoarding.dart
+[33m6642e87[m Merge branch 'feature/Forget_Password' into development
+[33m4cc43ab[m Merge remote-tracking branch 'origin/development' into development
+[33me0bb452[m Update main.dart
+[33mea82431[m Navigate between Splash Screen to Onboarding Screen
+[33m716ce57[m Added Update Profile Screen.
+[33m189cff2[m Edits in login screen view (UI).
+[33m44943b1[m Added login screen view (UI).
+[33mb645a26[m Added Onboarding Screen . Added Customized ElevatedBottom. Save Onboarding Screen to shared_preferences.
+[33me15f9a4[m Update main.dart
+[33md5aa2e9[m Merge pull request #13 from marinageorge225/feature/update_profile
+[33m0baea04[m[33m ([m[1;31morigin/feature/update_profile[m[33m)[m Merge branch 'development' into feature/update_profile
+[33mdd708d7[m Added Update Profile Screen.
+[33m0ac5d73[m[33m ([m[1;31morigin/feature/Forget_Password[m[33m)[m Added Forget Password Screen
+[33mbabb9c6[m Added Forget Password Screen
+[33m42cb587[m Navigate between Splash Screen to Onboarding Screen
+[33m0f8d81c[m[33m ([m[1;32madded-register-logic[m[33m)[m Added app language
+[33m7dfc28d[m Merge pull request #12 from marinageorge225/Onboarding_Screen1
+[33mfe85931[m[33m ([m[1;31morigin/Onboarding_Screen1[m[33m)[m Merge branch 'development' into Onboarding_Screen1
+[33m52d8365[m Added Onboarding Screen . Added Customized ElevatedBottom. Save Onboarding Screen to shared_preferences.
+[33m4d5994b[m Merge pull request #11 from marinageorge225/development
+[33mfc1e23e[m Merge pull request #10 from marinageorge225/feature/login_screen
+[33m785b6a2[m Merge branch 'development' into feature/login_screen
+[33m77e72c0[m Merge pull request #7 from marinageorge225/localization-and-color
+[33me2f665d[m Edits in login screen view (UI).
+[33m13a7a68[m Merge branch 'development' into feature/login_screen
+[33m1309f37[m Merge pull request #9 from marinageorge225/feature_splash_screen
+[33m8831b86[m[33m ([m[1;31morigin/feature_splash_screen[m[33m)[m Add Splash Screen
+[33m1419bfc[m test commit
+[33m2f40ae0[m add splash screen
+[33m4592848[m Merge pull request #8 from marinageorge225/feature_splash_screen
+[33m6488e6d[m Add Splash Screen.
+[33mfca53ca[m Added login screen view (UI).
+[33mc9b586e[m[33m ([m[1;31morigin/localization-and-color[m[33m)[m  localization done
+[33m6729108[m Merge pull request #6 from marinageorge225/feature/login_screen
+[33m418d4b2[m Merge branch 'development' into feature/login_screen
+[33m48ab54a[m Added assets manager.
+[33me1dd9f2[m Added assets manages.
+[33md8095c5[m Merge pull request #5 from marinageorge225/feature/app_styles
+[33m828e8c9[m[33m ([m[1;31morigin/feature/app_styles[m[33m)[m Added App Styles
+[33m31a2e51[m Merge pull request #4 from marinageorge225/development
+[33m36ebb2e[m Merge pull request #3 from marinageorge225/localization-and-color
+[33m0056113[m Merge pull request #2 from marinageorge225/localization-and-color
+[33m8b5e0a0[m done colors
+[33mabc21f8[m Merge pull request #1 from marinageorge225/development
+[33m932f721[m Initial project. Added empty home screen.
+[33mf7d0b26[m Initial project. Added empty home screen.
