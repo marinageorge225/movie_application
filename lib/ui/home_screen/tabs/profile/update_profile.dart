@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:graduation_movie_app/core/api/api_manger.dart';
 import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/app_styles.dart';
 import '../../../../core/utils/assets_manager.dart';
@@ -57,7 +56,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
           TextButton(onPressed: (){},
               child: Text(AppLocalizations.of(context)!.resetPassword,style: AppStyles.regular20WhiteRoboto,),),
 
-          SizedBox(height: height*0.26,),
+          SizedBox(height: height*0.24,),
 
           CustomElevatedButton(buttonOnClick: onClickDelete, buttonTitle: AppLocalizations.of(context)!.deleteAccount,
             buttonColor:AppColors.redColor ,buttonTitleStyle: AppStyles.regular20WhiteRoboto,),
