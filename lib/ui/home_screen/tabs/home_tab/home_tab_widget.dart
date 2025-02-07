@@ -45,16 +45,7 @@ class _HomeTabState extends State<HomeTab> {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  // Container(
-                  //   height: height * 0.075,
-                  //   decoration: const BoxDecoration(
-                  //       color: AppColors.transparentColor,
-                  //       gradient: LinearGradient(colors: [Colors.grey,
-                  //         AppColors.blackColor
-                  //       ], begin: Alignment.topCenter, end: Alignment.bottomCenter)
-                  //   ),
-                  // ),
-                  Column(
+                      Column(
                     children: [
                       Image.asset(AssetsManager.availableNowImage),
                       Image.asset(AssetsManager.watchNowImage)

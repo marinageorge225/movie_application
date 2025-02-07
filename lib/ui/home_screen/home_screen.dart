@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/browse_tab/browse_tab_widget.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/home_tab/home_tab_widget.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/profile/profile_tab_widget.dart';
+import 'package:graduation_movie_app/ui/home_screen/tabs/profile/update_profile.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/search_tab/search_tab_widget.dart';
 import '../../core/utils/app_color.dart';
 import '../../core/utils/assets_manager.dart';
@@ -20,7 +21,8 @@ class _HomeScreenState extends State<HomeScreen> {
     HomeTab(),
     SearchTab(),
     BrowseTab(),
-    ProfileTab(),
+    //ProfileTab(),
+    UpdateProfile()
   ];
 
   @override
@@ -30,13 +32,12 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
         height: height * 0.065,
-        elevation: 0,
-        padding: EdgeInsets.symmetric(horizontal: width * 0.03),
+        padding: EdgeInsets.zero,
         color: AppColors.transparentColor,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(16),
           child: BottomNavigationBar(
-            iconSize: 23,
+            iconSize: 22,
             backgroundColor: AppColors.darkGrayColor,
             currentIndex: selectedIndex,
             type: BottomNavigationBarType.fixed,
