@@ -12,28 +12,41 @@ class UpdateProfileViewModel extends Cubit<UpdateProfileStates>{
 
   UpdateProfileViewModel():super(LoadUserProfileState());
 
-  Future<String?> getToken()async{
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('token');
-  }
-
-  Future<GetProfileResponse?> getProfile()async{
-    //print("enteeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeredddddddddddddddd");
-
-    print("tooooooooooooooooooooooooken ${await getToken()}");
-    //if(token != null) {
-      print("enteeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeredddddddddddddddd");
-      var response = await ApiManager.getProfileInfo('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTU1ZjcyZTMxYzUwMjhjMmYwNzMzYSIsImVtYWlsIjoicm93YW5zaGVyaWYxODJAZ21haWwuY29tIiwiaWF0IjoxNzM4OTQ1MDA5fQ.ixyD14RvH_FbUyrhJsCGkTrfJCOCHHd4dNb_vXd8QvY');
+  Future getProfile()async{
+    final prefs = await SharedPreferences.getInstance();
+    try {
+      emit(UpdateProfileInitialState());
+    var response = await ApiManager.getProfileInfo(prefs.get("user_token").toString());
       nameController = TextEditingController(text: response!.data!.name!);
       phoneController = TextEditingController(text: response.data!.phone!);
       print("user name ${response.data!.name!}");
       print("user phone ${response.data!.phone!}");
-      emit(LoadUserProfileState());
-    //}
-  }
-  void updateProfile(){
+      emit(LoadUserProfileState());}
+        catch (e){
 
-  }
-  void deleteProfile(){}
+        }
+    }
+
+  Future<void> updateProfile() async {
+    try {
+      emit(LoadUserProfileState());
+
+      final prefs = await SharedPreferences.getInstance();
+
+      var response = await ApiManager.updateProfileInfo(
+        token: prefs.getString("user_token").toString(),
+        name: nameController.text,
+        phone: phoneController.text,
+      );
+
+      if (response != null) {
+        emit(UpdateProfileSuccessState());
+      } else {
+        emit(UpdateProfileErrorState());
+      }
+    } catch (e) {
+      emit(UpdateProfileErrorState());
+    }
+  }  void deleteProfile(){}
   void saveAvatarImage(){}
 }

@@ -74,13 +74,11 @@ class ApiManager {
   }
   static Future<GetProfileResponse?> getProfileInfo(String token)async{
     Uri url = Uri.https(ApiConstant.profileBaseUrl, EndPoints.profileApi);
-    print("pppppppppppppppppppppppppppppppppppppppppppppppppppp");
     try {
       var response = await http.get(url,
           headers: {
             "Authorization": "Bearer $token",
           });
-      print('tooooooooookeeeeeeeeen ---------------> $token');
       var responseBody = response.body;
       var json = jsonDecode(responseBody);
       return GetProfileResponse.fromJson(json);
@@ -105,16 +103,43 @@ class ApiManager {
     }
   }
 
-  static Future<GetProfileResponse?> updateProfileInfo(String token)async{
+  static Future<GetProfileResponse?> updateProfileInfo({
+    required String token,
+    String? name,
+    String? phone,
+    int? avatarId,
+  }) async {
     Uri url = Uri.https(ApiConstant.profileBaseUrl, EndPoints.profileApi);
+
     try {
-      var response = await http.patch(url,
-          headers: {'Authorization' : token});
-      var responseBody = response.body;
-      var json = jsonDecode(responseBody);
-      return GetProfileResponse.fromJson(json);
-    }catch(e){
-      throw e;
+      Map<String, dynamic> bodyData = {};
+      if (name != null) bodyData["name"] = name;
+      if (phone != null) bodyData["phone"] = phone;
+      if (avatarId != null) bodyData["avaterId"] = avatarId;
+
+      var response = await http.patch(
+        url,
+        headers: {
+          'Authorization': token,
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(bodyData),
+
+      );
+
+      if (response.statusCode == 200) {
+
+
+        var responseBody = response.body;
+        var json = jsonDecode(responseBody);
+        print(response.statusCode);
+        return GetProfileResponse.fromJson(json);
+      }
+      else {
+        return null;
+      }
+    } catch (e) {
+      return null;
     }
   }
 

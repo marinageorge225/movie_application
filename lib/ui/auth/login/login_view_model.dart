@@ -17,10 +17,6 @@ class LoginViewModel extends Cubit<LoginState> {
 LoginRepository loginRepository;
   LoginViewModel(this.loginRepository) : super(LoginInitial());
 
-  static Future<void> saveToken(String token)async{
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTU1ZjcyZTMxYzUwMjhjMmYwNzMzYSIsImVtYWlsIjoicm93YW5zaGVyaWYxODJAZ21haWwuY29tIiwiaWF0IjoxNzM4OTQ1MDA5fQ.ixyD14RvH_FbUyrhJsCGkTrfJCOCHHd4dNb_vXd8QvY');
-  }
 
    validateAndLogin(String email, String password, GlobalKey<FormState> formKey) async {
     if (formKey.currentState?.validate() == true) {
@@ -30,7 +26,9 @@ LoginRepository loginRepository;
         final response = await loginRepository.login(email, password);
 
         if (response.data !=null) {
-          saveToken(response.data!);
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setString('user_token', response.data!);
+
           emit(LoginSuccess(response.message!));
         } else {
 

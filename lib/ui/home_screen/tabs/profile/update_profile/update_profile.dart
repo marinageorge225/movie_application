@@ -47,6 +47,11 @@ class _UpdateProfileState extends State<UpdateProfile> {
           child: CircularProgressIndicator(color:  AppColors.orangeColor,),
         );
       }
+      if(state is UpdateProfileErrorState){
+        return Center(
+          child: CircularProgressIndicator(color:  AppColors.redColor,),
+        );
+      }
       else if(state is LoadUserProfileState){
       return SingleChildScrollView(
         child: Container(
@@ -89,6 +94,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
   }
 
   onClickUpdate() {
+  viewModel.updateProfile();
   }
 
   onClickDelete() {
