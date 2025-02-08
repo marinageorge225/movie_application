@@ -10,7 +10,7 @@ class UpdateProfileViewModel extends Cubit<UpdateProfileStates>{
   TextEditingController phoneController = TextEditingController();
   String? selectedAvatar;
 
-  UpdateProfileViewModel():super(LoadUserProfileState());
+  UpdateProfileViewModel():super(UpdateProfileInitialState());
 
   Future getProfile()async{
     final prefs = await SharedPreferences.getInstance();
@@ -19,11 +19,9 @@ class UpdateProfileViewModel extends Cubit<UpdateProfileStates>{
     var response = await ApiManager.getProfileInfo(prefs.get("user_token").toString());
       nameController = TextEditingController(text: response!.data!.name!);
       phoneController = TextEditingController(text: response.data!.phone!);
-      print("user name ${response.data!.name!}");
-      print("user phone ${response.data!.phone!}");
       emit(LoadUserProfileState());}
         catch (e){
-
+      emit(ProfileErrorState(errorMsg: e.toString()));
         }
     }
 
@@ -40,12 +38,12 @@ class UpdateProfileViewModel extends Cubit<UpdateProfileStates>{
       );
 
       if (response != null) {
-        emit(UpdateProfileSuccessState());
+        emit(UpdateProfileSuccessState(successMsg: response.message!));
       } else {
-        emit(UpdateProfileErrorState());
+        emit(ProfileErrorState(errorMsg: response!.message!));
       }
     } catch (e) {
-      emit(UpdateProfileErrorState());
+      emit(ProfileErrorState(errorMsg: e.toString()));
     }
   }  void deleteProfile(){}
   void saveAvatarImage(){}
