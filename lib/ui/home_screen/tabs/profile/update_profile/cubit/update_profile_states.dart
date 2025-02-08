@@ -1,0 +1,7 @@
+abstract class UpdateProfileStates{}
+class UpdateProfileInitialState extends UpdateProfileStates{}
+class LoadUserProfileState extends UpdateProfileStates{}
+class DeleteProfileSuccessState extends UpdateProfileStates{}
+class DeleteProfileErrorState extends UpdateProfileStates{}
+class UpdateProfileSuccessState extends UpdateProfileStates{}
+class UpdateProfileErrorState extends UpdateProfileStates{}

@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:graduation_movie_app/model/MovieListResponse.dart';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
+import '../../model/GetProfileResponse.dart';
 import '../../model/LoginResponse.dart';
-import '../../model/MovieResponse.dart';
 import 'api_constant.dart';
 import 'end_points.dart';
 
@@ -54,7 +54,7 @@ class ApiManager {
 
 //https://yts.mx/api/v2/list_movies.json
 
-  static Future<MovieResponse?> getMovies() async {
+  static Future<MovieListResponse?> getMovies() async {
     Uri url = Uri.https(ApiConstant.baseUrl, EndPoints.movieApi, {
       'sort_by': 'date_added',
       'order_by': 'desc',
@@ -64,12 +64,57 @@ class ApiManager {
       var response = await http.get(url);
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
-        return MovieResponse.fromJson(json);
+        return MovieListResponse.fromJson(json);
       } else {
         throw Exception('Failed to load movies: ${response.statusCode}');
       }
     } catch (e) {
       throw Exception('Error occurred while fetching movies: $e');
+    }
+  }
+  static Future<GetProfileResponse?> getProfileInfo(String token)async{
+    Uri url = Uri.https(ApiConstant.profileBaseUrl, EndPoints.profileApi);
+    print("pppppppppppppppppppppppppppppppppppppppppppppppppppp");
+    try {
+      var response = await http.get(url,
+          headers: {
+            "Authorization": "Bearer $token",
+          });
+      print('tooooooooookeeeeeeeeen ---------------> $token');
+      var responseBody = response.body;
+      var json = jsonDecode(responseBody);
+      return GetProfileResponse.fromJson(json);
+    }catch(e){
+      print(e.toString());
+      throw e;
+
+    }
+  }
+
+  static Future<GetProfileResponse?> deleteProfileInfo(String token)async{
+    Uri url = Uri.https(ApiConstant.profileBaseUrl, EndPoints.profileApi);
+    try {
+      var response = await http.delete(url,
+          headers: {'Authorization' : token,
+            "Content-Type": ApiConstant.contentType,});
+      var responseBody = response.body;
+      var json = jsonDecode(responseBody);
+      return GetProfileResponse.fromJson(json);
+    }catch(e){
+      throw e;
+    }
+  }
+
+  static Future<GetProfileResponse?> updateProfileInfo(String token)async{
+    Uri url = Uri.https(ApiConstant.profileBaseUrl, EndPoints.profileApi);
+    try {
+      var response = await http.patch(url,
+          headers: {'Authorization' : token});
+      var responseBody = response.body;
+      var json = jsonDecode(responseBody);
+      return GetProfileResponse.fromJson(json);
+    }catch(e){
+      throw e;
     }
   }
 
