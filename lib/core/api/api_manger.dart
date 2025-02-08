@@ -56,7 +56,7 @@ class ApiManager {
 
   static Future<MovieListResponse?> getMovies() async {
     Uri url = Uri.https(ApiConstant.baseUrl, EndPoints.movieApi, {
-      'sort_by': 'date_added',
+      'sort_by': 'year',
       'order_by': 'desc',
     });
 
@@ -69,7 +69,7 @@ class ApiManager {
         throw Exception('Failed to load movies: ${response.statusCode}');
       }
     } catch (e) {
-      throw Exception('Error occurred while fetching movies: $e');
+      throw e;
     }
   }
   static Future<GetProfileResponse?> getProfileInfo(String token)async{

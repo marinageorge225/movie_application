@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_movie_app/core/di/di.dart';
@@ -7,7 +6,6 @@ import 'package:graduation_movie_app/model/MovieListResponse.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/home_tab/cubit/1st_part_home_tab/home_1st_part.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/home_tab/cubit/home_tap_view_model.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/home_tab/home_tap_bottom_part.dart';
-import '../../../../core/api/api_manger.dart';
 import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/app_styles.dart';
 import 'cubit/1st_part_home_tab/home_1st_part_view_model.dart';
@@ -49,7 +47,7 @@ class _HomeTabState extends State<HomeTab> {
                       AssetsManager.onboarding6ThImage,
                       width: double.infinity,
                       height: height * 0.69,
-                      fit: BoxFit.cover,
+                      fit: BoxFit.fill,
                     ),
                   ),
                       Column(

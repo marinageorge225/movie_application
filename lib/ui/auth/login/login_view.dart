@@ -1,10 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:graduation_movie_app/core/di/di.dart';
 import 'package:graduation_movie_app/ui/auth/login/login_connector.dart';
 import 'package:graduation_movie_app/ui/home_screen/home_screen.dart';
-import '../../../core/api/api_manger.dart';
+
 import '../../../core/cubit/app_language_cubit.dart';
 import '../../../core/utils/app_color.dart';
 import '../../../core/utils/app_styles.dart';
@@ -14,8 +15,8 @@ import '../../widgets/custom_elevated_button.dart';
 import '../../widgets/custom_text_field.dart';
 import '../Reigster/Register_Screen.dart';
 import '../forget_password/forget_password.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'cubit/login_states.dart';
+import 'google/google_sign_in_api.dart';
 import 'login_view_model.dart';
 
 class LoginView extends StatefulWidget {
@@ -191,9 +192,9 @@ class _LoginViewState extends State<LoginView> implements LoginConnector {
                     SizedBox(height: height * 0.03),
                     CustomElevatedButton(
                       buttonOnClick: () {
-                        viewModel.loginWithGoogle();
-
-                        },
+                        //viewModel.loginWithGoogle();
+                        SignIn();
+                      },
                       buttonIcon: const ImageIcon(
                         AssetImage(AssetsManager.googleIcon),
                         size: 30,
@@ -254,6 +255,18 @@ class _LoginViewState extends State<LoginView> implements LoginConnector {
         ),
       ),
     );
+  }
+
+  Future SignIn() async {
+    final user = await GoogleSignInApi.login();
+
+    if (user == null) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Sign in Failed')));
+    } else {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => HomeScreen()));
+    }
   }
 
   @override
