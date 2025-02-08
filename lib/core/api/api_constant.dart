@@ -3,4 +3,5 @@ class ApiConstant {
   static var contentType="application/json";
   static const String movieListBaseServer = 'yts.mx';
   static const String baseUrl = 'yts.mx';
+  static const profileBaseUrl = 'route-movie-apis.vercel.app';
 }

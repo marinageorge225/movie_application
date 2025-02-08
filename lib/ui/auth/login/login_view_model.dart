@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_movie_app/repository/login/repository/login_repository.dart';
 import 'package:injectable/injectable.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/api/api_manger.dart';
 import 'cubit/login_states.dart';
 import 'login_connector.dart';
@@ -16,6 +17,7 @@ class LoginViewModel extends Cubit<LoginState> {
 LoginRepository loginRepository;
   LoginViewModel(this.loginRepository) : super(LoginInitial());
 
+
    validateAndLogin(String email, String password, GlobalKey<FormState> formKey) async {
     if (formKey.currentState?.validate() == true) {
       emit(LoginLoading());
@@ -24,9 +26,10 @@ LoginRepository loginRepository;
         final response = await loginRepository.login(email, password);
 
         if (response.data !=null) {
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setString('user_token', response.data!);
 
-
-            emit(LoginSuccess(response.message!));
+          emit(LoginSuccess(response.message!));
         } else {
 
           emit(LoginFailure(response.message!));

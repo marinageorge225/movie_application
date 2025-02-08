@@ -1,14 +1,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation_movie_app/model/MovieResponse.dart';
 import '../../../../../../core/api/api_manger.dart';
+import '../../../../../../model/MovieListResponse.dart';
 
 abstract class HomeTabState {}
 
 class HomeTabLoading extends HomeTabState {}
 
 class HomeTabLoaded extends HomeTabState {
-  final List<Movies> movies;
+  final List<Movie> movies;
 
   HomeTabLoaded(this.movies);
 }
