@@ -31,79 +31,79 @@ class _HomeTabState extends State<HomeTab> {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return SingleChildScrollView(
-        child: BlocProvider(
-          create: (context) => viewModel,
-          child: Column(
-            children: [
-              Stack(
-                alignment: Alignment.center,
-                children: [
-                  ShaderMask(
-                    shaderCallback: (bounds) => const LinearGradient(colors: [Colors.grey,
-                      AppColors.blackColor
-                    ], begin: Alignment.topCenter, end: Alignment.bottomCenter)
-                        .createShader(bounds),
-                    child: Image.asset(
-                      AssetsManager.onboarding6ThImage,
-                      width: double.infinity,
-                      height: height * 0.69,
-                      fit: BoxFit.fill,
-                    ),
+      child: BlocProvider(
+        create: (context) => viewModel,
+        child: Column(
+          children: [
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                ShaderMask(
+                  shaderCallback: (bounds) => const LinearGradient(colors: [Colors.grey,
+                    AppColors.blackColor
+                  ], begin: Alignment.topCenter, end: Alignment.bottomCenter)
+                      .createShader(bounds),
+                  child: Image.asset(
+                    AssetsManager.onboarding6ThImage,
+                    width: double.infinity,
+                    height: height * 0.69,
+                    fit: BoxFit.fill,
                   ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      BlocProvider(
-                        create: (context) => FirstPartHomeViewModel()..getMovies(),
-                        child: FirstPartHome(),
-                      ),
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    BlocProvider(
+                      create: (context) => FirstPartHomeViewModel()..getMovies(),
+                      child: FirstPartHome(),
+                    ),
 
-                      SizedBox(height: height * 0.03,),
-                      Image.asset(AssetsManager.watchNowImage)
-                    ],
-                  )
-                ],
-              ),
-              Row(
-                children: [
-                  SizedBox(
-                    width: width * 0.03,
+                    SizedBox(height: height * 0.03,),
+                    Image.asset(AssetsManager.watchNowImage)
+                  ],
+                )
+              ],
+            ),
+            Row(
+              children: [
+                SizedBox(
+                  width: width * 0.03,
+                ),
+                Expanded(
+                  child: Text(
+                    viewModel.selectedGenre,
+                    style: AppStyles.regular20WhiteRoboto,
                   ),
-                  Expanded(
-                    child: Text(
-                      viewModel.selectedGenre,
-                      style: AppStyles.regular20WhiteRoboto,
-                    ),
-                  ),
-                  TextButton(
-                      onPressed: () {},
-                      child: Row(
-                        children: [
-                          Text(
-                            'See More',
-                            style: AppStyles.regular16OrangeRoboto,
-                          ),
-                          SizedBox(
-                            width: width * 0.01,
-                          ),
-                          const Icon(
-                            Icons.arrow_forward,
-                            color: AppColors.orangeColor,
-                            size: 15,
-                          )
-                        ],
-                      ))
-                ],
-              ),
-              HomeTapBottomPart(
-                genre: viewModel.selectedGenre,
-              ),
-              SizedBox(
-                height: height * 0.02,
-              )
-            ],
-          ),
+                ),
+                TextButton(
+                    onPressed: () {},
+                    child: Row(
+                      children: [
+                        Text(
+                          'See More',
+                          style: AppStyles.regular16OrangeRoboto,
+                        ),
+                        SizedBox(
+                          width: width * 0.01,
+                        ),
+                        const Icon(
+                          Icons.arrow_forward,
+                          color: AppColors.orangeColor,
+                          size: 15,
+                        )
+                      ],
+                    ))
+              ],
+            ),
+            HomeTapBottomPart(
+              genre: viewModel.selectedGenre,
+            ),
+            SizedBox(
+              height: height * 0.02,
+            )
+          ],
         ),
-      );
+      ),
+    );
   }
 }

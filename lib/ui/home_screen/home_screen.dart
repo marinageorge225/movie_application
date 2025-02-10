@@ -29,13 +29,13 @@ class _HomeScreenState extends State<HomeScreen> {
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
       bottomNavigationBar: Container(
-        height: height * 0.0855,
+        height: height * 0.085,
         width: width * 0.9,
         margin: EdgeInsets.only(right: width * 0.03,left: width * 0.03,bottom: height * 0.02),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(16),
           child: BottomNavigationBar(
-            iconSize: 22,
+            iconSize: 17,
             backgroundColor: AppColors.darkGrayColor,
             currentIndex: selectedIndex,
             type: BottomNavigationBarType.fixed,
