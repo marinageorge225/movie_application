@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:graduation_movie_app/core/di/di.dart';
+import 'package:graduation_movie_app/core/utils/dialog_utils.dart';
+import 'package:graduation_movie_app/ui/auth/forget_password/cubit/reset_password_states.dart';
+import 'package:graduation_movie_app/ui/auth/forget_password/cubit/reset_password_view_model.dart';
 import '../../../core/utils/app_color.dart';
 import '../../../core/utils/app_styles.dart';
 import '../../../core/utils/assets_manager.dart';
@@ -14,15 +19,22 @@ class ResetPassword extends StatefulWidget {
 }
 
 class _ResetPasswordState extends State<ResetPassword> {
-  final TextEditingController oldPasswordController = TextEditingController();
 
-  final TextEditingController newPasswordController = TextEditingController();
+  var viewModel=getIt<ResetPasswordViewModel>();
 
-  bool showPassword = false;
+  bool showOldPassword = false;
+  bool showNewPassword = false;
 
-  void togglePasswordVisibility() {
+
+  void toggleOldPasswordVisibility() {
     setState(() {
-      showPassword = !showPassword;
+      showOldPassword = !showOldPassword;
+    });
+  }
+
+  void toggleNewPasswordVisibility() {
+    setState(() {
+      showNewPassword = !showNewPassword;
     });
   }
 
@@ -35,7 +47,7 @@ class _ResetPasswordState extends State<ResetPassword> {
       appBar: AppBar(
         backgroundColor: AppColors.blackColor,
         title: Text(
-          AppLocalizations.of(context)!.forgetPassword,
+          AppLocalizations.of(context)!.resetPassword,
           style: AppStyles.regular16OrangeRoboto,
         ),
         leading: IconButton(
@@ -44,79 +56,108 @@ class _ResetPasswordState extends State<ResetPassword> {
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Center(
-              child: Image.asset(
-                AssetsManager.forgetPasswordImage,
-                height: height * 0.45,
-                width: width * 0.95,
-              ),
-            ),
-            SizedBox(height: height * 0.01),
+      body: BlocListener(
+        bloc: viewModel,
+        listener: (context,state){
+          if (state is ResetPasswordLoading){
+          DialogUtils.showLoading(context: context);
 
-            // Email TextField
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: width * 0.05),
-              child:
-              CustomTextField(
-                validator: (text) {
-                  if (text == null || text.isEmpty) {
-                    return "* required please enter password";
-                  }
-                  if (text.length < 8) {
-                    return "* password should be 8 characters at least";
-                  }
-                  return null;
-                },
-                prefixIcon: const ImageIcon(AssetImage(AssetsManager.passwordIcon)),
-                hintText: "Old Password",
-                obscureText: !showPassword,
-                suffixIcon: IconButton(
-                  onPressed: togglePasswordVisibility,
-                  icon: Icon(
-                    showPassword ? Icons.visibility : Icons.visibility_off_sharp,
+          }
+          else if (state is ResetPasswordSuccess){
+            DialogUtils.hideLoading(context);
+            DialogUtils.showMessage(context: context, message: state.message,title: "Success",
+                posActionName: "Ok"
+                ,posAction: (){
+              Navigator.pop(context);
+            });
+
+          }
+          else if (state is ResetPasswordFailure){
+            DialogUtils.hideLoading(context);
+            DialogUtils.showMessage(context: context, message: state.errorMessage,title: "Error");
+
+          }
+        },
+        child: SingleChildScrollView(
+          child: Form(
+            key: viewModel.formKey,
+            child: Column(
+              children: [
+                Center(
+                  child: Image.asset(
+                    AssetsManager.forgetPasswordImage,
+                    height: height * 0.45,
+                    width: width * 0.95,
                   ),
                 ),
-                controller: oldPasswordController,
-              ),
-            ),
-            SizedBox(height: height * 0.03),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: width * 0.05),
-              child:
-              CustomTextField(
-                validator: (text) {
-                  if (text == null || text.isEmpty) {
-                    return "* required please enter password";
-                  }
-                  if (text.length < 8) {
-                    return "* password should be 8 characters at least";
-                  }
-                  return null;
-                },
-                prefixIcon: const ImageIcon(AssetImage(AssetsManager.passwordIcon)),
-                hintText: "New Password",
-                obscureText: !showPassword,
-                suffixIcon: IconButton(
-                  onPressed: togglePasswordVisibility,
-                  icon: Icon(
-                    showPassword ? Icons.visibility : Icons.visibility_off_sharp,
+                SizedBox(height: height * 0.01),
+
+                // Email TextField
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: width * 0.05),
+                  child:
+                  CustomTextField(
+                    validator: (text) {
+                      if (text == null || text.isEmpty) {
+                        return "* required please enter password";
+                      }
+                      if (text.length < 8) {
+                        return "* password should be 8 characters at least";
+                      }
+                      return null;
+                    },
+                    prefixIcon: const ImageIcon(AssetImage(AssetsManager.passwordIcon)),
+                    hintText: "Old Password",
+                    obscureText: !showOldPassword,
+                    suffixIcon: IconButton(
+                      onPressed: toggleOldPasswordVisibility,
+                      icon: Icon(
+                        showOldPassword ? Icons.visibility : Icons.visibility_off_sharp,
+                      ),
+                    ),
+                    controller: viewModel.oldPasswordController,
                   ),
                 ),
-                controller: newPasswordController,
-              ),
+                SizedBox(height: height * 0.03),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: width * 0.05),
+                  child:
+                  CustomTextField(
+                    validator: (text) {
+                      if (text == null || text.isEmpty) {
+                        return "* required please enter password";
+                      }
+                      if (text.length < 8) {
+                        return "* password should be 8 characters at least";
+                      }
+                      return null;
+                    },
+                    prefixIcon: const ImageIcon(AssetImage(AssetsManager.passwordIcon)),
+                    hintText: "New Password",
+                    obscureText: !showNewPassword,
+                    suffixIcon: IconButton(
+                      onPressed: toggleNewPasswordVisibility,
+                      icon: Icon(
+                        showNewPassword ? Icons.visibility : Icons.visibility_off_sharp,
+                      ),
+                    ),
+                    controller: viewModel.newPasswordController,
+                  ),
+                ),
+                SizedBox(height: height * 0.03),
+
+
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: width * 0.05),
+                  child: CustomElevatedButton(
+                      buttonOnClick: () {
+
+                        viewModel.resetPassword();
+                      }, buttonTitle: "Reset Password"),
+                )
+              ],
             ),
-            SizedBox(height: height * 0.03),
-
-
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: width * 0.05),
-              child: CustomElevatedButton(
-                  buttonOnClick: () {}, buttonTitle: "Reset Password"),
-            )
-          ],
+          ),
         ),
       ),
     );

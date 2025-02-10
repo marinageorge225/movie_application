@@ -129,7 +129,7 @@ class _LoginViewState extends State<LoginView> implements LoginConnector {
                       alignment: Alignment.centerRight,
                       child: TextButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, ForgetPassword.routeName);
+                          // Navigator.pushNamed(context, ForgetPassword.routeName);
                         },
                         child: Text(
                           AppLocalizations.of(context)!.forgetPassword,

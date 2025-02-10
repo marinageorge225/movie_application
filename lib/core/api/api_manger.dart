@@ -103,6 +103,7 @@ class ApiManager {
     }
   }
 
+
   static Future<GetProfileResponse?> updateProfileInfo({
     required String token,
     String? name,
@@ -142,5 +143,8 @@ class ApiManager {
       return null;
     }
   }
+
+
+
 
 }

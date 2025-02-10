@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:graduation_movie_app/core/utils/dialog_utils.dart';
+import 'package:graduation_movie_app/ui/auth/forget_password/reset_password.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/profile/update_profile/cubit/update_profile_states.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/profile/update_profile/cubit/update_profile_view_model.dart';
 import '../../../../../core/utils/app_color.dart';
@@ -100,7 +101,10 @@ class _UpdateProfileState extends State<UpdateProfile> {
                               controller: viewModel.phoneController,
                             ),
                             TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pushNamed(context, ResetPassword.routeName);
+
+                              },
                               child: Text(
                                 AppLocalizations.of(context)!.resetPassword,
                                 style: AppStyles.regular20WhiteRoboto,
@@ -166,7 +170,12 @@ class _UpdateProfileState extends State<UpdateProfile> {
                         controller: viewModel.phoneController,
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, ResetPassword.routeName);
+
+
+                        }
+                        ,
                         child: Text(
                           AppLocalizations.of(context)!.resetPassword,
                           style: AppStyles.regular20WhiteRoboto,
