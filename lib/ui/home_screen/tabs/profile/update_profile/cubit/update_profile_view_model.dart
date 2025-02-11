@@ -13,38 +13,42 @@ class UpdateProfileViewModel extends Cubit<UpdateProfileStates>{
   UpdateProfileViewModel():super(UpdateProfileInitialState());
 
   Future getProfile()async{
-    final prefs = await SharedPreferences.getInstance();
     try {
-      emit(UpdateProfileInitialState());
-    var response = await ApiManager.getProfileInfo(prefs.get("user_token").toString());
-      nameController = TextEditingController(text: response!.data!.name!);
-      phoneController = TextEditingController(text: response.data!.phone!);
-      emit(LoadUserProfileState());}
+    final prefs = await SharedPreferences.getInstance();
+    String token = prefs.get("user_token").toString();
+    var response = await ApiManager.getProfileInfo(token);
+      nameController.text =response!.data!.name!;
+      phoneController.text = response.data!.phone!;}
         catch (e){
-      emit(ProfileErrorState(errorMsg: e.toString()));
+      emit(UpdateProfileErrorState(errorMsg: e.toString()));
         }
     }
 
   Future<void> updateProfile() async {
     try {
-      emit(LoadUserProfileState());
-
       final prefs = await SharedPreferences.getInstance();
-
+      String token = prefs.getString("user_token").toString();
       var response = await ApiManager.updateProfileInfo(
-        token: prefs.getString("user_token").toString(),
+        token: token,
         name: nameController.text,
         phone: phoneController.text,
+        avatarId: 2
       );
-
-      if (response != null) {
-        emit(UpdateProfileSuccessState(successMsg: response.message!));
-      } else {
-        emit(ProfileErrorState(errorMsg: response!.message!));
-      }
+      emit(UpdateProfileSuccessState(successMsg: response!.message!));
     } catch (e) {
-      emit(ProfileErrorState(errorMsg: e.toString()));
+      emit(UpdateProfileErrorState(errorMsg: e.toString()));
     }
-  }  void deleteProfile(){}
-  void saveAvatarImage(){}
+  }
+
+  void deleteProfile()async{
+    try{
+      final prefs = await SharedPreferences.getInstance();
+      String token = prefs.getString("user_token").toString();
+      var response = await ApiManager.deleteProfileInfo(token);
+      emit(UpdateProfileSuccessState(successMsg: response!.message!));
+    }catch(e){
+      emit(UpdateProfileErrorState(errorMsg: e.toString()));
+    }
+  }
+
 }
