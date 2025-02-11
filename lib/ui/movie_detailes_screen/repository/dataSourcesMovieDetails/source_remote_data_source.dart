@@ -1,14 +1,5 @@
+import '../../../../model/MovieDetailsResponse.dart';
 
-import 'package:news/model/sourceResponse.dart';
-
-abstract class SourceRemoteDataSource{
-  Future<SourceResponse> getSources(String categoryId);
+abstract class SourceRemoteDataSource {
+  Future<MovieDetailsResponse?> getMovieDetails(int movieId);
 }
-
-
-
-
-
-
-
-///TODO:offline

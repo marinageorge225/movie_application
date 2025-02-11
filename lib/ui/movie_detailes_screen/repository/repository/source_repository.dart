@@ -1,7 +1,5 @@
-//todo
-import '../../../model/sourceResponse.dart';
+import '../../../../model/MovieDetailsResponse.dart';
 
-abstract class SourceRepository{
-    /// عايز اجيب مصادر الاخبار ف هروح اعمل ميثود اسمها (getSources)
-Future <SourceResponse> getSource (String categoryId );
-  }
+abstract class SourceRepository {
+  Future<MovieDetailsResponse?> getMovieDetails(int movieId);
+}

@@ -5,7 +5,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:graduation_movie_app/core/di/di.dart';
 import 'package:graduation_movie_app/ui/auth/login/login_connector.dart';
 import 'package:graduation_movie_app/ui/home_screen/home_screen.dart';
-
 import '../../../core/cubit/app_language_cubit.dart';
 import '../../../core/utils/app_color.dart';
 import '../../../core/utils/app_styles.dart';
