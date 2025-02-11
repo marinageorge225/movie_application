@@ -112,7 +112,6 @@ class ApiManager {
       var responseBody = response.body;
       var json = jsonDecode(responseBody);
       return GetProfileResponse.fromJson(json);
-
     }catch(e){
       throw e;
     }
@@ -120,6 +119,7 @@ class ApiManager {
 
   static Future<GetProfileResponse?> deleteProfileInfo(String token)async{
     Uri url = Uri.https(ApiConstant.profileBaseUrl, EndPoints.profileApi);
+
     try {
       var response = await http.delete(url,
           headers: {'Authorization' : "Bearer $token",
@@ -131,6 +131,5 @@ class ApiManager {
       throw e;
     }
   }
-
 
 }
