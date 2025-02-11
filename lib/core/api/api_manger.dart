@@ -56,7 +56,7 @@ class ApiManager {
 
   static Future<MovieListResponse?> getMovies() async {
     Uri url = Uri.https(ApiConstant.baseUrl, EndPoints.movieApi, {
-      'sort_by': 'year',
+      'sort_by': 'date_added',
       'order_by': 'desc',
     });
 
@@ -89,12 +89,26 @@ class ApiManager {
     }
   }
 
-  static Future<GetProfileResponse?> deleteProfileInfo(String token)async{
+
+  static Future<GetProfileResponse?> updateProfileInfo({required String token,
+  String? name,
+  String? phone,
+  int? avatarId}) async{
     Uri url = Uri.https(ApiConstant.profileBaseUrl, EndPoints.profileApi);
-    try {
-      var response = await http.delete(url,
-          headers: {'Authorization' : token,
-            "Content-Type": ApiConstant.contentType,});
+    try{
+      var response = await http.patch(
+          url,
+          headers: {
+            'Authorization': "Bearer $token",
+            'Content-Type': ApiConstant.contentType,
+          },
+          body: jsonEncode({
+            "name" : name,
+            "phone" : phone,
+            "avaterId" : avatarId
+          })
+      );
+
       var responseBody = response.body;
       var json = jsonDecode(responseBody);
       return GetProfileResponse.fromJson(json);
@@ -103,48 +117,19 @@ class ApiManager {
     }
   }
 
-
-  static Future<GetProfileResponse?> updateProfileInfo({
-    required String token,
-    String? name,
-    String? phone,
-    int? avatarId,
-  }) async {
+  static Future<GetProfileResponse?> deleteProfileInfo(String token)async{
     Uri url = Uri.https(ApiConstant.profileBaseUrl, EndPoints.profileApi);
 
     try {
-      Map<String, dynamic> bodyData = {};
-      if (name != null) bodyData["name"] = name;
-      if (phone != null) bodyData["phone"] = phone;
-      if (avatarId != null) bodyData["avaterId"] = avatarId;
-
-      var response = await http.patch(
-        url,
-        headers: {
-          'Authorization': token,
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode(bodyData),
-
-      );
-
-      if (response.statusCode == 200) {
-
-
-        var responseBody = response.body;
-        var json = jsonDecode(responseBody);
-        print(response.statusCode);
-        return GetProfileResponse.fromJson(json);
-      }
-      else {
-        return null;
-      }
-    } catch (e) {
-      return null;
+      var response = await http.delete(url,
+          headers: {'Authorization' : "Bearer $token",
+            "Content-Type": ApiConstant.contentType,});
+      var responseBody = response.body;
+      var json = jsonDecode(responseBody);
+      return GetProfileResponse.fromJson(json);
+    }catch(e){
+      throw e;
     }
   }
-
-
-
 
 }

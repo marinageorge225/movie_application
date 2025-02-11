@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:graduation_movie_app/core/utils/dialog_utils.dart';
-import 'package:graduation_movie_app/ui/auth/forget_password/reset_password.dart';
+import 'package:graduation_movie_app/core/utils/flutter_toast.dart';
+import 'package:graduation_movie_app/ui/auth/login/login_view.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/profile/update_profile/cubit/update_profile_states.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/profile/update_profile/cubit/update_profile_view_model.dart';
 import '../../../../../core/utils/app_color.dart';
@@ -35,183 +36,99 @@ class _UpdateProfileState extends State<UpdateProfile> {
     var width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Pick Avatar"),
-        scrolledUnderElevation: 0,
-      ),
-      body: BlocConsumer<UpdateProfileViewModel, UpdateProfileStates>(
+        appBar: AppBar(
+          title: Text("Pick Avatar"),
+          scrolledUnderElevation: 0,
+        ),
+        body: BlocConsumer<UpdateProfileViewModel, UpdateProfileStates>(
           bloc: viewModel,
-          listener: (context, state){
-            if(state is UpdateProfileSuccessState){
-              DialogUtils.showMessage(context: context, message: state.successMsg);
-            }else if(state is ProfileErrorState){
-              DialogUtils.showMessage(context: context, message: state.errorMsg);
+          listener: (context, state) {
+            if (state is UpdateProfileSuccessState) {
+              FlutterToast.toastMsg(
+                  msg: state.successMsg,
+                  bgColor: AppColors.greenColor,
+                  textColor: AppColors.blackColor);
+            } else if (state is UpdateProfileErrorState) {
+              FlutterToast.toastMsg(
+                  msg: state.errorMsg,
+                  bgColor: AppColors.redColor,
+                  textColor: AppColors.blackColor);
             }
           },
-          builder: (context, state){
-            if (state is UpdateProfileInitialState) {
-                    return const Center(
-                      child: CircularProgressIndicator(
-                        color: AppColors.orangeColor,
+          builder: (context, state) {
+            return SingleChildScrollView(
+              child: Container(
+                margin: EdgeInsets.only(
+                    right: width * (16 / 430),
+                    left: width * (16 / 430),
+                    top: height * (59 / 932),
+                    bottom: height * (33 / 932)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                        child: InkWell(
+                            onTap: () {
+                              showBottomSheet(
+                                  context,
+                                  BottomSheetShowAvatars(
+                                      saveImage: saveAvatarImage,
+                                      selectedAvatar:
+                                          viewModel.selectedAvatar));
+                            },
+                            child: Image.asset(viewModel.selectedAvatar != null
+                                ? viewModel.selectedAvatar!
+                                : AssetsManager.avatar1))),
+                    SizedBox(
+                      height: height * (35 / 932),
+                    ),
+                    CustomTextField(
+                      prefixIcon:
+                          const ImageIcon(AssetImage(AssetsManager.nameIcon)),
+                      controller: viewModel.nameController,
+                    ),
+                    SizedBox(
+                      height: height * (19 / 932),
+                    ),
+                    CustomTextField(
+                      prefixIcon:
+                          const ImageIcon(AssetImage(AssetsManager.phoneIcon)),
+                      controller: viewModel.phoneController,
+                    ),
+                    TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        AppLocalizations.of(context)!.resetPassword,
+                        style: AppStyles.regular20WhiteRoboto,
                       ),
-                    );
-                  }
-            else if(state is ProfileErrorState) {
-                    return Center(child: Text('${state.errorMsg}',
-                      style: AppStyles.regular20WhiteRoboto,));
-                  }
-            else if (state is LoadUserProfileState) {
-                    return SingleChildScrollView(
-                      child: Container(
-                        margin: EdgeInsets.only(
-                            right: width * (16 / 430),
-                            left: width * (16 / 430),
-                            top: height * (59 / 932),
-                            bottom: height * (33 / 932)),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Center(
-                                child: InkWell(
-                                    onTap: () {
-                                      showBottomSheet(
-                                          context,
-                                          BottomSheetShowAvatars(
-                                              saveImage: saveAvatarImage,
-                                              selectedAvatar:
-                                                  viewModel.selectedAvatar));
-                                    },
-                                    child: Image.asset(viewModel.selectedAvatar != null
-                                        ? viewModel.selectedAvatar!
-                                        : AssetsManager.avatar1))),
-                            SizedBox(
-                              height: height * (35 / 932),
-                            ),
-                            CustomTextField(
-                              prefixIcon:
-                                  const ImageIcon(AssetImage(AssetsManager.nameIcon)),
-                              controller: viewModel.nameController,
-                            ),
-                            SizedBox(
-                              height: height * (19 / 932),
-                            ),
-                            CustomTextField(
-                              prefixIcon:
-                                  const ImageIcon(AssetImage(AssetsManager.phoneIcon)),
-                              controller: viewModel.phoneController,
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pushNamed(context, ResetPassword.routeName);
-
-                              },
-                              child: Text(
-                                AppLocalizations.of(context)!.resetPassword,
-                                style: AppStyles.regular20WhiteRoboto,
-                              ),
-                            ),
-                            SizedBox(
-                              height: height * 0.24,
-                            ),
-                            CustomElevatedButton(
-                              buttonOnClick: onClickDelete,
-                              buttonTitle: AppLocalizations.of(context)!.deleteAccount,
-                              buttonColor: AppColors.redColor,
-                              buttonTitleStyle: AppStyles.regular20WhiteRoboto,
-                            ),
-                            SizedBox(
-                              height: height * (19 / 932),
-                            ),
-                            CustomElevatedButton(
-                                buttonOnClick: onClickUpdate,
-                                buttonTitle: AppLocalizations.of(context)!.updateData)
-                          ],
-                        ),
-                      ),
-                    );
-                  }else if(state is UpdateProfileSuccessState){
-              return SingleChildScrollView(
-                child: Container(
-                  margin: EdgeInsets.only(
-                      right: width * (16 / 430),
-                      left: width * (16 / 430),
-                      top: height * (59 / 932),
-                      bottom: height * (33 / 932)),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Center(
-                          child: InkWell(
-                              onTap: () {
-                                showBottomSheet(
-                                    context,
-                                    BottomSheetShowAvatars(
-                                        saveImage: saveAvatarImage,
-                                        selectedAvatar:
-                                        viewModel.selectedAvatar));
-                              },
-                              child: Image.asset(viewModel.selectedAvatar != null
-                                  ? viewModel.selectedAvatar!
-                                  : AssetsManager.avatar1))),
-                      SizedBox(
-                        height: height * (35 / 932),
-                      ),
-                      CustomTextField(
-                        prefixIcon:
-                        const ImageIcon(AssetImage(AssetsManager.nameIcon)),
-                        controller: viewModel.nameController,
-                      ),
-                      SizedBox(
-                        height: height * (19 / 932),
-                      ),
-                      CustomTextField(
-                        prefixIcon:
-                        const ImageIcon(AssetImage(AssetsManager.phoneIcon)),
-                        controller: viewModel.phoneController,
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, ResetPassword.routeName);
-
-
-                        }
-                        ,
-                        child: Text(
-                          AppLocalizations.of(context)!.resetPassword,
-                          style: AppStyles.regular20WhiteRoboto,
-                        ),
-                      ),
-                      SizedBox(
-                        height: height * 0.24,
-                      ),
-                      CustomElevatedButton(
-                        buttonOnClick: onClickDelete,
-                        buttonTitle: AppLocalizations.of(context)!.deleteAccount,
-                        buttonColor: AppColors.redColor,
-                        buttonTitleStyle: AppStyles.regular20WhiteRoboto,
-                      ),
-                      SizedBox(
-                        height: height * (19 / 932),
-                      ),
-                      CustomElevatedButton(
-                          buttonOnClick: onClickUpdate,
-                          buttonTitle: AppLocalizations.of(context)!.updateData)
-                    ],
-                  ),
+                    ),
+                    SizedBox(
+                      height: height * 0.24,
+                    ),
+                    CustomElevatedButton(
+                      buttonOnClick: (){
+                        viewModel.deleteProfile();
+                        Navigator.pushNamed(context, LoginView.routeName);
+                      },
+                      buttonTitle: AppLocalizations.of(context)!.deleteAccount,
+                      buttonColor: AppColors.redColor,
+                      buttonTitleStyle: AppStyles.regular20WhiteRoboto,
+                    ),
+                    SizedBox(
+                      height: height * (19 / 932),
+                    ),
+                    CustomElevatedButton(
+                        buttonOnClick: (){
+                          viewModel.updateProfile();
+                        },
+                        buttonTitle: AppLocalizations.of(context)!.updateData)
+                  ],
                 ),
-              );
-            }
-                  return Container();
-                },
-              )
-    );
-          }
-
- onClickUpdate() async{
-    await viewModel.updateProfile();
+              ),
+            );
+          },
+        ));
   }
-
-  onClickDelete() {}
   void saveAvatarImage(String image) {
     setState(() {
       viewModel.selectedAvatar = image;
