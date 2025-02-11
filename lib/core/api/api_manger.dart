@@ -1,22 +1,47 @@
 import 'dart:convert';
-import 'package:graduation_movie_app/model/MovieListResponse.dart';
+import 'package:graduation_movie_app/model/movie_list_response.dart';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
-import '../../model/GetProfileResponse.dart';
+import '../../model/get_profile_response.dart';
 import '../../model/LoginResponse.dart';
-import 'api_constant.dart';
+import '../../model/user_model_register.dart';
 import 'end_points.dart';
+import 'package:graduation_movie_app/core/api/api_constants.dart';
 
 @singleton
 class ApiManager {
-  final Uri url = Uri.parse(ApiConstant.urlLoginAuth);
+  static Future<UserModel> registerUser(UserModel user) async {
+    final url = Uri.parse(ApiConstants.baseUrlRegister);
+    final jsonData = jsonEncode(user.toJson());
+
+    print("  Sending data to API: $jsonData");
+
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': ApiConstants.contentType},
+      body: jsonData,
+    );
+
+    print("****&&  Response Status Code: ${response.statusCode}");
+    print("******&&  Response Body: ${response.body}");
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return UserModel.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('  Failed to register user: ${response.statusCode}, '
+          'Body: ${response.body}');
+    }
+  }
+
+
+  final Uri url = Uri.parse(ApiConstants.urlLoginAuth);
 
   Future<LoginResponse> login(String email, String password) async {
     try {
       var response = await http.post(
         url,
         headers: {
-          "Content-Type": ApiConstant.contentType,
+          "Content-Type": ApiConstants.contentType,
         },
         body: jsonEncode({
           "email": email,
@@ -40,7 +65,7 @@ class ApiManager {
 
 
   Future<MovieListResponse?> getMovieListByGenre(String genre) async {
-    Uri url = Uri.https(ApiConstant.movieListBaseServer, EndPoints.listMoviesApi,
+    Uri url = Uri.https(ApiConstants.movieListBaseServer, EndPoints.listMoviesApi,
     {'genre' : genre});
     try {
       var response = await http.get(url);
@@ -55,7 +80,7 @@ class ApiManager {
 //https://yts.mx/api/v2/list_movies.json
 
   static Future<MovieListResponse?> getMovies() async {
-    Uri url = Uri.https(ApiConstant.baseUrl, EndPoints.movieApi, {
+    Uri url = Uri.https(ApiConstants.baseUrl, EndPoints.listMoviesApi, {
       'sort_by': 'date_added',
       'order_by': 'desc',
     });
@@ -73,7 +98,7 @@ class ApiManager {
     }
   }
   static Future<GetProfileResponse?> getProfileInfo(String token)async{
-    Uri url = Uri.https(ApiConstant.profileBaseUrl, EndPoints.profileApi);
+    Uri url = Uri.https(ApiConstants.profileBaseUrl, EndPoints.profileApi);
     try {
       var response = await http.get(url,
           headers: {
@@ -94,13 +119,13 @@ class ApiManager {
   String? name,
   String? phone,
   int? avatarId}) async{
-    Uri url = Uri.https(ApiConstant.profileBaseUrl, EndPoints.profileApi);
+    Uri url = Uri.https(ApiConstants.profileBaseUrl, EndPoints.profileApi);
     try{
       var response = await http.patch(
           url,
           headers: {
             'Authorization': "Bearer $token",
-            'Content-Type': ApiConstant.contentType,
+            'Content-Type': ApiConstants.contentType,
           },
           body: jsonEncode({
             "name" : name,
@@ -118,12 +143,12 @@ class ApiManager {
   }
 
   static Future<GetProfileResponse?> deleteProfileInfo(String token)async{
-    Uri url = Uri.https(ApiConstant.profileBaseUrl, EndPoints.profileApi);
+    Uri url = Uri.https(ApiConstants.profileBaseUrl, EndPoints.profileApi);
 
     try {
       var response = await http.delete(url,
           headers: {'Authorization' : "Bearer $token",
-            "Content-Type": ApiConstant.contentType,});
+            "Content-Type": ApiConstants.contentType,});
       var responseBody = response.body;
       var json = jsonDecode(responseBody);
       return GetProfileResponse.fromJson(json);

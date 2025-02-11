@@ -1,6 +1,6 @@
 import 'package:graduation_movie_app/model/LoginResponse.dart';
 import 'package:injectable/injectable.dart';
-import '../../../core/api/api_constant.dart';
+import '../../../core/api/api_constants.dart';
 import '../../../core/api/api_manger.dart';
 import '../../../core/api/end_points.dart';
 import '../../../model/reset_password_response.dart';
@@ -22,14 +22,14 @@ class ResetPasswordRemoteDataSourceImpl
     required String oldPassword,
   }) async {
     Uri url =
-    Uri.https(ApiConstant.profileBaseUrl, EndPoints.resetPasswordApi);
+    Uri.https(ApiConstants.profileBaseUrl, EndPoints.resetPasswordApi);
 
     try {
       var response = await http.patch(
         url,
         headers: {
           "Authorization": "Bearer $token",
-          "Content-Type": ApiConstant.contentType,
+          "Content-Type": ApiConstants.contentType,
         },
         body: jsonEncode({
           "oldPassword": oldPassword,

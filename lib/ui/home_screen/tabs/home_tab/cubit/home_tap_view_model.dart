@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_movie_app/model/movie_genres.dart';
 import 'package:graduation_movie_app/repository/movieList/repository/movie_List_repository.dart';
@@ -10,7 +12,7 @@ class HomeTabViewModel extends Cubit<HomeTabStates>{
   //TODO: hold data & handle logic
   MovieListRepository movieListRepository;
   HomeTabViewModel({required this.movieListRepository}):super(HomeTabLoadingState());
-  String selectedGenre = 'Action';
+  String selectedGenre = '';
 
   void getMovieList(String genre) async{
     try {
@@ -29,5 +31,6 @@ class HomeTabViewModel extends Cubit<HomeTabStates>{
 
   void changeGenre(){
     selectedGenre = (MovieGenres.movieGenresList..shuffle()).first;
+    emit(ChangeGenre());
   }
 }

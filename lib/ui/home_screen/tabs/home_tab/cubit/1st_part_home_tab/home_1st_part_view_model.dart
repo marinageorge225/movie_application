@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../../core/api/api_manger.dart';
-import '../../../../../../model/MovieListResponse.dart';
+import '../../../../../../model/movie_list_response.dart';
 
 abstract class HomeTabState {}
 

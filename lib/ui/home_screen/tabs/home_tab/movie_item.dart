@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:graduation_movie_app/model/MovieListResponse.dart';
+import 'package:graduation_movie_app/model/movie_list_response.dart';
 
 import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/app_styles.dart';

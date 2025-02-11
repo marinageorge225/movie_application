@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_movie_app/core/api/api_manger.dart';
-import 'package:graduation_movie_app/model/GetProfileResponse.dart';
+import 'package:graduation_movie_app/model/get_profile_response.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/profile/update_profile/cubit/update_profile_states.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

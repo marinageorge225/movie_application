@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_movie_app/core/di/di.dart';
 import 'package:graduation_movie_app/core/utils/assets_manager.dart';
-import 'package:graduation_movie_app/model/MovieListResponse.dart';
+import 'package:graduation_movie_app/model/movie_list_response.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/home_tab/cubit/1st_part_home_tab/home_1st_part.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/home_tab/cubit/home_tap_view_model.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/home_tab/home_tap_bottom_part.dart';
