@@ -6,7 +6,6 @@ import 'package:graduation_movie_app/ui/home_screen/home_screen.dart';
 import 'package:graduation_movie_app/profile.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/home_tab/home_tab_widget.dart';
 import 'package:graduation_movie_app/ui/movie_detailes_screen/cubit/movie_details_view_model.dart';
-import 'package:graduation_movie_app/ui/movie_detailes_screen/movieDetails.dart';
 import 'package:graduation_movie_app/ui/movie_detailes_screen/repository/dataSourcesMovieDetails/source_remote_data_source_impl.dart';
 import 'package:graduation_movie_app/ui/movie_detailes_screen/repository/repository/source_repository.dart';
 import 'package:graduation_movie_app/ui/movie_detailes_screen/repository/repository/source_repository_impl.dart';
@@ -31,24 +30,26 @@ void main() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final bool showOnBoarding = prefs.getBool(OnBoarding.routeName) ?? false;
 
-  MultiBlocProvider(
-    providers: [
-      RepositoryProvider(
-        create: (context) => SourceRepositoryImpl(
-          remoteDataSource: SourceRemoteDataSourceImpl(
-            apiManagerDetailsScreen: ApiManagerDetailsScreen(),
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        RepositoryProvider(
+          create: (context) => SourceRepositoryImpl(
+            remoteDataSource: SourceRemoteDataSourceImpl(
+              apiManagerDetailsScreen: ApiManagerDetailsScreen(),
+            ),
           ),
         ),
-      ),
-      BlocProvider(create: (context) => MovieDetailsCubit(
-        repository: RepositoryProvider.of<SourceRepository>(context),
-      )),
-      BlocProvider(create: (context) => AppLanguageCubit()),
-      BlocProvider(
-        create: (_) => RegisterCubit(ApiService()),
-      ),
-    ],
-    child: MyApp(showOnBoarding: showOnBoarding),
+        BlocProvider(
+          create: (context) => MovieDetailsCubit(
+            repository: RepositoryProvider.of<SourceRepositoryImpl>(context),
+          ),
+        ),
+        BlocProvider(create: (context) => AppLanguageCubit()),
+        BlocProvider(create: (_) => RegisterCubit(ApiService())),
+      ],
+      child: MyApp(showOnBoarding: showOnBoarding),
+    ),
   );
 }
 

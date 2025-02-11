@@ -27,8 +27,7 @@ import '../../repository/movieList/repository/movie_List_repository.dart'
 import '../../repository/movieList/repository/movie_list_repository_impl.dart'
     as _i1012;
 import '../../ui/auth/login/login_view_model.dart' as _i544;
-import '../../ui/home_screen/tabs/home_tab/cubit/home_tap_view_model.dart'
-    as _i368;
+import '../../ui/home_screen/tabs/home_tab/cubit/home_tap_view_model.dart';
 import '../api/api_manger.dart' as _i339;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -53,8 +52,8 @@ extension GetItInjectableX on _i174.GetIt {
         remoteDataSource: gh<_i711.MovieListRemoteDataSource>()));
     gh.factory<_i544.LoginViewModel>(
         () => _i544.LoginViewModel(gh<_i415.LoginRepository>()));
-    gh.factory<_i368.HomeTabViewModel>(() => _i368.HomeTabViewModel(
-        movieListRepository: gh<_i176.MovieListRepository>()));
+    gh.factory<HomeTabViewModel>(() =>
+        HomeTabViewModel(movieListRepository: gh<_i176.MovieListRepository>()));
     return this;
   }
 }
