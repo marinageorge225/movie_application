@@ -1,22 +1,22 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation_movie_app/cubit/app_language_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:graduation_movie_app/core/di/di.dart';
 import 'package:graduation_movie_app/ui/auth/login/login_connector.dart';
+import 'package:graduation_movie_app/ui/home_screen/home_screen.dart';
 
-import 'package:graduation_movie_app/ui/custom%20widgets/custom_elevated_button.dart';
-import 'package:graduation_movie_app/ui/custom%20widgets/custom_text_field.dart';
-import 'package:graduation_movie_app/utils/app_color.dart';
-import 'package:graduation_movie_app/utils/app_styles.dart';
-import 'package:graduation_movie_app/utils/assets_manager.dart';
-import '../../../api/api_manger.dart';
-import '../../../utils/reusable widgets/dialog_utils.dart';
-import '../../home_screen/tabs/profile/update_profile.dart';
+import '../../../core/cubit/app_language_cubit.dart';
+import '../../../core/utils/app_color.dart';
+import '../../../core/utils/app_styles.dart';
+import '../../../core/utils/assets_manager.dart';
+import '../../../core/utils/dialog_utils.dart';
+import '../../widgets/custom_elevated_button.dart';
+import '../../widgets/custom_text_field.dart';
 import '../Reigster/Register_Screen.dart';
 import '../forget_password/forget_password.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import 'cubit/login_states.dart';
+import 'google/google_sign_in_api.dart';
 import 'login_view_model.dart';
 
 class LoginView extends StatefulWidget {
@@ -29,7 +29,7 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> implements LoginConnector {
   bool showPassword = false;
 
-  var viewModel=LoginViewModel(ApiManager());
+  var viewModel=getIt<LoginViewModel>();
 
   void togglePasswordVisibility() {
     setState(() {
@@ -40,7 +40,7 @@ class _LoginViewState extends State<LoginView> implements LoginConnector {
   void initState() {
     // TODO: implement initState
     super.initState();
-    viewModel.connector=this ;
+    // viewModel.connector=this ;
 
   }
   @override
@@ -129,7 +129,7 @@ class _LoginViewState extends State<LoginView> implements LoginConnector {
                       alignment: Alignment.centerRight,
                       child: TextButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, ForgetPassword.routeName);
+                          // Navigator.pushNamed(context, ForgetPassword.routeName);
                         },
                         child: Text(
                           AppLocalizations.of(context)!.forgetPassword,
@@ -192,9 +192,9 @@ class _LoginViewState extends State<LoginView> implements LoginConnector {
                     SizedBox(height: height * 0.03),
                     CustomElevatedButton(
                       buttonOnClick: () {
-                        viewModel.loginWithGoogle();
-
-                        },
+                        //viewModel.loginWithGoogle();
+                        SignIn();
+                      },
                       buttonIcon: const ImageIcon(
                         AssetImage(AssetsManager.googleIcon),
                         size: 30,
@@ -222,7 +222,7 @@ class _LoginViewState extends State<LoginView> implements LoginConnector {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50),
                                 border: Border.all(
-                                  color: appLanguage == 'en' ? AppColors.orangeColor : AppColors.Transparent,
+                                  color: appLanguage == 'en' ? AppColors.orangeColor : AppColors.transparentColor,
                                   width: 3,
                                 ),
                               ),
@@ -237,7 +237,7 @@ class _LoginViewState extends State<LoginView> implements LoginConnector {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50),
                                 border: Border.all(
-                                  color: appLanguage == 'ar' ? AppColors.orangeColor : AppColors.Transparent,
+                                  color: appLanguage == 'ar' ? AppColors.orangeColor : AppColors.transparentColor,
                                   width: 3,
                                 ),
                               ),
@@ -257,6 +257,18 @@ class _LoginViewState extends State<LoginView> implements LoginConnector {
     );
   }
 
+  Future SignIn() async {
+    final user = await GoogleSignInApi.login();
+
+    if (user == null) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Sign in Failed')));
+    } else {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => HomeScreen()));
+    }
+  }
+
   @override
   void hideLoading() {
     DialogUtils.hideLoading(context);
@@ -264,7 +276,7 @@ class _LoginViewState extends State<LoginView> implements LoginConnector {
 
   @override
   void navigateToScreen() {
-    Navigator.pushReplacementNamed(context,UpdateProfile.routeName);
+    Navigator.pushNamed(context,HomeScreen.routeName);
   }
 
   @override
