@@ -62,7 +62,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                     errorBuilder: (context, error, stackTrace) {
                       return const Center(
                         child: Icon(
-                            Icons.movie, color: Colors.white, size: 100),
+                            Icons.movie, color: Colors.white, size:300  ),
                       );
                     },
                   ),
@@ -161,10 +161,30 @@ class _MovieDetailsState extends State<MovieDetails> {
     final prefs = await SharedPreferences.getInstance();
     List<String> watchlist = prefs.getStringList('watchlist') ?? [];
 
+    String message;
+
     if (!watchlist.contains(movie.id.toString())) {
       watchlist.add(movie.id.toString());
       await prefs.setStringList('watchlist', watchlist);
+      message = "  ${movie.title} has been added to your watchlist!";
+    } else {
+      message = "  ${movie.title} is already in your watchlist!";
+    }
+
+    print(" Current Watchlist: $watchlist");
+
+
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(message),
+          duration: const Duration(seconds: 2),
+          backgroundColor: AppColors.redColor,
+        ),
+      );
+
       setState(() {});
     }
   }
+
 }
