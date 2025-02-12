@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_movie_app/core/utils/app_color.dart';
 import 'package:graduation_movie_app/core/utils/assets_manager.dart';
- import 'package:shared_preferences/shared_preferences.dart';
+import 'package:graduation_movie_app/ui/movie_detailes_screen/repository/show_screen_shot.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/utils/app_styles.dart';
 import '../../model/MovieDetailsResponse.dart';
 import '../widgets/custom_elevated_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'cubit/movie_details-states.dart';
 import 'cubit/movie_details_view_model.dart';
+import 'custom_icon_with_text.dart';
 
 class MovieDetails extends StatefulWidget {
   static const String routeName = "movie_details";
@@ -62,7 +64,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                     errorBuilder: (context, error, stackTrace) {
                       return const Center(
                         child: Icon(
-                            Icons.movie, color: Colors.white, size: 100),
+                            Icons.movie, color: Colors.white, size:300  ),
                       );
                     },
                   ),
@@ -128,7 +130,40 @@ class _MovieDetailsState extends State<MovieDetails> {
                         ),
                       ),
                       const SizedBox(height: 20),
-                    ],
+
+                      SizedBox(height: height*(16/932)),
+
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: width*(16/430)),
+                        child: Row(
+                          children: [
+                            CustomIconWithText(imagePath: AssetsManager.favouriteIcon, text: movie.likeCount!.toString()),
+                            SizedBox(width: width*(16/430)),
+                            CustomIconWithText(imagePath: AssetsManager.watchesIcon, text: movie.runtime!.toString()),
+                            SizedBox(width: width*(16/430)),
+
+                            CustomIconWithText(imagePath: AssetsManager.starIcon, text: movie.rating!.toString()),
+
+
+
+
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: height*(16/932)),
+                      Container(alignment: Alignment.topLeft,
+                          margin: EdgeInsets.symmetric(horizontal: width*(15/430)),
+                          child: Text("Screen Shots",style: AppStyles.bold24WhiteRoboto,)),
+                      SizedBox(height: height*(16/932)),
+                      ShowScreenShot(imageUrl: movie.largeScreenshotImage1!),
+                      SizedBox(height: height*(14/932)),
+                      ShowScreenShot(imageUrl: movie.largeScreenshotImage2!),
+                      SizedBox(height: height*(14/932)),
+                      ShowScreenShot(imageUrl: movie.largeScreenshotImage3!),
+                      SizedBox(height: height*(30/932)),
+
+
+              ],
                   ),
                 ),
               ],
@@ -161,10 +196,30 @@ class _MovieDetailsState extends State<MovieDetails> {
     final prefs = await SharedPreferences.getInstance();
     List<String> watchlist = prefs.getStringList('watchlist') ?? [];
 
+    String message;
+
     if (!watchlist.contains(movie.id.toString())) {
       watchlist.add(movie.id.toString());
       await prefs.setStringList('watchlist', watchlist);
+      message = "  ${movie.title} has been added to your watchlist!";
+    } else {
+      message = "  ${movie.title} is already in your watchlist!";
+    }
+
+    print(" Current Watchlist: $watchlist");
+
+
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(message),
+          duration: const Duration(seconds: 2),
+          backgroundColor: AppColors.redColor,
+        ),
+      );
+
       setState(() {});
     }
   }
+
 }

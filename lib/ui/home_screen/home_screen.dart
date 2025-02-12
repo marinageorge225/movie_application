@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(16),
           child: BottomNavigationBar(
-            iconSize: 22,
+            iconSize: 20,
             backgroundColor: AppColors.darkGrayColor,
             currentIndex: selectedIndex,
             type: BottomNavigationBarType.fixed,

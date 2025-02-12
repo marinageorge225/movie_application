@@ -34,7 +34,7 @@ class MovieItem extends StatelessWidget {
             MaterialPageRoute(
               builder: (context) => MovieDetails(movieId: movie.id!),
             ),
-          );
+          );},child:
 
           Stack(
             alignment: Alignment.topLeft,
@@ -74,8 +74,7 @@ class MovieItem extends StatelessWidget {
                 ),
               )
             ],
-          );
+          ));
         }
-    );
   }
-}
+

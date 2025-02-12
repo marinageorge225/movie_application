@@ -67,7 +67,7 @@ class MyApp extends StatelessWidget {
           supportedLocales: AppLocalizations.supportedLocales,
           debugShowCheckedModeBanner: false,
           theme: AppTheme.themeData,
-          initialRoute: HomeScreen.routeName,
+          initialRoute: RegisterScreen.routeName,
           routes: {
             HomeScreen.routeName: (context) => HomeScreen(),
             OnBoarding.routeName: (context) => OnBoarding(),
@@ -77,7 +77,7 @@ class MyApp extends StatelessWidget {
             UpdateProfile.routeName: (context) => UpdateProfile(),
             RegisterScreen.routeName: (context) => RegisterScreen(),
             Profile.routeName: (context) => Profile(),
-            HomeTab.routeName:(context)=>HomeTab()
+            HomeTab.routeName:(context)=>HomeTab(),
           },
           locale: Locale(appLanguage),
         );

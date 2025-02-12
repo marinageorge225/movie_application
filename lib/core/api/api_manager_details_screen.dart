@@ -6,7 +6,7 @@ import 'api_constant.dart';
 class ApiManagerDetailsScreen {
   Future<MovieDetailsResponse?> getMovieDetails(int movieId) async {
     try {
-      final url = Uri.parse("${ApiConstant.baseUrlDetailsMovie}$movieId");
+      final url = Uri.parse("${ApiConstant.baseUrlDetailsMovie}$movieId&with_images=true");
 
       final response = await http.get(url);
       if (response.statusCode == 200) {
