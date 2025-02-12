@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_movie_app/core/utils/app_color.dart';
 import 'package:graduation_movie_app/core/utils/assets_manager.dart';
-import 'package:graduation_movie_app/ui/movie_detailes_screen/repository/show_screen_shot.dart';
+import 'package:graduation_movie_app/ui/movie_detailes_screen/show_screen_shot.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/utils/app_styles.dart';
 import '../../model/MovieDetailsResponse.dart';
