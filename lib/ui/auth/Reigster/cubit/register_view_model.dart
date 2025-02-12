@@ -1,14 +1,17 @@
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation_movie_app/core/cubit/register_states.dart';
+import 'package:graduation_movie_app/ui/auth/Reigster/cubit/register_states.dart';
 
-import '../../model/user_model_register.dart';
-import '../api/api_service_register.dart';
+import '../../../../model/user_model_register.dart';
+import '../../../../core/api/api_service_register.dart';
+import '../../../../repository/register/repository/register_repository.dart';
 
 
 class RegisterCubit extends Cubit<RegisterState> {
-final ApiService apiService;
-RegisterCubit(this.apiService) : super(RegisterInitial());
+ 
+final RegisterRepository registerRepository;
+
+RegisterCubit(this.registerRepository) : super(RegisterInitial());
 
 void register(String name, String email, String password, String confirmPassword, String phone, int avatarId) async {
 emit(RegisterLoading());
@@ -21,7 +24,7 @@ phone: phone,
 avaterId: avatarId,
 );
 try {
-await apiService.registerUser(user);
+await registerRepository.registerUser(user);
 emit(RegisterSuccess(message: 'Registration successful!'));
 } catch (e) {
 emit(RegisterFailure(error: 'Registration failed: $e'));

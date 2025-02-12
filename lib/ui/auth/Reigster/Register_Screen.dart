@@ -5,8 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_movie_app/ui/auth/login/login_view.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../core/cubit/app_language_cubit.dart';
-import '../../../core/cubit/register_states.dart';
-import '../../../core/cubit/register_view_model.dart';
+import '../../../repository/register/repository/register_repository.dart';
+import '../../../repository/register/repository/register_repository_impl.dart';
+import 'cubit/register_states.dart';
+import 'cubit/register_view_model.dart';
 import '../../../core/utils/app_color.dart';
 import '../../../core/utils/app_styles.dart';
 import '../../../core/utils/assets_manager.dart';
@@ -60,12 +62,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
         .watch<AppLanguageCubit>()
         .state;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.register),
-
-      ),
-      body:BlocListener<RegisterCubit, RegisterState>(
+    return BlocProvider(
+        create: (context) => RegisterCubit(
+          RepositoryProvider.of<RegisterRepositoryImpl>(context),
+        ),
+    child: Scaffold(
+    appBar: AppBar(
+    title: Text(AppLocalizations.of(context)!.register),
+    ),
+    body:BlocListener<RegisterCubit, RegisterState>(
         listener: (context, state) {
           if (state is RegisterSuccess) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -307,6 +312,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
         ),
       ),
+    )
     );
   }
 

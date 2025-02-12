@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:graduation_movie_app/OnBoarding_Screen/OnBoarding.dart';
+import 'package:graduation_movie_app/repository/register/data_source/register_remote_data_source_impl.dart';
+import 'package:graduation_movie_app/repository/register/repository/register_repository_impl.dart';
 import 'package:graduation_movie_app/ui/home_screen/home_screen.dart';
 import 'package:graduation_movie_app/profile.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/home_tab/home_tab_widget.dart';
 import 'package:graduation_movie_app/ui/movie_detailes_screen/cubit/movie_details_view_model.dart';
 import 'package:graduation_movie_app/ui/movie_detailes_screen/repository/dataSourcesMovieDetails/source_remote_data_source_impl.dart';
-import 'package:graduation_movie_app/ui/movie_detailes_screen/repository/repository/source_repository.dart';
 import 'package:graduation_movie_app/ui/movie_detailes_screen/repository/repository/source_repository_impl.dart';
+
 import 'package:graduation_movie_app/ui/splash_screen/splash_screen.dart';
 import 'package:graduation_movie_app/ui/auth/Reigster/Register_Screen.dart';
  import 'package:graduation_movie_app/ui/auth/login/login_view.dart';
@@ -18,7 +20,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'core/api/api_manager_details_screen.dart';
 import 'core/api/api_service_register.dart';
 import 'core/cubit/app_language_cubit.dart';
-import 'core/cubit/register_view_model.dart';
+import 'ui/auth/Reigster/cubit/register_view_model.dart';
 import 'core/di/di.dart';
 import 'core/utils/app_theme.dart';
 import 'core/utils/my_bloc_observer.dart';
@@ -33,6 +35,7 @@ void main() async {
   runApp(
     MultiBlocProvider(
       providers: [
+        ///   Movie Details
         RepositoryProvider(
           create: (context) => SourceRepositoryImpl(
             remoteDataSource: SourceRemoteDataSourceImpl(
@@ -40,17 +43,34 @@ void main() async {
             ),
           ),
         ),
+
+        ///  Register Repository
+        RepositoryProvider(
+          create: (context) => RegisterRepositoryImpl(
+            registerRemoteDataSource: RegisterRemoteDataSourceImpl(
+              apiService: ApiService(),
+            ),
+          ),
+        ),
+
         BlocProvider(
           create: (context) => MovieDetailsCubit(
             repository: RepositoryProvider.of<SourceRepositoryImpl>(context),
           ),
         ),
+
+        BlocProvider(
+          create: (context) => RegisterCubit(
+            RepositoryProvider.of<RegisterRepositoryImpl>(context),
+          ),
+        ),
+
         BlocProvider(create: (context) => AppLanguageCubit()),
-        BlocProvider(create: (_) => RegisterCubit(ApiService())),
       ],
       child: MyApp(showOnBoarding: showOnBoarding),
     ),
   );
+
 }
 
 class MyApp extends StatelessWidget {

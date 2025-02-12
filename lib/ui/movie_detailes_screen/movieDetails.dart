@@ -76,7 +76,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
-                        colors: [Colors.black.withOpacity(0.3), Colors.black],
+                       colors: [Colors.black.withOpacity(0.3), Colors.black],
                       ),
                     ),
                   ),
@@ -88,12 +88,15 @@ class _MovieDetailsState extends State<MovieDetails> {
                     children: [
                       Align(
                         alignment: Alignment.topLeft,
-                        child: IconButton(
-                          icon: const Icon(
-                              Icons.arrow_back_ios, color: Colors.white),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 2,top:14),
+                          child: IconButton(
+                            icon: const Icon(
+                                Icons.arrow_back_ios, color: Colors.white),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
                         ),
                       ),
                       SizedBox(height: height * .3),
@@ -112,16 +115,16 @@ class _MovieDetailsState extends State<MovieDetails> {
                         textAlign: TextAlign.center,
                         style: AppStyles.bold22white,
                       ),
-                      SizedBox(height: height * .09),
+                      SizedBox(height: height* .01),
                       Text(
                         movie.year?.toString() ?? " ",
                         style: const TextStyle(fontSize: 16, color: Colors
                             .grey),
                       ),
-                      const SizedBox(height: 20),
+                      SizedBox(height: height* .01),
 
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 40),
+                        padding: const EdgeInsets.symmetric(horizontal: 22,vertical: 59),
                         child: CustomElevatedButton(
                           buttonOnClick: () => onWatchButton(movie),
                           buttonTitle: 'Watch',
@@ -129,7 +132,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                           buttonColor: AppColors.redColor,
                         ),
                       ),
-                      const SizedBox(height: 20),
+                       // SizedBox(height: height* .20),
 
                       SizedBox(height: height*(16/932)),
 
@@ -209,17 +212,15 @@ class _MovieDetailsState extends State<MovieDetails> {
     print(" Current Watchlist: $watchlist");
 
 
-    if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(message),
-          duration: const Duration(seconds: 2),
-          backgroundColor: AppColors.redColor,
-        ),
-      );
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        duration: const Duration(seconds: 2),
+        backgroundColor: AppColors.redColor,
+      ),
+    );
 
-      setState(() {});
-    }
+    setState(() {});
   }
 
 }
