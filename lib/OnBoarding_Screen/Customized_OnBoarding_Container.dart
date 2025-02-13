@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_movie_app/ui/custom%20widgets/custom_elevated_button.dart';
-import 'package:graduation_movie_app/utils/app_color.dart';
-import 'package:graduation_movie_app/utils/app_styles.dart';
+import '../core/utils/app_color.dart';
+import '../core/utils/app_styles.dart';
+import '../ui/widgets/custom_elevated_button.dart';
 
 class CustomizedOnboardingContainer extends StatelessWidget {
   Color? backgroundColor;
@@ -37,7 +37,6 @@ class CustomizedOnboardingContainer extends StatelessWidget {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Container(
-      height: height * 0.8,
       decoration: BoxDecoration(
           borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(40), topRight: Radius.circular(40)),
@@ -50,6 +49,9 @@ class CustomizedOnboardingContainer extends StatelessWidget {
             style: titleStyle ?? AppStyles.bold24WhiteInter,
             textAlign: TextAlign.center,
           ),
+          SizedBox(
+            height: height * 0.01,
+          ),
           Text(body ?? "",
               style: bodyStyle ?? AppStyles.regular20WhiteInter,
               textAlign: TextAlign.center),
@@ -57,7 +59,7 @@ class CustomizedOnboardingContainer extends StatelessWidget {
             height: height * 0.01,
           ),
           Padding(
-              padding: EdgeInsets.symmetric(horizontal: width * 0.02),
+              padding: EdgeInsets.symmetric(horizontal: width * 0.03),
               child: CustomElevatedButton(
                   buttonTitleStyle:
                       textBottomStyle ?? AppStyles.semiBold20BlackInter,
@@ -71,9 +73,10 @@ class CustomizedOnboardingContainer extends StatelessWidget {
                   height: 0,
                 )
               : Padding(
-                  padding: EdgeInsets.symmetric(horizontal: width * 0.02),
+                  padding: EdgeInsets.symmetric(horizontal: width * 0.03),
                   child: CustomElevatedButton(
-                      buttonColor: AppColors.Transparent,
+                    borderColor: AppColors.orangeColor,
+                      buttonColor: AppColors.transparentColor,
                       buttonTitleStyle:
                           textBottom2Style ?? AppStyles.semiBold20BlackInter,
                       buttonOnClick: onPressed2 ?? () {},

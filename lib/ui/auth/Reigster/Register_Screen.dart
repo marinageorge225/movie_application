@@ -2,17 +2,19 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation_movie_app/cubit/app_language_cubit.dart';
-import 'package:graduation_movie_app/cubit/register_states.dart';
 import 'package:graduation_movie_app/ui/auth/login/login_view.dart';
-import 'package:graduation_movie_app/ui/custom widgets/custom_elevated_button.dart';
-import 'package:graduation_movie_app/utils/app_color.dart';
-import 'package:graduation_movie_app/utils/app_styles.dart';
-import 'package:graduation_movie_app/utils/assets_manager.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../../cubit/register_view_model.dart';
+import '../../../core/cubit/app_language_cubit.dart';
+import '../../../repository/register/repository/register_repository.dart';
+import '../../../repository/register/repository/register_repository_impl.dart';
+import 'cubit/register_states.dart';
+import 'cubit/register_view_model.dart';
+import '../../../core/utils/app_color.dart';
+import '../../../core/utils/app_styles.dart';
+import '../../../core/utils/assets_manager.dart';
 import '../../../model/user_model_register.dart';
-import '../../custom widgets/custom_text_field.dart';
+import '../../widgets/custom_elevated_button.dart';
+import '../../widgets/custom_text_field.dart';
 import 'Avatar _widget.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -60,12 +62,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
         .watch<AppLanguageCubit>()
         .state;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.register),
-
-      ),
-      body:BlocListener<RegisterCubit, RegisterState>(
+    return BlocProvider(
+        create: (context) => RegisterCubit(
+          RepositoryProvider.of<RegisterRepositoryImpl>(context),
+        ),
+    child: Scaffold(
+    appBar: AppBar(
+    title: Text(AppLocalizations.of(context)!.register),
+    ),
+    body:BlocListener<RegisterCubit, RegisterState>(
         listener: (context, state) {
           if (state is RegisterSuccess) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -129,7 +134,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       }
                     },
                     keyBoardType: TextInputType.text,
-                    prefixIcon: ImageIcon(AssetImage(AssetsManager.NameID)),
+                    prefixIcon: ImageIcon(AssetImage(AssetsManager.nameID)),
                     hintText: AppLocalizations.of(context)!.name,
                     controller: nameController,
                   ),
@@ -272,7 +277,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               borderRadius: BorderRadius.circular(50),
                               border: Border.all(
                                 color: appLanguage == 'en' ? AppColors
-                                    .orangeColor : AppColors.Transparent,
+                                    .orangeColor : AppColors.transparentColor,
                                 width: 3,
                               ),
                             ),
@@ -290,7 +295,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               borderRadius: BorderRadius.circular(50),
                               border: Border.all(
                                 color: appLanguage == 'ar' ? AppColors
-                                    .orangeColor : AppColors.Transparent,
+                                    .orangeColor : AppColors.transparentColor,
                                 width: 3,
                               ),
                             ),
@@ -307,6 +312,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
         ),
       ),
+    )
     );
   }
 

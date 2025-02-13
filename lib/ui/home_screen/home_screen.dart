@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/browse_tab/browse_tab_widget.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/home_tab/home_tab_widget.dart';
-import 'package:graduation_movie_app/ui/home_screen/tabs/profile/profile_tab_widget.dart';
+import 'package:graduation_movie_app/ui/home_screen/tabs/profile/update_profile/update_profile.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/search_tab/search_tab_widget.dart';
-import 'package:graduation_movie_app/utils/app_color.dart';
-
-import '../../utils/assets_manager.dart';
+import '../../core/utils/app_color.dart';
+import '../../core/utils/assets_manager.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = 'HomeScreen';
@@ -21,17 +20,22 @@ class _HomeScreenState extends State<HomeScreen> {
     HomeTab(),
     SearchTab(),
     BrowseTab(),
-    ProfileTab(),
+    UpdateProfile(),
   ];
 
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
     return Scaffold(
-      bottomNavigationBar: Padding(
-        padding: EdgeInsets.all(15),
+      bottomNavigationBar: Container(
+        height: height * 0.0855,
+        width: width * 0.9,
+        margin: EdgeInsets.only(right: width * 0.03,left: width * 0.03,bottom: height * 0.02),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(15), // Clip the corners
+          borderRadius: BorderRadius.circular(16),
           child: BottomNavigationBar(
+            iconSize: 20,
             backgroundColor: AppColors.darkGrayColor,
             currentIndex: selectedIndex,
             type: BottomNavigationBarType.fixed,
