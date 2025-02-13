@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_movie_app/core/utils/app_color.dart';
 import 'package:graduation_movie_app/core/utils/assets_manager.dart';
+import 'package:graduation_movie_app/ui/movie_detailes_screen/Movie_Sugesstion/movie_suggestions_screen.dart';
 import 'package:graduation_movie_app/ui/movie_detailes_screen/show_screen_shot.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/utils/app_styles.dart';
@@ -11,6 +12,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'cubit/movie_details-states.dart';
 import 'cubit/movie_details_view_model.dart';
 import 'custom_icon_with_text.dart';
+import 'package:readmore/readmore.dart';
 
 class MovieDetails extends StatefulWidget {
   static const String routeName = "movie_details";
@@ -164,9 +166,46 @@ class _MovieDetailsState extends State<MovieDetails> {
                       SizedBox(height: height*(14/932)),
                       ShowScreenShot(imageUrl: movie.largeScreenshotImage3!),
                       SizedBox(height: height*(30/932)),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text('Similar',style: AppStyles.bold22white,),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: height*(30/932)),
+                      MovieSuggestionScreen(movieId: widget.movieId.toString()),
+                      SizedBox(height: height*(30/932)),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text('Summary',style: AppStyles.bold22white,),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(15),
+                        child: ReadMoreText(
+                          movie.descriptionFull!,
+                          trimMode: TrimMode.Line,
+                          trimLines: 2,
+                          colorClickableText: AppColors.whiteColor, // Ensures clickable text is white
+                          trimCollapsedText: 'Show more',
+                          trimExpandedText: 'Show less',
+                          style: AppStyles.regular14WhiteRoboto.copyWith(color: Colors.white), // Set text color to white
+                          moreStyle: AppStyles.regular14WhiteRoboto.copyWith(color: AppColors.orangeColor), // "Show more" color
+                          lessStyle: AppStyles.regular14WhiteRoboto.copyWith(color: AppColors.orangeColor), // "Show less" color
+                        ),
+                      )
 
 
-              ],
+
+
+                    ],
                   ),
                 ),
               ],

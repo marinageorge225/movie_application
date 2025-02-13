@@ -1,4 +1,3 @@
-
 import 'package:flutter_bloc/flutter_bloc.dart';
  import 'package:graduation_movie_app/ui/movie_detailes_screen/repository/repository/source_repository.dart';
  import 'movie_details-states.dart';

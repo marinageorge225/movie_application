@@ -4,13 +4,15 @@ import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 import '../../model/GetProfileResponse.dart';
 import '../../model/LoginResponse.dart';
+import '../error/failures.dart';
 import 'api_constant.dart';
 import 'end_points.dart';
 
 @singleton
 class ApiManager {
-  final Uri url = Uri.parse(ApiConstant.urlLoginAuth);
 
+
+  final Uri url = Uri.parse(ApiConstant.urlLoginAuth);
   Future<LoginResponse> login(String email, String password) async {
     try {
       var response = await http.post(
@@ -128,8 +130,6 @@ class ApiManager {
       );
 
       if (response.statusCode == 200) {
-
-
         var responseBody = response.body;
         var json = jsonDecode(responseBody);
         print(response.statusCode);
@@ -142,5 +142,8 @@ class ApiManager {
       return null;
     }
   }
+
+
+
 
 }
