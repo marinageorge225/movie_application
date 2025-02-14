@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_movie_app/ui/auth/Reigster/cubit/register_states.dart';
 
 import '../../../../model/user_model_register.dart';
-import '../../../../core/api/api_service_register.dart';
 import '../../../../repository/register/repository/register_repository.dart';
 
 

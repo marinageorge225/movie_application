@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_movie_app/core/api/api_manger.dart';
-import '../../../core/api/api_manager_details_screen.dart';
 import '../../../core/utils/app_styles.dart';
 import '../movieDetails.dart';
 import 'cubit/movie_suggestion_view_model.dart';

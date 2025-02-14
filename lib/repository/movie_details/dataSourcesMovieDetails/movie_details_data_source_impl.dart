@@ -1,4 +1,3 @@
-import '../../../../core/api/api_manager_details_screen.dart';
 import '../../../../model/MovieDetailsResponse.dart';
 import '../../../core/api/api_manger.dart';
 import 'movie_details_data_source.dart';
