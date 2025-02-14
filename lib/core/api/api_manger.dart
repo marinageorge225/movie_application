@@ -54,7 +54,7 @@ class ApiManager {
 
 //https://yts.mx/api/v2/list_movies.json
 
-  static Future<MovieListResponse?> getMovies() async {
+  Future<MovieListResponse?> getMovies() async {
     Uri url = Uri.https(ApiConstant.baseUrl, EndPoints.movieApi, {
       'sort_by': 'date_added',
       'order_by': 'desc',
@@ -72,7 +72,7 @@ class ApiManager {
       throw e;
     }
   }
-  static Future<GetProfileResponse?> getProfileInfo(String token)async{
+  Future<GetProfileResponse?> getProfileInfo(String token)async{
     Uri url = Uri.https(ApiConstant.profileBaseUrl, EndPoints.profileApi);
     try {
       var response = await http.get(url,
@@ -90,7 +90,7 @@ class ApiManager {
   }
 
 
-  static Future<GetProfileResponse?> updateProfileInfo({required String token,
+  Future<GetProfileResponse?> updateProfileInfo({required String token,
   String? name,
   String? phone,
   int? avatarId}) async{
@@ -117,7 +117,7 @@ class ApiManager {
     }
   }
 
-  static Future<GetProfileResponse?> deleteProfileInfo(String token)async{
+  Future<GetProfileResponse?> deleteProfileInfo(String token)async{
     Uri url = Uri.https(ApiConstant.profileBaseUrl, EndPoints.profileApi);
 
     try {

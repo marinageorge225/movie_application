@@ -11,4 +11,9 @@ class MovieListRepositoryImpl implements MovieListRepository{
     var response = await remoteDataSource.getMovieListByGenre(genre);
     return response;
   }
-}
+
+
+  @override
+  Future<MovieListResponse?> getMovies() {
+    return remoteDataSource.getMovies();
+  }}

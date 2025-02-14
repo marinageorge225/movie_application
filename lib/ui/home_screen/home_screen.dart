@@ -27,47 +27,46 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-    return Scaffold(
-      bottomNavigationBar: Container(
-        height: height * 0.085,
-        width: width * 0.9,
-        margin: EdgeInsets.only(right: width * 0.03,left: width * 0.03,bottom: height * 0.02),
-        child: ClipRRect(
+    return SafeArea(
+      child: Scaffold(
+        bottomNavigationBar: ClipRRect(
           borderRadius: BorderRadius.circular(16),
-          child: BottomNavigationBar(
-            iconSize: 17,
-            backgroundColor: AppColors.darkGrayColor,
-            currentIndex: selectedIndex,
-            type: BottomNavigationBarType.fixed,
-            onTap: (index) {
-              if (index < tabs.length) {
-                setState(() {
-                  selectedIndex = index;
-                });
-              }
-            },
-            items: [
-              BottomNavigationBarItem(
-                  icon: builtItemInButtonNavBar(
-                      index: 0, iconPath: AssetsManager.homeIcon),
-                  label: 'Home'),
-              BottomNavigationBarItem(
-                  icon: builtItemInButtonNavBar(
-                      index: 1, iconPath: AssetsManager.searchIcon),
-                  label: 'Search'),
-              BottomNavigationBarItem(
-                  icon: builtItemInButtonNavBar(
-                      index: 2, iconPath: AssetsManager.browseIcon),
-                  label: 'Browse'),
-              BottomNavigationBarItem(
-                  icon: builtItemInButtonNavBar(
-                      index: 3, iconPath: AssetsManager.profileIcon),
-                  label: 'Profile'),
-            ],
+          child: Expanded(
+            child: BottomNavigationBar(
+              iconSize: 23,
+              backgroundColor: AppColors.darkGrayColor,
+              currentIndex: selectedIndex,
+              type: BottomNavigationBarType.fixed,
+              onTap: (index) {
+                if (index < tabs.length) {
+                  setState(() {
+                    selectedIndex = index;
+                  });
+                }
+              },
+              items: [
+                BottomNavigationBarItem(
+                    icon: builtItemInButtonNavBar(
+                        index: 0, iconPath: AssetsManager.homeIcon),
+                    label: 'Home'),
+                BottomNavigationBarItem(
+                    icon: builtItemInButtonNavBar(
+                        index: 1, iconPath: AssetsManager.searchIcon),
+                    label: 'Search'),
+                BottomNavigationBarItem(
+                    icon: builtItemInButtonNavBar(
+                        index: 2, iconPath: AssetsManager.browseIcon),
+                    label: 'Browse'),
+                BottomNavigationBarItem(
+                    icon: builtItemInButtonNavBar(
+                        index: 3, iconPath: AssetsManager.profileIcon),
+                    label: 'Profile'),
+              ],
+            ),
           ),
         ),
+        body: tabs[selectedIndex],
       ),
-      body: tabs[selectedIndex],
     );
   }
 
