@@ -1,10 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_movie_app/model/MovieListResponse.dart';
 
 import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/app_styles.dart';
 import '../../../../core/utils/assets_manager.dart';
+import '../../../movie_detailes_screen/cubit/movie_details_view_model.dart';
+import '../../../movie_detailes_screen/movieDetails.dart';
+import '../../../movie_detailes_screen/movieDetails.dart';
 
 class MovieItem extends StatelessWidget {
   Movie movie;
@@ -19,6 +23,12 @@ class MovieItem extends StatelessWidget {
     return InkWell(
         onTap: (){
           //TODO: Navigate to movie details screen
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => MovieDetails(movieId: movie.id!),
+            ),
+          );
         },
         child: Stack(
         alignment: Alignment.topLeft,

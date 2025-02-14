@@ -92,6 +92,8 @@ extension GetItInjectableX on _i174.GetIt {
         movieListRepository: gh<_i176.MovieListRepository>()));
     gh.factory<_i554.UpdateProfileViewModel>(() => _i554.UpdateProfileViewModel(
         updateProfileRepository: gh<_i942.UpdateProfileRepository>()));
+    gh.factory<HomeTabViewModel>(() =>
+        HomeTabViewModel(movieListRepository: gh<_i176.MovieListRepository>()));
     return this;
   }
 }

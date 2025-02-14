@@ -39,6 +39,7 @@ class AssetsManager{
   static const String nameID = 'assets/images/Name id.png';
   static const String availableNowImage = 'assets/images/available_now_image.png';
   static const String watchNowImage = 'assets/images/watch_now_image.png';
+  static const String onPlayIcon = 'assets/images/onPlayIcon.png';
 
 
 
