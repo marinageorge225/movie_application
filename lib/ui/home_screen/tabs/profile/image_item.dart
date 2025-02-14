@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_movie_app/utils/app_color.dart';
+
+import '../../../../core/utils/app_color.dart';
 
 class ImageItem extends StatefulWidget {
   String imageName;
@@ -35,7 +36,7 @@ class _ImageItemState extends State<ImageItem> {
         margin:EdgeInsets.symmetric(vertical:height*(19/932) ,horizontal:width*(13/430) ) ,
         padding: EdgeInsets.symmetric(vertical:height*(9/932) ,horizontal:width*(10/430) ),
         decoration: BoxDecoration(
-          color: widget.isSelected==true? AppColors.orangeColorTransparent:AppColors.Transparent,
+          color: widget.isSelected==true? AppColors.orangeColorTransparent:AppColors.transparentColor,
           border: Border.all(color: AppColors.orangeColor),
       borderRadius:const BorderRadius.all(Radius.circular(20),),),
         child: Stack(

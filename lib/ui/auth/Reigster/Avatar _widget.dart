@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../utils/app_color.dart';
 
 class AvatarWidget  extends StatelessWidget {
   String avatarPATH;

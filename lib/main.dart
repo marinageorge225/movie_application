@@ -1,23 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:graduation_movie_app/OnBoarding_Screen/OnBoarding.dart';
- import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:graduation_movie_app/cubit/register_view_model.dart';
-import 'package:graduation_movie_app/profile.dart';
-import 'package:graduation_movie_app/splash_screen.dart';
-import 'package:graduation_movie_app/ui/auth/Reigster/Register_Screen.dart';
-
- import 'package:graduation_movie_app/ui/auth/login/login_view.dart';
+import 'package:graduation_movie_app/repository/movie_details/dataSourcesMovieDetails/movie_details_data_source_impl.dart';
+import 'package:graduation_movie_app/repository/movie_details/repository/movie_details_source_repository_impl.dart';
+import 'package:graduation_movie_app/repository/register/data_source/register_remote_data_source_impl.dart';
+import 'package:graduation_movie_app/repository/register/repository/register_repository_impl.dart';
+import 'package:graduation_movie_app/core/api/api_manger.dart';
+import 'package:graduation_movie_app/repository/reset_password/repository/reset_password_repository.dart';
+import 'package:graduation_movie_app/ui/auth/forget_password/reset_password.dart';
 import 'package:graduation_movie_app/ui/home_screen/home_screen.dart';
-import 'package:graduation_movie_app/ui/home_screen/tabs/profile/update_profile.dart';
- import 'package:graduation_movie_app/utils/app_theme.dart';
+import 'package:graduation_movie_app/profile.dart';
+import 'package:graduation_movie_app/ui/home_screen/tabs/home_tab/home_tab_widget.dart';
+import 'package:graduation_movie_app/ui/movie_detailes_screen/cubit/movie_details_view_model.dart';
+import 'package:graduation_movie_app/ui/splash_screen/splash_screen.dart';
+import 'package:graduation_movie_app/ui/auth/Reigster/Register_Screen.dart';
+ import 'package:graduation_movie_app/ui/auth/login/login_view.dart';
 import 'package:graduation_movie_app/ui/auth/forget_password/forget_password.dart';
+import 'package:graduation_movie_app/ui/home_screen/tabs/profile/update_profile/update_profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'api/api_service_register.dart';
-import 'cubit/app_language_cubit.dart';
+import 'core/api/api_manger.dart';
+import 'core/cubit/app_language_cubit.dart';
+import 'ui/auth/Reigster/cubit/register_view_model.dart';
+import 'core/di/di.dart';
+import 'core/utils/app_theme.dart';
+import 'core/utils/my_bloc_observer.dart';
 
 void main() async {
+  Bloc.observer = MyBlocObserver();
+  configureDependencies();
   WidgetsFlutterBinding.ensureInitialized();
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final bool showOnBoarding = prefs.getBool(OnBoarding.routeName) ?? false;
@@ -25,10 +36,37 @@ void main() async {
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => AppLanguageCubit()),
-        BlocProvider(
-          create: (_) => RegisterCubit(ApiService()),
+        ///   Movie Details
+        RepositoryProvider(
+          create: (context) => MovieDetailsRepositoryImpl(
+            remoteDataSource: MovieDetailsRemoteDataSourceImpl(
+              apiManager: ApiManager(),
+            ),
+          ),
         ),
+
+        ///  Register Repository
+        RepositoryProvider(
+          create: (context) => RegisterRepositoryImpl(
+            registerRemoteDataSource: RegisterRemoteDataSourceImpl(
+              apiManager: ApiManager(),
+            ),
+          ),
+        ),
+
+        BlocProvider(
+          create: (context) => MovieDetailsCubit(
+            repository: RepositoryProvider.of<MovieDetailsRepositoryImpl>(context),
+          ),
+        ),
+
+        BlocProvider(
+          create: (context) => RegisterCubit(
+            RepositoryProvider.of<RegisterRepositoryImpl>(context),
+          ),
+        ),
+
+        BlocProvider(create: (context) => AppLanguageCubit()),
       ],
       child: MyApp(showOnBoarding: showOnBoarding),
     ),
@@ -59,13 +97,12 @@ class MyApp extends StatelessWidget {
             UpdateProfile.routeName: (context) => UpdateProfile(),
             RegisterScreen.routeName: (context) => RegisterScreen(),
             Profile.routeName: (context) => Profile(),
+            HomeTab.routeName:(context)=>HomeTab(),
+            ResetPassword.routeName:(context)=>ResetPassword()
           },
           locale: Locale(appLanguage),
         );
       },
-
-
-
 
     );
   }
