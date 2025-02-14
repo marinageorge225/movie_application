@@ -16,7 +16,8 @@ class MovieItem extends StatelessWidget {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-    return Stack(
+    return
+      Stack(
       alignment: Alignment.topLeft,
       children: [
       ClipRRect(
@@ -31,13 +32,16 @@ class MovieItem extends StatelessWidget {
         ),
       ),
       Container(
-        margin: EdgeInsets.symmetric(horizontal: width * 0.025, vertical: height * 0.013) ,
-        padding: EdgeInsets.symmetric(horizontal: width * 0.012, vertical: height * 0.002),
+        alignment: Alignment.center,
+        height: height * 0.03,
+        width: width * 0.13,
+         margin: EdgeInsets.symmetric(horizontal: width * 0.025, vertical: height * 0.013) ,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: AppColors.transparentBlack,
         ),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text('${movie.rating}', style: AppStyles.regular16WhiteRoboto,),
             SizedBox(width: width * 0.01,),

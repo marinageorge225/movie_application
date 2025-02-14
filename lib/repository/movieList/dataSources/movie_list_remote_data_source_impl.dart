@@ -13,4 +13,9 @@ class MovieListRemoteDataSourceImpl implements MovieListRemoteDataSource{
     return response;
   }
 
+  @override
+  Future<MovieListResponse?> getMovies() {
+    return apiManager.getMovies();
+  }
+
 }

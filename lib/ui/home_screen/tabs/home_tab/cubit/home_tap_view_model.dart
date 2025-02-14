@@ -1,11 +1,9 @@
 import 'dart:math';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_movie_app/model/movie_genres.dart';
 import 'package:graduation_movie_app/repository/movieList/repository/movie_List_repository.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/home_tab/cubit/home_tab_states.dart';
 import 'package:injectable/injectable.dart';
-import '../../../../../core/api/api_manger.dart';
 
 @injectable
 class HomeTabViewModel extends Cubit<HomeTabStates>{
@@ -13,24 +11,56 @@ class HomeTabViewModel extends Cubit<HomeTabStates>{
   MovieListRepository movieListRepository;
   HomeTabViewModel({required this.movieListRepository}):super(HomeTabLoadingState());
   String selectedGenre = '';
+  int bgImageIndex = 0;
+
+  void getMovies() async {
+    try {
+      emit(HomeTabLoadingState());
+
+      final response = await movieListRepository.getMovies();
+
+      if (response != null && response.data?.movies != null) {
+        var movies = response.data!.movies!;
+
+        movies.sort((a, b) {
+          int yearComparison = (b.year ?? 0).compareTo(a.year ?? 0);
+          if (yearComparison != 0) {
+            return yearComparison;
+          }
+          return (b.dateUploadedUnix ?? 0).compareTo(a.dateUploadedUnix ?? 0);
+        });
+
+        emit(HomeTabTopPartSuccessState(movies));
+      } else {
+        emit(HomeTabTopPartErrorState("No movies found."));
+      }
+    } catch (e) {
+      emit(HomeTabTopPartErrorState(e.toString()));
+    }
+  }
 
   void getMovieList(String genre) async{
     try {
       emit(HomeTabLoadingState());
       var response = await movieListRepository.getMovieListByGenre(genre);
       if (response!.status == 'error') {
-        emit(HomeTabErrorState(errorMessage: response.statusMessage!));
+        emit(HomeTabBottomPartErrorState(errorMessage: response.statusMessage!));
       } else {
-        emit(HomeTabSuccessState(movieList: response.data!.movies!));
+        emit(HomeTabBottomPartSuccessState(movieList: response.data!.movies!));
       }
     }catch(e){
       print("From home tab view model ${e.toString()}");
-      emit(HomeTabErrorState(errorMessage: e.toString()));
+      emit(HomeTabBottomPartErrorState(errorMessage: e.toString()));
     }
   }
 
   void changeGenre(){
-    selectedGenre = (MovieGenres.movieGenresList..shuffle()).first;
-    emit(ChangeGenre());
+    final random = Random();
+    selectedGenre = (MovieGenres.movieGenresList..shuffle(random)).first;
+  }
+
+  void changeBgImageIndex(int index){
+    bgImageIndex = index;
+    emit(ChangeBgImageIndex());
   }
 }

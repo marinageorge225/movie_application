@@ -26,15 +26,12 @@ class _HomeScreenState extends State<HomeScreen> {
     return BlocBuilder<HomeScreenViewModel, HomeScreenStates>(
       bloc: viewModel,
       builder: (context, state){
-        return Scaffold(
-          bottomNavigationBar: Container(
-            height: height * 0.085,
-            width: width * 0.9,
-            margin: EdgeInsets.only(right: width * 0.03,left: width * 0.03,bottom: height * 0.02),
-            child: ClipRRect(
+        return SafeArea(
+            child: Scaffold(
+          bottomNavigationBar: ClipRRect(
               borderRadius: BorderRadius.circular(16),
               child: BottomNavigationBar(
-                iconSize: 22,
+                iconSize: 23,
                 backgroundColor: AppColors.darkGrayColor,
                 currentIndex: viewModel.selectedIndex,
                 type: BottomNavigationBarType.fixed,
@@ -58,9 +55,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       label: 'Profile'),
                 ],
               ),
-            ),
           ),
           body: viewModel.tabs[viewModel.selectedIndex],
+        )
         );
       },
     );

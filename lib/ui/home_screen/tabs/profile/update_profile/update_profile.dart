@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:graduation_movie_app/core/di/di.dart';
 import 'package:graduation_movie_app/core/utils/dialog_utils.dart';
 import 'package:graduation_movie_app/core/utils/flutter_toast.dart';
 import 'package:graduation_movie_app/ui/auth/forget_password/reset_password.dart';
@@ -22,7 +23,7 @@ class UpdateProfile extends StatefulWidget {
 }
 
 class _UpdateProfileState extends State<UpdateProfile> {
-  UpdateProfileViewModel viewModel = UpdateProfileViewModel();
+  UpdateProfileViewModel viewModel = getIt<UpdateProfileViewModel>();
   @override
   void initState() {
     // TODO: implement initState
