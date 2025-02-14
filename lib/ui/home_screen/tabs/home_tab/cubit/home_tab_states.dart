@@ -1,4 +1,4 @@
-import 'package:graduation_movie_app/model/MovieListResponse.dart';
+import '../../../../../model/movie_list_response.dart';
 
 abstract class HomeTabStates{}
 class HomeTabLoadingState extends HomeTabStates{}

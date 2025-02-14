@@ -1,4 +1,5 @@
-import 'package:graduation_movie_app/model/GetProfileResponse.dart';
+
+import '../../../model/get_profile_response.dart';
 
 abstract class UpdateProfileRepository{
   Future <GetProfileResponse?> getProfile(String token);

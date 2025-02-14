@@ -1,4 +1,4 @@
-import '../../../model/GetProfileResponse.dart';
+import '../../../model/get_profile_response.dart';
 
 abstract class UpdateProfileRemoteDataSource{
   Future <GetProfileResponse?> getProfile(String token);

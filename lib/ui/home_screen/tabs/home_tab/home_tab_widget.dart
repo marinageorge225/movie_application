@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_movie_app/core/di/di.dart';
 import 'package:graduation_movie_app/core/utils/assets_manager.dart';
-import 'package:graduation_movie_app/model/MovieListResponse.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/home_tab/cubit/home_tab_states.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/home_tab/cubit/home_tap_view_model.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/home_tab/movie_item.dart';
 import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/app_styles.dart';
+import '../../../../model/movie_list_response.dart';
 
 class HomeTab extends StatefulWidget {
   static const String routeName='HomeTab';
@@ -19,7 +19,6 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
-  late Future<MovieListResponse?> movieListResponse ;
 
   HomeTabViewModel viewModel = getIt<HomeTabViewModel>();
 
