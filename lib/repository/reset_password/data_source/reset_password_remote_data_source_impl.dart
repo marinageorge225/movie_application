@@ -3,7 +3,7 @@ import 'package:injectable/injectable.dart';
 import '../../../core/api/api_constants.dart';
 import '../../../core/api/api_manger.dart';
 import '../../../core/api/end_points.dart';
-import '../../../model/reset_password_response.dart';
+import '../../../model/ResetPasswordResponse.dart';
 import 'reset_password_remote_data_source.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';

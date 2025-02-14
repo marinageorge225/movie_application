@@ -1,8 +1,8 @@
 import 'dart:convert';
-import 'package:graduation_movie_app/model/movie_list_response.dart';
+import 'package:graduation_movie_app/model/MovieListResponse.dart';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
-import '../../model/get_profile_response.dart';
+import '../../model/GetProfileResponse.dart';
 import '../../model/LoginResponse.dart';
 import '../../model/user_model_register.dart';
 import 'end_points.dart';
@@ -80,7 +80,7 @@ class ApiManager {
 //https://yts.mx/api/v2/list_movies.json
 
   Future<MovieListResponse?> getMovies() async {
-    Uri url = Uri.https(ApiConstants.baseUrl, EndPoints.listMovieApi, {
+    Uri url = Uri.https(ApiConstants.baseUrl, EndPoints.listMoviesApi, {
       'sort_by': 'date_added',
       'order_by': 'desc',
     });
@@ -98,8 +98,6 @@ class ApiManager {
     }
   }
   Future<GetProfileResponse?> getProfileInfo(String token)async{
-    Uri url = Uri.https(ApiConstant.profileBaseUrl, EndPoints.profileApi);
-  static Future<GetProfileResponse?> getProfileInfo(String token)async{
     Uri url = Uri.https(ApiConstants.profileBaseUrl, EndPoints.profileApi);
     try {
       var response = await http.get(url,
@@ -144,7 +142,7 @@ class ApiManager {
     }
   }
 
-  static Future<GetProfileResponse?> deleteProfileInfo(String token)async{
+  Future<GetProfileResponse?> deleteProfileInfo(String token)async{
     Uri url = Uri.https(ApiConstants.profileBaseUrl, EndPoints.profileApi);
 
     try {

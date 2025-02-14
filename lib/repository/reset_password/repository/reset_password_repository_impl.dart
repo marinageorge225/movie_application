@@ -1,6 +1,6 @@
 import 'package:graduation_movie_app/model/LoginResponse.dart';
 import 'package:injectable/injectable.dart';
-import '../../../model/reset_password_response.dart';
+import '../../../model/ResetPasswordResponse.dart';
 import '../data_source/reset_password_remote_data_source.dart';
 import 'reset_password_repository.dart';
 @Injectable(as:ResetPasswordRepository)

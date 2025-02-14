@@ -1,7 +1,8 @@
 import 'package:graduation_movie_app/core/api/api_manger.dart';
-import 'package:graduation_movie_app/model/GetProfileResponse.dart';
 import 'package:graduation_movie_app/repository/update_profile_repository/data_sources/update_profile_remote_data_source.dart';
 import 'package:injectable/injectable.dart';
+
+import '../../../model/GetProfileResponse.dart';
 
 @Injectable(as: UpdateProfileRemoteDataSource)
 class UpdateProfileRemoteDataSourceImpl implements UpdateProfileRemoteDataSource{
