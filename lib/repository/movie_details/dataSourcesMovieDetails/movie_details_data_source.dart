@@ -1,5 +1,5 @@
 import '../../../../model/MovieDetailsResponse.dart';
 
-abstract class SourceRemoteDataSource {
+abstract class MovieDetailsRemoteDataSource {
   Future<MovieDetailsResponse?> getMovieDetails(int movieId);
 }

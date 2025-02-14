@@ -1,5 +1,5 @@
 import '../../../../model/MovieDetailsResponse.dart';
 
-abstract class SourceRepository {
+abstract class MovieDetailsRepository {
   Future<MovieDetailsResponse?> getMovieDetails(int movieId);
 }

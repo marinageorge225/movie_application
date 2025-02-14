@@ -1,123 +1,84 @@
-import 'dart:convert';
-
 class MovieDetailsResponse {
   MovieDetailsResponse({
-    this.status,
-    this.statusMessage,
-    this.data,
-    this.meta,
-  });
+      this.status, 
+      this.statusMessage, 
+      this.data});
 
-  factory MovieDetailsResponse.fromJson(Map<String, dynamic> json) {
-    return MovieDetailsResponse(
-      status: json['status'],
-      statusMessage: json['status_message'],
-      data: json['data'] != null ? Data.fromJson(json['data']) : null,
-      meta: json['@meta'] != null ? Meta.fromJson(json['@meta']) : null,
-    );
+  MovieDetailsResponse.fromJson(dynamic json) {
+    status = json['status'];
+    statusMessage = json['status_message'];
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
-
   String? status;
   String? statusMessage;
   Data? data;
-  Meta? meta;
 
   Map<String, dynamic> toJson() {
-    return {
-      'status': status,
-      'status_message': statusMessage,
-      'data': data?.toJson(),
-      '@meta': meta?.toJson(),
-    };
+    final map = <String, dynamic>{};
+    map['status'] = status;
+    map['status_message'] = statusMessage;
+    if (data != null) {
+      map['data'] = data?.toJson();
+    }
+    return map;
   }
+
 }
 
-// ✅ كلاس `Meta`
-class Meta {
-  Meta({
-    this.serverTime,
-    this.serverTimezone,
-    this.apiVersion,
-    this.executionTime,
-  });
 
-  factory Meta.fromJson(Map<String, dynamic> json) {
-    return Meta(
-      serverTime: json['server_time'],
-      serverTimezone: json['server_timezone'],
-      apiVersion: json['api_version'],
-      executionTime: json['execution_time'],
-    );
-  }
-
-  int? serverTime;
-  String? serverTimezone;
-  int? apiVersion;
-  String? executionTime;
-
-  Map<String, dynamic> toJson() {
-    return {
-      'server_time': serverTime,
-      'server_timezone': serverTimezone,
-      'api_version': apiVersion,
-      'execution_time': executionTime,
-    };
-  }
-}
-
-// ✅ كلاس `Data`
 class Data {
-  Data({this.movie});
+  Data({
+      this.movie,});
 
-  factory Data.fromJson(Map<String, dynamic> json) {
-    return Data(
-      movie: json['movie'] != null ? Movie.fromJson(json['movie']) : null,
-    );
+  Data.fromJson(dynamic json) {
+    movie = json['movie'] != null ? Movie.fromJson(json['movie']) : null;
   }
-
   Movie? movie;
 
   Map<String, dynamic> toJson() {
-    return {
-      'movie': movie?.toJson(),
-    };
+    final map = <String, dynamic>{};
+    if (movie != null) {
+      map['movie'] = movie?.toJson();
+    }
+    return map;
   }
+
 }
 
-// ✅ كلاس `Movie` مع كل البيانات
 class Movie {
   Movie({
-    this.id,
-    this.url,
-    this.imdbCode,
-    this.title,
-    this.titleEnglish,
-    this.titleLong,
-    this.slug,
-    this.year,
-    this.rating,
-    this.runtime,
-    this.genres,
-    this.likeCount,
-    this.descriptionIntro,
-    this.descriptionFull,
-    this.ytTrailerCode,
-    this.language,
-    this.mpaRating,
-    this.backgroundImage,
-    this.backgroundImageOriginal,
-    this.smallCoverImage,
-    this.mediumCoverImage,
-    this.largeCoverImage,
-    this.mediumScreenshotImage1,
-    this.mediumScreenshotImage2,
-    this.mediumScreenshotImage3,
-    this.largeScreenshotImage1,
-    this.largeScreenshotImage2,
-    this.largeScreenshotImage3,
-    this.torrents,
-    this.dateUploaded,
-    this.dateUploadedUnix,});
+      this.id, 
+      this.url, 
+      this.imdbCode, 
+      this.title, 
+      this.titleEnglish, 
+      this.titleLong, 
+      this.slug, 
+      this.year, 
+      this.rating, 
+      this.runtime, 
+      this.genres, 
+      this.likeCount, 
+      this.descriptionIntro, 
+      this.descriptionFull, 
+      this.ytTrailerCode, 
+      this.language, 
+      this.mpaRating, 
+      this.backgroundImage, 
+      this.backgroundImageOriginal, 
+      this.smallCoverImage, 
+      this.mediumCoverImage, 
+      this.largeCoverImage, 
+      this.mediumScreenshotImage1, 
+      this.mediumScreenshotImage2, 
+      this.mediumScreenshotImage3, 
+      this.largeScreenshotImage1, 
+      this.largeScreenshotImage2, 
+      this.largeScreenshotImage3, 
+      this.cast, 
+      this.torrents, 
+      this.dateUploaded, 
+      this.dateUploadedUnix,});
 
   Movie.fromJson(dynamic json) {
     id = json['id'];
@@ -148,27 +109,33 @@ class Movie {
     largeScreenshotImage1 = json['large_screenshot_image1'];
     largeScreenshotImage2 = json['large_screenshot_image2'];
     largeScreenshotImage3 = json['large_screenshot_image3'];
+    if (json['cast'] != null) {
+      cast = [];
+      json['cast'].forEach((v) {
+        cast?.add(Cast.fromJson(v));
+      });
+    }
     if (json['torrents'] != null) {
       torrents = [];
       json['torrents'].forEach((v) {
-        torrents?.add(Torrent.fromJson(v));
+        torrents?.add(Torrents.fromJson(v));
       });
     }
     dateUploaded = json['date_uploaded'];
     dateUploadedUnix = json['date_uploaded_unix'];
   }
-  int? id;
+  num? id;
   String? url;
   String? imdbCode;
   String? title;
   String? titleEnglish;
   String? titleLong;
   String? slug;
-  int? year;
-  double? rating;
-  int? runtime;
+  num? year;
+  num? rating;
+  num? runtime;
   List<String>? genres;
-  int? likeCount;
+  num? likeCount;
   String? descriptionIntro;
   String? descriptionFull;
   String? ytTrailerCode;
@@ -185,9 +152,10 @@ class Movie {
   String? largeScreenshotImage1;
   String? largeScreenshotImage2;
   String? largeScreenshotImage3;
-  List<Torrent>? torrents;
+  List<Cast>? cast;
+  List<Torrents>? torrents;
   String? dateUploaded;
-  int? dateUploadedUnix;
+  num? dateUploadedUnix;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -219,6 +187,9 @@ class Movie {
     map['large_screenshot_image1'] = largeScreenshotImage1;
     map['large_screenshot_image2'] = largeScreenshotImage2;
     map['large_screenshot_image3'] = largeScreenshotImage3;
+    if (cast != null) {
+      map['cast'] = cast?.map((v) => v.toJson()).toList();
+    }
     if (torrents != null) {
       map['torrents'] = torrents?.map((v) => v.toJson()).toList();
     }
@@ -228,44 +199,40 @@ class Movie {
   }
 
 }
-// ✅ كلاس `Torrent` للروابط
-class Torrent {
-  Torrent({
-    this.url,
-    this.hash,
-    this.quality,
-    this.type,
-    this.isRepack,
-    this.videoCodec,
-    this.bitDepth,
-    this.audioChannels,
-    this.seeds,
-    this.peers,
-    this.size,
-    this.sizeBytes,
-    this.dateUploaded,
-    this.dateUploadedUnix,
-  });
 
-  factory Torrent.fromJson(Map<String, dynamic> json) {
-    return Torrent(
-      url: json['url'],
-      hash: json['hash'],
-      quality: json['quality'],
-      type: json['type'],
-      isRepack: json['is_repack'],
-      videoCodec: json['video_codec'],
-      bitDepth: json['bit_depth'],
-      audioChannels: json['audio_channels'],
-      seeds: json['seeds'],
-      peers: json['peers'],
-      size: json['size'],
-      sizeBytes: json['size_bytes'],
-      dateUploaded: json['date_uploaded'],
-      dateUploadedUnix: json['date_uploaded_unix'],
-    );
+class Torrents {
+  Torrents({
+      this.url, 
+      this.hash, 
+      this.quality, 
+      this.type, 
+      this.isRepack, 
+      this.videoCodec, 
+      this.bitDepth, 
+      this.audioChannels, 
+      this.seeds, 
+      this.peers, 
+      this.size, 
+      this.sizeBytes, 
+      this.dateUploaded, 
+      this.dateUploadedUnix,});
+
+  Torrents.fromJson(dynamic json) {
+    url = json['url'];
+    hash = json['hash'];
+    quality = json['quality'];
+    type = json['type'];
+    isRepack = json['is_repack'];
+    videoCodec = json['video_codec'];
+    bitDepth = json['bit_depth'];
+    audioChannels = json['audio_channels'];
+    seeds = json['seeds'];
+    peers = json['peers'];
+    size = json['size'];
+    sizeBytes = json['size_bytes'];
+    dateUploaded = json['date_uploaded'];
+    dateUploadedUnix = json['date_uploaded_unix'];
   }
-
   String? url;
   String? hash;
   String? quality;
@@ -274,29 +241,59 @@ class Torrent {
   String? videoCodec;
   String? bitDepth;
   String? audioChannels;
-  int? seeds;
-  int? peers;
+  num? seeds;
+  num? peers;
   String? size;
-  int? sizeBytes;
+  num? sizeBytes;
   String? dateUploaded;
-  int? dateUploadedUnix;
+  num? dateUploadedUnix;
 
   Map<String, dynamic> toJson() {
-    return {
-      'url': url,
-      'hash': hash,
-      'quality': quality,
-      'type': type,
-      'is_repack': isRepack,
-      'video_codec': videoCodec,
-      'bit_depth': bitDepth,
-      'audio_channels': audioChannels,
-      'seeds': seeds,
-      'peers': peers,
-      'size': size,
-      'size_bytes': sizeBytes,
-      'date_uploaded': dateUploaded,
-      'date_uploaded_unix': dateUploadedUnix,
-    };
+    final map = <String, dynamic>{};
+    map['url'] = url;
+    map['hash'] = hash;
+    map['quality'] = quality;
+    map['type'] = type;
+    map['is_repack'] = isRepack;
+    map['video_codec'] = videoCodec;
+    map['bit_depth'] = bitDepth;
+    map['audio_channels'] = audioChannels;
+    map['seeds'] = seeds;
+    map['peers'] = peers;
+    map['size'] = size;
+    map['size_bytes'] = sizeBytes;
+    map['date_uploaded'] = dateUploaded;
+    map['date_uploaded_unix'] = dateUploadedUnix;
+    return map;
   }
+
+}
+
+class Cast {
+  Cast({
+      this.name, 
+      this.characterName, 
+      this.urlSmallImage, 
+      this.imdbCode,});
+
+  Cast.fromJson(dynamic json) {
+    name = json['name'];
+    characterName = json['character_name'];
+    urlSmallImage = json['url_small_image'];
+    imdbCode = json['imdb_code'];
+  }
+  String? name;
+  String? characterName;
+  String? urlSmallImage;
+  String? imdbCode;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['name'] = name;
+    map['character_name'] = characterName;
+    map['url_small_image'] = urlSmallImage;
+    map['imdb_code'] = imdbCode;
+    return map;
+  }
+
 }

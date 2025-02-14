@@ -1,11 +1,11 @@
 import '../../../../core/api/api_manager_details_screen.dart';
 import '../../../../model/MovieDetailsResponse.dart';
-import 'source_remote_data_source.dart';
+import 'movie_details_data_source.dart';
 
-class SourceRemoteDataSourceImpl extends SourceRemoteDataSource {
+class MovieDetailsRemoteDataSourceImpl extends MovieDetailsRemoteDataSource {
   final ApiManagerDetailsScreen apiManagerDetailsScreen;
 
-  SourceRemoteDataSourceImpl({required this.apiManagerDetailsScreen});
+  MovieDetailsRemoteDataSourceImpl({required this.apiManagerDetailsScreen});
 
   @override
   Future<MovieDetailsResponse?> getMovieDetails(int movieId) async {

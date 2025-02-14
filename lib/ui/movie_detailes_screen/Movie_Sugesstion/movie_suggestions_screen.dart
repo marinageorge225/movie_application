@@ -51,7 +51,8 @@ class MovieSuggestionScreen extends StatelessWidget {
                       ),
                     );
                   },
-                  child: Stack(
+                  child:
+                  Stack(
                     children: [
                       Container(
                         decoration: BoxDecoration(

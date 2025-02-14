@@ -8,7 +8,7 @@ import 'end_points.dart';
 class ApiManagerDetailsScreen {
   Future<MovieDetailsResponse?> getMovieDetails(int movieId) async {
     try {
-      final url = Uri.parse("${ApiConstant.baseUrlDetailsMovie}$movieId&with_images=true");
+      final url = Uri.parse("${ApiConstant.baseUrlDetailsMovie}$movieId&with_images=true&with_cast=true");
 
       final response = await http.get(url);
       if (response.statusCode == 200) {
@@ -26,7 +26,7 @@ class ApiManagerDetailsScreen {
     Uri url = Uri.https(
       ApiConstant.movieListBaseServer,
       EndPoints.movieSuggestionApi,
-      {'movie_id': movieId.toString()},
+      {'movie_id': movieId.toString(),},
     );
 
     try {
