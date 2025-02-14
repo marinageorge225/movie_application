@@ -2,7 +2,7 @@ class MovieDetailsResponse {
   MovieDetailsResponse({
       this.status, 
       this.statusMessage, 
-      this.data});
+      this.data,});
 
   MovieDetailsResponse.fromJson(dynamic json) {
     status = json['status'];
@@ -12,6 +12,7 @@ class MovieDetailsResponse {
   String? status;
   String? statusMessage;
   Data? data;
+
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -24,6 +25,7 @@ class MovieDetailsResponse {
   }
 
 }
+
 
 
 class Data {

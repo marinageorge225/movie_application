@@ -6,13 +6,12 @@ import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 import '../../model/GetProfileResponse.dart';
 import '../../model/LoginResponse.dart';
-import '../../model/user_model_register.dart';
 import 'end_points.dart';
 import 'package:graduation_movie_app/core/api/api_constants.dart';
 
 @singleton
 class ApiManager {
-  static Future<UserModel> registerUser(UserModel user) async {
+  Future<UserModel> registerUser(UserModel user) async {
     final url = Uri.parse(ApiConstants.baseUrlRegister);
     final jsonData = jsonEncode(user.toJson());
 
@@ -161,7 +160,7 @@ class ApiManager {
 
   Future<MovieDetailsResponse?> getMovieDetails(int movieId) async {
     try {
-      final url = Uri.parse("${ApiConstant.baseUrlDetailsMovie}$movieId&with_images=true&with_cast=true");
+      final url = Uri.parse("${ApiConstants.baseUrlMovieDetails}$movieId&with_images=true&with_cast=true");
 
       final response = await http.get(url);
       if (response.statusCode == 200) {
@@ -177,7 +176,7 @@ class ApiManager {
   }
   Future<MovieListResponse> getMovieSuggestions(int movieId) async {
     Uri url = Uri.https(
-      ApiConstant.movieListBaseServer,
+      ApiConstants.movieListBaseServer,
       EndPoints.movieSuggestionApi,
       {'movie_id': movieId.toString(),},
     );
