@@ -1,11 +1,12 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_movie_app/core/api/api_manager_details_screen.dart';
+import 'package:graduation_movie_app/core/api/api_manger.dart';
 import 'package:graduation_movie_app/ui/movie_detailes_screen/Movie_Sugesstion/cubit/movie_suggestions_states.dart';
 import 'package:graduation_movie_app/core/error/failures.dart';
 import 'package:graduation_movie_app/model/MovieListResponse.dart';
 
 class MovieSuggestionViewModel extends Cubit<MovieSuggestionState> {
-  final ApiManagerDetailsScreen apiManager;
+  final ApiManager apiManager;
 
   MovieSuggestionViewModel({required this.apiManager}) : super(MovieSuggestionInitialState());
 

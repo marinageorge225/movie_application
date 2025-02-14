@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation_movie_app/core/api/api_manger.dart';
 import '../../../core/api/api_manager_details_screen.dart';
 import '../../../core/utils/app_styles.dart';
 import '../movieDetails.dart';
@@ -16,7 +17,7 @@ class MovieSuggestionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-      MovieSuggestionViewModel(apiManager: ApiManagerDetailsScreen())..getMovieSuggestions(movieId),
+      MovieSuggestionViewModel(apiManager: ApiManager())..getMovieSuggestions(movieId),
       child: BlocBuilder<MovieSuggestionViewModel, MovieSuggestionState>(
         builder: (context, state) {
           if (state is MovieSuggestionLoadingState) {

@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'package:graduation_movie_app/model/MovieDetailsResponse.dart';
 import 'package:graduation_movie_app/model/MovieListResponse.dart';
+import 'package:graduation_movie_app/model/user_model_register.dart';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 import '../../model/GetProfileResponse.dart';
@@ -10,6 +12,29 @@ import 'end_points.dart';
 
 @singleton
 class ApiManager {
+
+  Future<UserModel> registerUser(UserModel user) async {
+    final url = Uri.parse(ApiConstant.baseUrlRegister);
+    final jsonData = jsonEncode(user.toJson());
+
+    print("  Sending data to API: $jsonData");
+
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonData,
+    );
+
+    print("****&&  Response Status Code: ${response.statusCode}");
+    print("******&&  Response Body: ${response.body}");
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return UserModel.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('  Failed to register user: ${response.statusCode}, '
+          'Body: ${response.body}');
+    }
+  }
 
 
   final Uri url = Uri.parse(ApiConstant.urlLoginAuth);
@@ -140,6 +165,42 @@ class ApiManager {
       }
     } catch (e) {
       return null;
+    }
+  }
+
+  Future<MovieDetailsResponse?> getMovieDetails(int movieId) async {
+    try {
+      final url = Uri.parse("${ApiConstant.baseUrlDetailsMovie}$movieId&with_images=true&with_cast=true");
+
+      final response = await http.get(url);
+      if (response.statusCode == 200) {
+        final jsonData = json.decode(response.body);
+        return MovieDetailsResponse.fromJson(jsonData);
+      } else {
+        print("Error: ${response.statusCode}");
+        return null;
+      }
+    } catch (e) {
+      throw e;
+    }
+  }
+  Future<MovieListResponse> getMovieSuggestions(int movieId) async {
+    Uri url = Uri.https(
+      ApiConstant.movieListBaseServer,
+      EndPoints.movieSuggestionApi,
+      {'movie_id': movieId.toString(),},
+    );
+
+    try {
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        var json = jsonDecode(response.body);
+        return MovieListResponse.fromJson(json);
+      } else {
+        throw Exception("Failed to fetch suggestions: ${response.statusCode}");
+      }
+    } catch (e) {
+      throw Exception("An error occurred: ${e.toString()}");
     }
   }
 

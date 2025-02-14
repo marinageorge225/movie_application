@@ -16,7 +16,7 @@ import 'package:graduation_movie_app/ui/auth/Reigster/Register_Screen.dart';
 import 'package:graduation_movie_app/ui/auth/forget_password/forget_password.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/profile/update_profile/update_profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'core/api/api_manager_details_screen.dart';
+import 'core/api/api_manger.dart';
 import 'core/api/api_service_register.dart';
 import 'core/cubit/app_language_cubit.dart';
 import 'ui/auth/Reigster/cubit/register_view_model.dart';
@@ -38,7 +38,7 @@ void main() async {
         RepositoryProvider(
           create: (context) => MovieDetailsRepositoryImpl(
             remoteDataSource: MovieDetailsRemoteDataSourceImpl(
-              apiManagerDetailsScreen: ApiManagerDetailsScreen(),
+              apiManager: ApiManager(),
             ),
           ),
         ),
@@ -47,7 +47,7 @@ void main() async {
         RepositoryProvider(
           create: (context) => RegisterRepositoryImpl(
             registerRemoteDataSource: RegisterRemoteDataSourceImpl(
-              apiService: ApiService(),
+              apiManager: ApiManager(),
             ),
           ),
         ),
