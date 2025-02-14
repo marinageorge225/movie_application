@@ -11,22 +11,10 @@ import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/app_styles.dart';
 import '../../../../model/MovieListResponse.dart';
 
-class HomeTab extends StatefulWidget {
+class HomeTab extends StatelessWidget {
   static const String routeName='HomeTab';
 
-  @override
-  State<HomeTab> createState() => _HomeTabState();
-}
-
-class _HomeTabState extends State<HomeTab> {
   HomeTabViewModel viewModel = getIt<HomeTabViewModel>();
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    viewModel.changeGenre();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +61,8 @@ class _HomeTabState extends State<HomeTab> {
                         width: double.infinity,
                         decoration: const BoxDecoration(
                           gradient: LinearGradient(
-                            colors: [Colors.transparent, AppColors.blackColor],
+                            colors: [AppColors.transparentBlack
+                              , AppColors.blackColor],
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
                           ),
