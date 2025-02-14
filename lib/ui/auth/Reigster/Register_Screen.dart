@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_movie_app/ui/auth/login/login_view.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../core/cubit/app_language_cubit.dart';
-import '../../../repository/register/repository/register_repository.dart';
 import '../../../repository/register/repository/register_repository_impl.dart';
 import 'cubit/register_states.dart';
 import 'cubit/register_view_model.dart';
@@ -311,7 +310,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
           ),
         ),
-      ),
+    ),
     ),
     );
   }

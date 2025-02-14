@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 import '../../model/GetProfileResponse.dart';
 import '../../model/LoginResponse.dart';
+import '../../model/user_model_register.dart';
 import 'end_points.dart';
 import 'package:graduation_movie_app/core/api/api_constants.dart';
 
@@ -160,7 +161,7 @@ class ApiManager {
 
   Future<MovieDetailsResponse?> getMovieDetails(int movieId) async {
     try {
-      final url = Uri.parse("${ApiConstants.baseUrlMovieDetails}$movieId&with_images=true&with_cast=true");
+      final url = Uri.parse("${ApiConstants.baseUrlDetailsMovie}$movieId&with_images=true&with_cast=true");
 
       final response = await http.get(url);
       if (response.statusCode == 200) {

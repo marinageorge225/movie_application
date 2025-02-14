@@ -19,11 +19,15 @@ class CastWidget extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       padding: EdgeInsets.symmetric(
           horizontal: width * 0.02, vertical: height * 0.015),
-      itemCount: movie.cast!.length,
+      itemCount: movie.cast?.length ?? 0,
       separatorBuilder: (context, index) {
         return SizedBox(height: height * 0.015);
       },
       itemBuilder: (context, index) {
+        final castMember = movie.cast?[index]; // Safe access
+        if (castMember == null) {
+          return const SizedBox(); // Return empty if null
+        }
         return Container(
           padding: EdgeInsets.symmetric(
               vertical: height * 0.011, horizontal: width * 0.02),
@@ -38,12 +42,13 @@ class CastWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 child: CachedNetworkImage(
                   fit: BoxFit.fill,
-                  imageUrl: movie.cast![index].urlSmallImage ?? '',
+                  imageUrl: castMember.urlSmallImage ?? '',
                   placeholder: (context, url) => const Center(
                     child:
                         CircularProgressIndicator(color: AppColors.orangeColor),
                   ),
                   errorWidget: (context, url, error) => const Center(
+                    widthFactor: 2.4,
                     child: Icon(Icons.error, color: AppColors.whiteColor),
                   ),
                 ),
@@ -57,14 +62,14 @@ class CastWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   AutoSizeText(
-                    'Name: ${movie.cast![index].name ?? 'Unknown'}',
+                    'Name: ${castMember.name ?? 'Unknown'}',
                     style: AppStyles.regular16WhiteRoboto,
                   ),
                   SizedBox(
                     height: height * 0.01,
                   ),
                   AutoSizeText(
-                    'Character: ${movie.cast![index].characterName ?? 'Unknown'}',
+                    'Character: ${castMember.characterName ?? 'Unknown'}',
                     style: AppStyles.regular16WhiteRoboto,
                   )
                 ],

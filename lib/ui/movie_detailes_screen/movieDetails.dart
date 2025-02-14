@@ -1,5 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_movie_app/core/utils/app_color.dart';
@@ -169,9 +167,9 @@ class _MovieDetailsState extends State<MovieDetails> {
                         ShowScreenShot(imageUrl: movie.largeScreenshotImage2!),
                         SizedBox(height: height * (14 / 932)),
                         ShowScreenShot(imageUrl: movie.largeScreenshotImage3!),
-                        SizedBox(height: height * (30 / 932)),
+                        SizedBox(height: height * 0.02),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          padding: EdgeInsets.symmetric(horizontal: width * 0.035),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
@@ -182,11 +180,11 @@ class _MovieDetailsState extends State<MovieDetails> {
                             ],
                           ),
                         ),
-                        SizedBox(height: height * (30 / 932)),
+                        SizedBox(height: height * 0.015),
                         MovieSuggestionScreen(movieId: widget.movieId.toString()),
-                        SizedBox(height: height * (30 / 932)),
+                        SizedBox(height: height * 0.015),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          padding: EdgeInsets.symmetric(horizontal: width * 0.035),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
