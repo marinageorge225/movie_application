@@ -6,6 +6,9 @@ import 'package:graduation_movie_app/repository/movie_details/dataSourcesMovieDe
 import 'package:graduation_movie_app/repository/movie_details/repository/movie_details_source_repository_impl.dart';
 import 'package:graduation_movie_app/repository/register/data_source/register_remote_data_source_impl.dart';
 import 'package:graduation_movie_app/repository/register/repository/register_repository_impl.dart';
+import 'package:graduation_movie_app/core/api/api_manger.dart';
+import 'package:graduation_movie_app/repository/reset_password/repository/reset_password_repository.dart';
+import 'package:graduation_movie_app/ui/auth/forget_password/reset_password.dart';
 import 'package:graduation_movie_app/ui/home_screen/home_screen.dart';
 import 'package:graduation_movie_app/profile.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/home_tab/home_tab_widget.dart';
@@ -68,7 +71,6 @@ void main() async {
       child: MyApp(showOnBoarding: showOnBoarding),
     ),
   );
-
 }
 
 class MyApp extends StatelessWidget {
@@ -85,7 +87,7 @@ class MyApp extends StatelessWidget {
           supportedLocales: AppLocalizations.supportedLocales,
           debugShowCheckedModeBanner: false,
           theme: AppTheme.themeData,
-          initialRoute: LoginView.routeName,
+          initialRoute: SplashScreen.routeName,
           routes: {
             HomeScreen.routeName: (context) => HomeScreen(),
             OnBoarding.routeName: (context) => OnBoarding(),
@@ -96,11 +98,12 @@ class MyApp extends StatelessWidget {
             RegisterScreen.routeName: (context) => RegisterScreen(),
             Profile.routeName: (context) => Profile(),
             HomeTab.routeName:(context)=>HomeTab(),
-
+            ResetPassword.routeName:(context)=>ResetPassword()
           },
           locale: Locale(appLanguage),
         );
       },
+
     );
   }
 }

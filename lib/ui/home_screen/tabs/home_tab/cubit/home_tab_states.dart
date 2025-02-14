@@ -1,12 +1,26 @@
-import 'package:graduation_movie_app/model/MovieListResponse.dart';
+import '../../../../../model/MovieListResponse.dart';
 
 abstract class HomeTabStates{}
 class HomeTabLoadingState extends HomeTabStates{}
-class HomeTabErrorState extends HomeTabStates{
+
+
+class HomeTabTopPartSuccessState extends HomeTabStates{
+  final List<Movie> movies;
+  HomeTabTopPartSuccessState(this.movies);
+}
+class HomeTabTopPartErrorState extends HomeTabStates{
+  final String error;
+  HomeTabTopPartErrorState(this.error);
+}
+
+
+class HomeTabBottomPartErrorState extends HomeTabStates{
   String errorMessage ;
-  HomeTabErrorState({required this.errorMessage});
+  HomeTabBottomPartErrorState({required this.errorMessage});
 }
-class HomeTabSuccessState extends HomeTabStates{
+class HomeTabBottomPartSuccessState extends HomeTabStates{
   List <Movie> movieList ;
-  HomeTabSuccessState({required this.movieList});
+  HomeTabBottomPartSuccessState({required this.movieList});
 }
+
+class ChangeBgImageIndex extends HomeTabStates{}

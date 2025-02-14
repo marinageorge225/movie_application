@@ -1,4 +1,3 @@
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_movie_app/ui/auth/Reigster/cubit/register_states.dart';
 
@@ -7,7 +6,7 @@ import '../../../../repository/register/repository/register_repository.dart';
 
 
 class RegisterCubit extends Cubit<RegisterState> {
- 
+
 final RegisterRepository registerRepository;
 
 RegisterCubit(this.registerRepository) : super(RegisterInitial());

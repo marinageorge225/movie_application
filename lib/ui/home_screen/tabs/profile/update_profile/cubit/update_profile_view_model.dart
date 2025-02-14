@@ -1,50 +1,56 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation_movie_app/core/api/api_manger.dart';
-import 'package:graduation_movie_app/model/GetProfileResponse.dart';
+import 'package:graduation_movie_app/repository/update_profile_repository/repository/update_profile_repository.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/profile/update_profile/cubit/update_profile_states.dart';
+import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+@injectable
 class UpdateProfileViewModel extends Cubit<UpdateProfileStates>{
+  UpdateProfileRepository updateProfileRepository;
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   String? selectedAvatar;
 
-  UpdateProfileViewModel():super(UpdateProfileInitialState());
+  UpdateProfileViewModel({required this.updateProfileRepository}):super(UpdateProfileInitialState());
 
   Future getProfile()async{
-    final prefs = await SharedPreferences.getInstance();
     try {
-      emit(UpdateProfileInitialState());
-    var response = await ApiManager.getProfileInfo(prefs.get("user_token").toString());
-      nameController = TextEditingController(text: response!.data!.name!);
-      phoneController = TextEditingController(text: response.data!.phone!);
-      emit(LoadUserProfileState());}
+    final prefs = await SharedPreferences.getInstance();
+    String token = prefs.get("user_token").toString();
+    var response = await updateProfileRepository.getProfile(token);
+      nameController.text =response!.data!.name!;
+      phoneController.text = response.data!.phone!;}
         catch (e){
-      emit(ProfileErrorState(errorMsg: e.toString()));
+      emit(UpdateProfileErrorState(errorMsg: e.toString()));
         }
     }
 
   Future<void> updateProfile() async {
     try {
-      emit(LoadUserProfileState());
-
       final prefs = await SharedPreferences.getInstance();
+      String token = prefs.getString("user_token").toString();
+      var response = await updateProfileRepository.updateProfile(token, nameController.text, phoneController.text, 2);
 
-      var response = await ApiManager.updateProfileInfo(
-        token: prefs.getString("user_token").toString(),
-        name: nameController.text,
-        phone: phoneController.text,
-      );
-
-      if (response != null) {
-        emit(UpdateProfileSuccessState(successMsg: response.message!));
-      } else {
-        emit(ProfileErrorState(errorMsg: response!.message!));
-      }
+    //   token: token,
+    // name: nameController.text,
+    // phone: phoneController.text,
+    // avatarId: 2
+      emit(UpdateProfileSuccessState(successMsg: response!.message!));
     } catch (e) {
-      emit(ProfileErrorState(errorMsg: e.toString()));
+      emit(UpdateProfileErrorState(errorMsg: e.toString()));
     }
-  }  void deleteProfile(){}
-  void saveAvatarImage(){}
+  }
+
+  void deleteProfile()async{
+    try{
+      final prefs = await SharedPreferences.getInstance();
+      String token = prefs.getString("user_token").toString();
+      var response = await updateProfileRepository.deleteProfile(token);
+      emit(UpdateProfileSuccessState(successMsg: response!.message!));
+    }catch(e){
+      emit(UpdateProfileErrorState(errorMsg: e.toString()));
+    }
+  }
+
 }

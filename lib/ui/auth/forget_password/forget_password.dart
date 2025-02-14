@@ -57,9 +57,7 @@ class ForgetPassword extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: width * 0.05),
               child: CustomElevatedButton(
                   buttonOnClick: () {
-
-                    Navigator.pushNamed(context, ResetPassword.routeName);
-                  }, buttonTitle: AppLocalizations.of(context)!.verifyEmail),
+                    }, buttonTitle: AppLocalizations.of(context)!.verifyEmail),
             )
           ],
         ),
