@@ -58,21 +58,23 @@ class CastWidget extends StatelessWidget {
                 width: width * 0.02,
               ),
               // Cast Info with null checks
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AutoSizeText(
-                    'Name: ${castMember.name ?? 'Unknown'}',
-                    style: AppStyles.regular16WhiteRoboto,
-                  ),
-                  SizedBox(
-                    height: height * 0.01,
-                  ),
-                  AutoSizeText(
-                    'Character: ${castMember.characterName ?? 'Unknown'}',
-                    style: AppStyles.regular16WhiteRoboto,
-                  )
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AutoSizeText(
+                      'Name: ${castMember.name ?? 'Unknown'}',
+                      style: AppStyles.regular16WhiteRoboto,maxLines: 3,
+                    ),
+                    SizedBox(
+                      height: height * 0.01,
+                    ),
+                    AutoSizeText(
+                      'Character: ${castMember.characterName ?? 'Unknown'}',
+                      style: AppStyles.regular16WhiteRoboto,maxLines: 6,
+                    )
+                  ],
+                ),
               ),
             ],
           ),
