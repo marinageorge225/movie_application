@@ -57,8 +57,8 @@ class _MovieDetailsState extends State<MovieDetails> {
                 children: [
                   Positioned.fill(
                     child: Image.network(
-                      movie.backgroundImage ??
-                          movie.backgroundImageOriginal ??
+                      movie.mediumCoverImage ??
+                          movie.mediumCoverImage ??
                           '',
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) {
@@ -75,7 +75,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                         gradient: LinearGradient(
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
-                          colors: [Colors.black.withOpacity(0.3), Colors.black],
+                          colors: [Colors.black.withOpacity(0.4), Colors.black],
                         ),
                       ),
                     ),
@@ -189,7 +189,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
-                                'Summary',
+                                'Summary' ,
                                 style: AppStyles.bold22white,
                               ),
                             ],
@@ -198,21 +198,19 @@ class _MovieDetailsState extends State<MovieDetails> {
                         Padding(
                           padding: const EdgeInsets.all(15),
                           child: ReadMoreText(
-                            movie.descriptionFull!,
+                            movie.descriptionFull!  ,
                             trimMode: TrimMode.Line,
-                            trimLines: 2,
-                            colorClickableText: AppColors
-                                .whiteColor, // Ensures clickable text is white
+                            trimLines: 1,
+                            colorClickableText: AppColors.whiteColor,
                             trimCollapsedText: 'Show more',
                             trimExpandedText: 'Show less',
                             style: AppStyles.regular14WhiteRoboto.copyWith(
-                                color: Colors.white), // Set text color to white
+                                color: Colors.white),
                             moreStyle: AppStyles.regular14WhiteRoboto.copyWith(
                                 color:
-                                    AppColors.orangeColor), // "Show more" color
+                                    AppColors.orangeColor),
                             lessStyle: AppStyles.regular14WhiteRoboto.copyWith(
-                                color:
-                                    AppColors.orangeColor), // "Show less" color
+                                color: AppColors.orangeColor),
                           ),
                         ),
       
