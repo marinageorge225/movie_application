@@ -2,19 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_movie_app/core/utils/app_color.dart';
 import 'package:graduation_movie_app/core/utils/assets_manager.dart';
-import 'package:graduation_movie_app/ui/movie_detailes_screen/cast_widget.dart';
 import 'package:graduation_movie_app/ui/movie_detailes_screen/Movie_Sugesstion/movie_suggestions_screen.dart';
+import 'package:graduation_movie_app/ui/movie_detailes_screen/cast_widget.dart';
 import 'package:graduation_movie_app/ui/movie_detailes_screen/genre_widget.dart';
 import 'package:graduation_movie_app/ui/movie_detailes_screen/show_screen_shot.dart';
+import 'package:readmore/readmore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import '../../core/utils/app_styles.dart';
 import '../../model/MovieDetailsResponse.dart';
 import '../widgets/custom_elevated_button.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'cubit/movie_details-states.dart';
 import 'cubit/movie_details_view_model.dart';
 import 'custom_icon_with_text.dart';
-import 'package:readmore/readmore.dart';
 
 class MovieDetails extends StatefulWidget {
   static const String routeName = "movie_details";
@@ -57,9 +58,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                 children: [
                   Positioned.fill(
                     child: Image.network(
-                      movie.mediumCoverImage ??
-                          movie.mediumCoverImage ??
-                          '',
+                      movie.mediumCoverImage ?? movie.mediumCoverImage ?? '',
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) {
                         return const Center(
@@ -189,7 +188,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
-                                'Summary' ,
+                                'Summary',
                                 style: AppStyles.bold22white,
                               ),
                             ],
@@ -198,19 +197,18 @@ class _MovieDetailsState extends State<MovieDetails> {
                         Padding(
                           padding: const EdgeInsets.all(15),
                           child: ReadMoreText(
-                            movie.descriptionFull!  ,
+                            movie.descriptionFull!,
                             trimMode: TrimMode.Line,
                             trimLines: 1,
                             colorClickableText: AppColors.whiteColor,
                             trimCollapsedText: 'Show more',
                             trimExpandedText: 'Show less',
-                            style: AppStyles.regular14WhiteRoboto.copyWith(
-                                color: Colors.white),
+                            style: AppStyles.regular14WhiteRoboto
+                                .copyWith(color: Colors.white),
                             moreStyle: AppStyles.regular14WhiteRoboto.copyWith(
-                                color:
-                                    AppColors.orangeColor),
-                            lessStyle: AppStyles.regular14WhiteRoboto.copyWith(
                                 color: AppColors.orangeColor),
+                            lessStyle: AppStyles.regular14WhiteRoboto
+                                .copyWith(color: AppColors.orangeColor),
                           ),
                         ),
       
