@@ -11,10 +11,22 @@ import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/app_styles.dart';
 import '../../../../model/MovieListResponse.dart';
 
-class HomeTab extends StatelessWidget {
+class HomeTab extends StatefulWidget {
   static const String routeName='HomeTab';
 
+  @override
+  State<HomeTab> createState() => _HomeTabState();
+}
+
+class _HomeTabState extends State<HomeTab> {
   HomeTabViewModel viewModel = getIt<HomeTabViewModel>();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    viewModel.changeBgImageIndex;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +56,7 @@ class HomeTab extends StatelessWidget {
                     alignment: Alignment.center,
                     children: [
                       BlocBuilder<HomeTabViewModel, HomeTabStates>(
-                        bloc: viewModel..changeBgImageIndex,
+                        bloc: viewModel,
                         builder: (context, state) {
                           return Image.network(
                             movies[viewModel.bgImageIndex].largeCoverImage ?? '',

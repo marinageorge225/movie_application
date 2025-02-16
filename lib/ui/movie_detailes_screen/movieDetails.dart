@@ -180,7 +180,8 @@ class _MovieDetailsState extends State<MovieDetails> {
                           ),
                         ),
                         SizedBox(height: height * 0.015),
-                        MovieSuggestionScreen(movieId: widget.movieId.toString()),
+                        InkWell(
+                            child: MovieSuggestionScreen(movieId: widget.movieId.toString())),
                         SizedBox(height: height * 0.015),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: width * 0.035),

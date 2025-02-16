@@ -48,8 +48,8 @@ class _BottomSheetShowAvatarsState extends State<BottomSheetShowAvatars> {
                 return InkWell(
                   onTap: (){
                     setState(() {
+                      selectedAvatar = avatars[index];  // Update local state
                       widget.saveImage(avatars[index]);
-
                     });
                   },
                     child:

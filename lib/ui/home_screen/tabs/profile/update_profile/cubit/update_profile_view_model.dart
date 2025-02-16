@@ -5,12 +5,15 @@ import 'package:graduation_movie_app/ui/home_screen/tabs/profile/update_profile/
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../../../core/utils/assets_manager.dart';
+
 @injectable
 class UpdateProfileViewModel extends Cubit<UpdateProfileStates>{
   UpdateProfileRepository updateProfileRepository;
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   String? selectedAvatar;
+  int avatarId = 0;
 
   UpdateProfileViewModel({required this.updateProfileRepository}):super(UpdateProfileInitialState());
 
@@ -20,7 +23,10 @@ class UpdateProfileViewModel extends Cubit<UpdateProfileStates>{
     String token = prefs.get("user_token").toString();
     var response = await updateProfileRepository.getProfile(token);
       nameController.text =response!.data!.name!;
-      phoneController.text = response.data!.phone!;}
+      phoneController.text = response.data!.phone!;
+      avatarId = response.data!.avaterId!;
+      selectedAvatar = getAvatarImage(avatarId);
+    }
         catch (e){
       emit(UpdateProfileErrorState(errorMsg: e.toString()));
         }
@@ -30,12 +36,14 @@ class UpdateProfileViewModel extends Cubit<UpdateProfileStates>{
     try {
       final prefs = await SharedPreferences.getInstance();
       String token = prefs.getString("user_token").toString();
-      var response = await updateProfileRepository.updateProfile(token, nameController.text, phoneController.text, 2);
+      var response = await updateProfileRepository.updateProfile(
+          token,
+          nameController.text,
+          phoneController.text,
+          avatarId);
 
-    //   token: token,
-    // name: nameController.text,
-    // phone: phoneController.text,
-    // avatarId: 2
+      selectedAvatar = getAvatarImage(avatarId);
+
       emit(UpdateProfileSuccessState(successMsg: response!.message!));
     } catch (e) {
       emit(UpdateProfileErrorState(errorMsg: e.toString()));
@@ -51,6 +59,40 @@ class UpdateProfileViewModel extends Cubit<UpdateProfileStates>{
     }catch(e){
       emit(UpdateProfileErrorState(errorMsg: e.toString()));
     }
+  }
+
+  String getAvatarImage(int id) {
+    List<String> avatars = [
+      AssetsManager.avatar1,
+      AssetsManager.avatar2,
+      AssetsManager.avatar3,
+      AssetsManager.avatar4,
+      AssetsManager.avatar5,
+      AssetsManager.avatar6,
+      AssetsManager.avatar7,
+      AssetsManager.avatar8,
+      AssetsManager.avatar9,
+    ];
+
+    int index = (id - 1).clamp(0, avatars.length - 1);
+    return avatars[index];
+  }
+
+  int getAvatarId(String imagePath) {
+    List<String> avatars = [
+      AssetsManager.avatar1,
+      AssetsManager.avatar2,
+      AssetsManager.avatar3,
+      AssetsManager.avatar4,
+      AssetsManager.avatar5,
+      AssetsManager.avatar6,
+      AssetsManager.avatar7,
+      AssetsManager.avatar8,
+      AssetsManager.avatar9,
+    ];
+
+    int index = avatars.indexOf(imagePath) + 1; // IDs start from 1
+    return index;
   }
 
 }

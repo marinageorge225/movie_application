@@ -8,6 +8,7 @@ import 'package:graduation_movie_app/ui/auth/forget_password/reset_password.dart
 import 'package:graduation_movie_app/ui/auth/login/login_view.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/profile/update_profile/cubit/update_profile_states.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/profile/update_profile/cubit/update_profile_view_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../../core/utils/app_color.dart';
 import '../../../../../core/utils/app_styles.dart';
 import '../../../../../core/utils/assets_manager.dart';
@@ -24,13 +25,6 @@ class UpdateProfile extends StatefulWidget {
 
 class _UpdateProfileState extends State<UpdateProfile> {
   UpdateProfileViewModel viewModel = getIt<UpdateProfileViewModel>();
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    viewModel.selectedAvatar = AssetsManager.avatar1;
-    viewModel.getProfile();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,11 +33,11 @@ class _UpdateProfileState extends State<UpdateProfile> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text("Pick Avatar"),
+          title: const Text("Pick Avatar"),
           scrolledUnderElevation: 0,
         ),
         body: BlocConsumer<UpdateProfileViewModel, UpdateProfileStates>(
-          bloc: viewModel,
+          bloc: viewModel..getProfile(),
           listener: (context, state) {
             if (state is UpdateProfileSuccessState) {
               FlutterToast.toastMsg(
@@ -78,9 +72,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                       selectedAvatar:
                                           viewModel.selectedAvatar));
                             },
-                            child: Image.asset(viewModel.selectedAvatar != null
-                                ? viewModel.selectedAvatar!
-                                : AssetsManager.avatar1))),
+                            child: Image.asset(viewModel.selectedAvatar ?? AssetsManager.avatar1))),
                     SizedBox(
                       height: height * (35 / 932),
                     ),
@@ -134,9 +126,10 @@ class _UpdateProfileState extends State<UpdateProfile> {
         ));
   }
   void saveAvatarImage(String image) {
-    setState(() {
       viewModel.selectedAvatar = image;
-    });
+      setState(() {
+
+      });
   }
 
   void showBottomSheet(BuildContext context, Widget widget) {

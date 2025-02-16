@@ -45,20 +45,10 @@ class MovieSuggestionScreen extends StatelessWidget {
               itemCount: state.moviesList.length,
               itemBuilder: (context, index) {
                 final movie = state.moviesList[index];
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => MovieDetails(movieId: movie.id!),
-                      ),
-                    );
-                  },
-                  child: MovieItem(
-                    imageHeight: height * 0.3,
-                      imageWidth: width * 0.5,
-                      movie: movie),
-                );
+                return MovieItem(
+                  imageHeight: height * 0.3,
+                    imageWidth: width * 0.5,
+                    movie: movie);
               },
             );
           } else {
