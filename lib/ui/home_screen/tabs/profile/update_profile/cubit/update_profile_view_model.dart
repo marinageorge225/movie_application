@@ -26,6 +26,8 @@ class UpdateProfileViewModel extends Cubit<UpdateProfileStates>{
       phoneController.text = response.data!.phone!;
       avatarId = response.data!.avaterId!;
       selectedAvatar = getAvatarImage(avatarId);
+    emit(LoadProfileDataState(data: response.data!));
+
     }
         catch (e){
       emit(UpdateProfileErrorState(errorMsg: e.toString()));
