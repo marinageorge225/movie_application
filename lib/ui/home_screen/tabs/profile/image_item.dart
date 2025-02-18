@@ -6,10 +6,6 @@ class ImageItem extends StatefulWidget {
   String imageName;
    Function(String) saveImage;
    bool isSelected;
-
-
-
-
   ImageItem({required this.imageName, required this.saveImage,required this.isSelected});
 
   @override
