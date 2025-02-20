@@ -6,7 +6,6 @@ import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 import '../../model/GetProfileResponse.dart';
 import '../../model/LoginResponse.dart';
-import '../../model/user_model_register.dart';
 import 'end_points.dart';
 import 'package:graduation_movie_app/core/api/api_constants.dart';
 
@@ -196,6 +195,107 @@ class ApiManager {
   }
 
 
+///////////////////////////
 
 
-}
+
+
+
+  static Uri getUri(String base, String endpoint, [Map<String, String>? params]) {
+  return Uri.https(base.replaceFirst("https://", ""), endpoint, params);
+  }
+
+  Future<MovieDetailsResponse?> addMovieToFavorites(Map<String, dynamic> movieData, String token, {bool isWatchList = false}) async {
+  Uri url = getUri(ApiConstants.baseUrlWatchList  , EndPoints.addToFavoritesApi);
+
+  try {
+  var response = await http.post(
+  url,
+  headers: {
+  "Content-Type": "application/json",
+  "Authorization": "Bearer $token",
+  },
+  body: jsonEncode(movieData),
+  );
+
+  if (response.statusCode == 200 || response.statusCode == 201) {
+  var json = jsonDecode(response.body);
+  return MovieDetailsResponse.fromJson(json);
+  } else {
+  throw Exception('Failed to add movie: ${response.statusCode}, ${response.body}');
+  }
+  } catch (e) {
+  print("Error adding movie to favorites: $e");
+  throw e;
+  }
+  }
+
+  Future<bool> removeMovieFromFavorites(String movieId, String token, {bool isWatchList = false}) async {
+  Uri url = getUri(ApiConstants.baseUrlWatchList , "${EndPoints.removeFromFavoritesApi}/$movieId");
+
+  try {
+  var response = await http.delete(
+  url,
+  headers: {
+  "Authorization": "Bearer $token",
+  },
+  );
+
+  if (response.statusCode == 200) {
+  return true;
+  } else {
+  throw Exception('Failed to remove movie: ${response.statusCode}, ${response.body}');
+  }
+  } catch (e) {
+  print("Error removing movie from favorites: $e");
+  throw e;
+  }
+  }
+
+  Future<List<MovieDetailsResponse>?> getAllFavoriteMovies(String token, {bool isWatchList = false}) async {
+  Uri url = getUri(ApiConstants.baseUrlWatchList , EndPoints.getFavoriteMoviesApi);
+
+  try {
+  var response = await http.get(
+  url,
+  headers: {
+  "Authorization": "Bearer $token",
+  },
+  );
+
+  if (response.statusCode == 200) {
+  var json = jsonDecode(response.body);
+  return (json['movies'] as List).map((movie) => MovieDetailsResponse.fromJson(movie)).toList();
+  } else {
+  throw Exception('Failed to load favorite movies: ${response.statusCode}, ${response.body}');
+  }
+  } catch (e) {
+  print("Error fetching favorite movies: $e");
+  throw e;
+  }
+  }
+
+  Future<bool> isMovieFavorite(String movieId, String token, {bool isWatchList = false}) async {
+  Uri url = getUri(ApiConstants.baseUrlWatchList , "${EndPoints.isMovieFavoriteApi}/$movieId");
+
+  try {
+  var response = await http.get(
+  url,
+  headers: {
+  "Authorization": "Bearer $token",
+  },
+  );
+
+  if (response.statusCode == 200) {
+  var json = jsonDecode(response.body);
+  List movies = json['movies'] ?? [];
+  return movies.any((movie) => movie['movieId'] == movieId);
+  } else {
+  throw Exception('Failed to check favorite status: ${response.statusCode}, ${response.body}');
+  }
+  } catch (e) {
+  print("Error checking if movie is favorite: $e");
+  throw e;
+  }
+  }
+  }
