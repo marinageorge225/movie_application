@@ -2,7 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_movie_app/model/MovieListResponse.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../core/shared_preferences/history.dart';
 import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/app_styles.dart';
 import '../../../../core/utils/assets_manager.dart';
@@ -20,9 +22,11 @@ class MovieItem extends StatelessWidget {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
+
     return InkWell(
-        onTap: (){
+        onTap: ()async{
           //TODO: Navigate to movie details screen
+          await HistoryStorage.saveToHistory(movie);
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -66,4 +70,5 @@ class MovieItem extends StatelessWidget {
       );
 
   }
+
 }
