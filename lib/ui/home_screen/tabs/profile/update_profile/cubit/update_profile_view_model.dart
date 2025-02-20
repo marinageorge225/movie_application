@@ -47,6 +47,8 @@ class UpdateProfileViewModel extends Cubit<UpdateProfileStates>{
       selectedAvatar = getAvatarImage(avatarId);
 
       emit(UpdateProfileSuccessState(successMsg: response!.message!));
+      await getProfile();
+
     } catch (e) {
       emit(UpdateProfileErrorState(errorMsg: e.toString()));
     }
@@ -62,6 +64,7 @@ class UpdateProfileViewModel extends Cubit<UpdateProfileStates>{
       emit(UpdateProfileErrorState(errorMsg: e.toString()));
     }
   }
+
 
   String getAvatarImage(int id) {
     List<String> avatars = [
@@ -93,7 +96,7 @@ class UpdateProfileViewModel extends Cubit<UpdateProfileStates>{
       AssetsManager.avatar9,
     ];
 
-    int index = avatars.indexOf(imagePath) + 1; // IDs start from 1
+    int index = avatars.indexOf(imagePath) + 1;
     return index;
   }
 

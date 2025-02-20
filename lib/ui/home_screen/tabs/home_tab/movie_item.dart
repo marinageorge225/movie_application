@@ -14,7 +14,8 @@ class MovieItem extends StatelessWidget {
   Movie movie;
   double? imageHeight;
   double? imageWidth;
-  MovieItem({required this.movie, this.imageHeight, this.imageWidth});
+  double? borderRadius;
+  MovieItem({required this.movie, this.imageHeight, this.imageWidth, this.borderRadius});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,7 @@ class MovieItem extends StatelessWidget {
         alignment: Alignment.topLeft,
         children: [
         ClipRRect(
-          borderRadius:BorderRadius.circular(20),
+          borderRadius:BorderRadius.circular(borderRadius ?? 20),
           child: CachedNetworkImage(
             width: imageWidth ?? width * 0.33,
             height: imageHeight,

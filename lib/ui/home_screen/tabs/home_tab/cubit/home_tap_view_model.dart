@@ -1,6 +1,5 @@
 import 'dart:math';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation_movie_app/model/movie_genres.dart';
 import 'package:graduation_movie_app/repository/movieList/repository/movie_List_repository.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/home_tab/cubit/home_tab_states.dart';
 import 'package:injectable/injectable.dart';
@@ -12,6 +11,35 @@ class HomeTabViewModel extends Cubit<HomeTabStates>{
   HomeTabViewModel({required this.movieListRepository}):super(HomeTabLoadingState());
   String selectedGenre = '';
   int bgImageIndex = 0;
+  List <String> genresList = [
+  'Action',
+  'Adventure',
+  'Animation',
+  'Biography',
+  'Comedy',
+  'Crime',
+  'Documentary',
+  'Drama',
+  'Family',
+  'Fantasy',
+  'Film-Noir',
+  'Game-Show',
+  'History',
+  'Horror',
+  'Music',
+  'Musical',
+  'Mystery',
+  'News',
+  'Reality-Tv',
+  'Romance',
+  'Sci-Fi',
+  'Short',
+  'Sport',
+  'Talk-Show',
+  'Thriller',
+  'War',
+  'Western'
+  ];
 
   void getMovies() async {
     try {
@@ -56,7 +84,7 @@ class HomeTabViewModel extends Cubit<HomeTabStates>{
 
   void changeGenre(){
     final random = Random();
-    selectedGenre = (MovieGenres.movieGenresList..shuffle(random)).first;
+    selectedGenre = (genresList..shuffle(random)).first;
   }
 
   void changeBgImageIndex(int index){
