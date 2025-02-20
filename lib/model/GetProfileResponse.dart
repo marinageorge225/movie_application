@@ -12,10 +12,10 @@ class GetProfileResponse {
     message = json['message'];
     error = json['error'];
     statusCode = json['statusCode'];
-    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? UserData.fromJson(json['data']) : null;
   }
   String? message;
-  Data? data;
+  UserData? data;
   String? error;
   int? statusCode;
 
@@ -40,8 +40,8 @@ class GetProfileResponse {
 /// updatedAt : "2025-02-07T01:18:42.615Z"
 /// __v : 0
 
-class Data {
-  Data({
+class UserData {
+  UserData({
       this.id, 
       this.email, 
       this.password, 
@@ -52,7 +52,7 @@ class Data {
       this.updatedAt, 
       this.v,});
 
-  Data.fromJson(dynamic json) {
+  UserData.fromJson(dynamic json) {
     id = json['_id'];
     email = json['email'];
     password = json['password'];

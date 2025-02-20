@@ -5,11 +5,14 @@ import 'package:graduation_movie_app/repository/movieList/repository/movie_List_
 import 'package:graduation_movie_app/ui/home_screen/tabs/home_tab/cubit/home_tab_states.dart';
 import 'package:injectable/injectable.dart';
 
+
 @injectable
-class HomeTabViewModel extends Cubit<HomeTabStates>{
+class HomeTabViewModel extends Cubit<HomeTabStates> {
   //TODO: hold data & handle logic
   MovieListRepository movieListRepository;
-  HomeTabViewModel({required this.movieListRepository}):super(HomeTabLoadingState());
+
+  HomeTabViewModel({required this.movieListRepository})
+      :super(HomeTabLoadingState());
   String selectedGenre = '';
   int bgImageIndex = 0;
 
@@ -39,27 +42,28 @@ class HomeTabViewModel extends Cubit<HomeTabStates>{
     }
   }
 
-  void getMovieList(String genre) async{
+  void getMovieList(String genre) async {
     try {
       emit(HomeTabLoadingState());
       var response = await movieListRepository.getMovieListByGenre(genre);
       if (response!.status == 'error') {
-        emit(HomeTabBottomPartErrorState(errorMessage: response.statusMessage!));
+        emit(
+            HomeTabBottomPartErrorState(errorMessage: response.statusMessage!));
       } else {
         emit(HomeTabBottomPartSuccessState(movieList: response.data!.movies!));
       }
-    }catch(e){
+    } catch (e) {
       print("From home tab view model ${e.toString()}");
       emit(HomeTabBottomPartErrorState(errorMessage: e.toString()));
     }
   }
 
-  void changeGenre(){
+  void changeGenre() {
     final random = Random();
     selectedGenre = (MovieGenres.movieGenresList..shuffle(random)).first;
   }
 
-  void changeBgImageIndex(int index){
+  void changeBgImageIndex(int index) {
     bgImageIndex = index;
     emit(ChangeBgImageIndex());
   }
