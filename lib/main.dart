@@ -13,6 +13,7 @@ import 'package:graduation_movie_app/ui/home_screen/home_screen.dart';
 import 'package:graduation_movie_app/profile.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/home_tab/home_tab_widget.dart';
 import 'package:graduation_movie_app/ui/movie_detailes_screen/cubit/movie_details_view_model.dart';
+import 'package:graduation_movie_app/ui/see_more/see_more_screen.dart';
 import 'package:graduation_movie_app/ui/splash_screen/splash_screen.dart';
 import 'package:graduation_movie_app/ui/auth/Reigster/Register_Screen.dart';
  import 'package:graduation_movie_app/ui/auth/login/login_view.dart';
@@ -98,7 +99,8 @@ class MyApp extends StatelessWidget {
             RegisterScreen.routeName: (context) => RegisterScreen(),
             Profile.routeName: (context) => Profile(),
             HomeTab.routeName:(context)=>HomeTab(),
-            ResetPassword.routeName:(context)=>ResetPassword()
+            ResetPassword.routeName:(context)=>ResetPassword(),
+            SeeMoreScreen.routeName : (context) => SeeMoreScreen()
           },
           locale: Locale(appLanguage),
         );

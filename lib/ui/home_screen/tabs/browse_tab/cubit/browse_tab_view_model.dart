@@ -37,7 +37,7 @@ class BrowseTabViewModel extends Cubit<BrowseTabStates> {
     'Talk-Show',
     'Thriller',
     'War',
-    'Western'
+    'Western',
   ];
   int tabSelectedIndex = 0;
 

@@ -6,7 +6,6 @@ import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 import '../../model/GetProfileResponse.dart';
 import '../../model/LoginResponse.dart';
-import '../../model/user_model_register.dart';
 import 'end_points.dart';
 import 'package:graduation_movie_app/core/api/api_constants.dart';
 
@@ -68,7 +67,7 @@ class ApiManager {
 
   Future<MovieListResponse?> getMovieListByGenre(String genre) async {
     Uri url = Uri.https(ApiConstants.movieListBaseServer, EndPoints.listMoviesApi,
-    {'genre' : genre});
+    {'genre' : genre, 'limit' : '50', 'page' : '1'});
     try {
       var response = await http.get(url);
       var responseBody = response.body;
