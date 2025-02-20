@@ -6,9 +6,10 @@ import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 import '../../model/GetProfileResponse.dart';
 import '../../model/LoginResponse.dart';
+import '../../model/user_model_register.dart';
 import 'end_points.dart';
 import 'package:graduation_movie_app/core/api/api_constants.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 @singleton
 class ApiManager {
   Future<UserModel> registerUser(UserModel user) async {
@@ -35,8 +36,6 @@ class ApiManager {
   }
 
 
-
-
   final Uri url = Uri.parse(ApiConstants.urlLoginAuth);
 
   Future<LoginResponse> login(String email, String password) async {
@@ -52,15 +51,9 @@ class ApiManager {
         }),
       );
 
+
       if (response.statusCode == 200) {
-        final loginResponse = LoginResponse.fromJson(jsonDecode(response.body));
-
-        if (loginResponse.token != null) {
-          final prefs = await SharedPreferences.getInstance();
-          await prefs.setString('token', loginResponse.token!);
-        }
-
-        return loginResponse;
+        return LoginResponse.fromJson(jsonDecode(response.body));
       } else {
         return LoginResponse(
           message: jsonDecode(response.body)['message']?.toString() ?? "Unknown error",
@@ -73,10 +66,9 @@ class ApiManager {
   }
 
 
-
   Future<MovieListResponse?> getMovieListByGenre(String genre) async {
     Uri url = Uri.https(ApiConstants.movieListBaseServer, EndPoints.listMoviesApi,
-    {'genre' : genre, 'limit' : '50', 'page' : '1'});
+    {'genre' : genre});
     try {
       var response = await http.get(url);
       var responseBody = response.body;
@@ -204,75 +196,6 @@ class ApiManager {
   }
 
 
-///////////////////////////
 
 
-  final String baseUrl = "https://route-movie-apis.vercel.app/favorites";
-
-  Future<void> addToWatchlist(Map<String, dynamic> movieData, String token) async {
-    Uri url = Uri.parse("$baseUrl/add");
-
-    var response = await http.post(
-      url,
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer $token",
-      },
-      body: jsonEncode(movieData),
-    );
-
-    if (response.statusCode != 200) {
-      throw Exception('Failed to add movie to watchlist');
-    }
-  }
-
-  Future<void> removeFromWatchlist(String movieId, String token) async {
-    Uri url = Uri.parse("$baseUrl/remove/$movieId");
-
-    var response = await http.delete(
-      url,
-      headers: {
-        "Authorization": "Bearer $token",
-      },
-    );
-
-    if (response.statusCode != 200) {
-      throw Exception('Failed to remove movie from watchlist');
-    }
-  }
-
-  Future<List<Map<String, dynamic>>> getWatchlist(String token) async {
-    Uri url = Uri.parse("$baseUrl/all");
-
-    var response = await http.get(
-      url,
-      headers: {
-        "Authorization": "Bearer $token",
-      },
-    );
-
-    if (response.statusCode == 200) {
-      List<dynamic> data = jsonDecode(response.body);
-      return List<Map<String, dynamic>>.from(data);
-    } else {
-      throw Exception('Failed to fetch watchlist');
-    }
-  }
-
-  Future<bool> isMovieInWatchlist(String movieId, String token) async {
-    Uri url = Uri.parse("$baseUrl/check/$movieId");
-
-    var response = await http.get(
-      url,
-      headers: {
-        "Authorization": "Bearer $token",
-      },
-    );
-
-    if (response.statusCode == 200) {
-      return jsonDecode(response.body)['isInWatchlist'] ?? false;
-    } else {
-      throw Exception('Failed to check movie status in watchlist');
-    }
-  }
 }
