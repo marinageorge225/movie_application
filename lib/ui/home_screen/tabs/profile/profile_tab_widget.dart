@@ -31,85 +31,87 @@ class _ProfileTabState extends State<ProfileTab> {
         body: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) {
             return [
-              SliverToBoxAdapter(
-                child: BlocBuilder<UpdateProfileViewModel, UpdateProfileStates>(
+                SliverAppBar(
+                  toolbarHeight:height*(340/932) ,
+                 backgroundColor: AppColors.darkGrayColor,
+                 title:  BlocBuilder<UpdateProfileViewModel, UpdateProfileStates>(
                   bloc: viewModel..getProfile(),
                   builder: (context,state){
 
                     if(state is LoadProfileDataState){
-                    return Container(
-                      color: AppColors.darkGrayColor,
-                      padding: EdgeInsets.symmetric(horizontal: width * 0.04, vertical: height * 0.02),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                children: [
-                                  Image.asset(viewModel.getAvatarImage(state.data.avaterId!)),
-                                  SizedBox(height: height * 0.02),
-                                  Text(state.data.name!, style: AppStyles.bold20WhiteRoboto),
-                                ],
+                    return Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              children: [
+                                Image.asset(viewModel.getAvatarImage(state.data.avaterId!)),
+                                SizedBox(height: height * 0.02),
+                                Text(state.data.name!, style: AppStyles.bold20WhiteRoboto),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                Text("12", style: AppStyles.bold36WhiteRoboto),
+                                Text("Wish List", style: AppStyles.bold24WhiteRoboto),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                Text("12", style: AppStyles.bold36WhiteRoboto),
+                                Text("History", style: AppStyles.bold24WhiteRoboto),
+                              ],
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: height * 0.02),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              flex: 2,
+                              child: CustomElevatedButton(
+                                buttonOnClick: () {
+                                  Navigator.pushNamed(context, UpdateProfile.routeName);
+                                },
+                                buttonTitle: "Edit Profile",
+                                buttonColor: AppColors.orangeColor,
+                                buttonTitleStyle: AppStyles.regular20DarkGrayRoboto,
                               ),
-                              Column(
-                                children: [
-                                  Text("12", style: AppStyles.bold36WhiteRoboto),
-                                  Text("Wish List", style: AppStyles.bold24WhiteRoboto),
-                                ],
+                            ),
+                            SizedBox(width: width * 0.02),
+                            Expanded(
+                              flex: 1,
+                              child: CustomElevatedButton(
+                                buttonOnClick: () async{
+                                  final prefs = await SharedPreferences.getInstance();
+                                  prefs.remove("user_token");
+                                  Navigator.of(context).pushNamedAndRemoveUntil(LoginView.routeName, (obj) => true);
+                                },
+                                buttonTitle: "Exit",
+                                buttonIcon: Icon(Icons.exit_to_app_rounded, color: AppColors.whiteColor),
+                                buttonColor: AppColors.redColor,
+                                buttonTitleStyle: AppStyles.regular20WhiteRoboto,
                               ),
-                              Column(
-                                children: [
-                                  Text("12", style: AppStyles.bold36WhiteRoboto),
-                                  Text("History", style: AppStyles.bold24WhiteRoboto),
-                                ],
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: height * 0.02),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                flex: 2,
-                                child: CustomElevatedButton(
-                                  buttonOnClick: () {
-                                    Navigator.pushNamed(context, UpdateProfile.routeName);
-                                  },
-                                  buttonTitle: "Edit Profile",
-                                  buttonColor: AppColors.orangeColor,
-                                  buttonTitleStyle: AppStyles.regular20DarkGrayRoboto,
-                                ),
-                              ),
-                              SizedBox(width: width * 0.02),
-                              Expanded(
-                                flex: 1,
-                                child: CustomElevatedButton(
-                                  buttonOnClick: () async{
-                                    final prefs = await SharedPreferences.getInstance();
-                                    prefs.remove("user_token");
-                                    Navigator.of(context).pushNamedAndRemoveUntil(LoginView.routeName, (obj) => true);
-                                  },
-                                  buttonTitle: "Exit",
-                                  buttonIcon: Icon(Icons.exit_to_app_rounded, color: AppColors.whiteColor),
-                                  buttonColor: AppColors.redColor,
-                                  buttonTitleStyle: AppStyles.regular20WhiteRoboto,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                            ),
+                          ],
+                        ),
+                      ],
                     );}
                     return Center(child: CircularProgressIndicator(color: AppColors.orangeColor,));
                   },
 
                 ),
-              ),
-              SliverPersistentHeader(
-                pinned: true,
-                delegate: _SliverTabBarDelegate(
-                  TabBar(
+            pinned: true,
+            floating: true,
+            leading: Container(),
+            elevation: 0,
+            leadingWidth: 0,
+            forceElevated: innerBoxIsScrolled,
+            bottom: PreferredSize(
+            preferredSize: Size.fromHeight(height*(70/932)),
+            child: TabBar(
                     indicatorColor: AppColors.orangeColor,
                     indicatorSize: TabBarIndicatorSize.tab,
                     dividerHeight: 0,
@@ -149,28 +151,7 @@ class _ProfileTabState extends State<ProfileTab> {
   }
 }
 
-class _SliverTabBarDelegate extends SliverPersistentHeaderDelegate {
-  final TabBar _tabBar;
 
-  _SliverTabBarDelegate(this._tabBar);
-
-  @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Container(
-      color: AppColors.darkGrayColor,
-      child: _tabBar,
-    );
-  }
-
-  @override
-  double get maxExtent => _tabBar.preferredSize.height;
-
-  @override
-  double get minExtent => _tabBar.preferredSize.height;
-
-  @override
-  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => false;
-}
 
 Widget watchList() {
   return Image.asset(AssetsManager.noItemsFoundImage);
