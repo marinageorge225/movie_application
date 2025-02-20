@@ -11,6 +11,8 @@ import 'package:graduation_movie_app/ui/widgets/custom_elevated_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/di/di.dart';
+import '../../../../core/shared_preferences/history.dart';
+import '../home_tab/movie_item.dart';
 
 class ProfileTab extends StatefulWidget {
   @override
@@ -25,6 +27,7 @@ class _ProfileTabState extends State<ProfileTab> {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
 
+
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -35,10 +38,10 @@ class _ProfileTabState extends State<ProfileTab> {
                   toolbarHeight:height*(340/932) ,
                  backgroundColor: AppColors.darkGrayColor,
                  title:  BlocBuilder<UpdateProfileViewModel, UpdateProfileStates>(
-                  bloc: viewModel..getProfile(),
+                  bloc: viewModel..getProfileData(),
                   builder: (context,state){
 
-                    if(state is LoadProfileDataState){
+                    if(state is GetProfileDataState){
                     return Column(
                       children: [
                         Row(
@@ -59,7 +62,7 @@ class _ProfileTabState extends State<ProfileTab> {
                             ),
                             Column(
                               children: [
-                                Text("12", style: AppStyles.bold36WhiteRoboto),
+                                Text("${state.historyMovies.length}", style: AppStyles.bold36WhiteRoboto),
                                 Text("History", style: AppStyles.bold24WhiteRoboto),
                               ],
                             ),
@@ -85,8 +88,9 @@ class _ProfileTabState extends State<ProfileTab> {
                               flex: 1,
                               child: CustomElevatedButton(
                                 buttonOnClick: () async{
-                                  final prefs = await SharedPreferences.getInstance();
-                                  prefs.remove("user_token");
+                                  // final prefs = await SharedPreferences.getInstance();
+                                  // prefs.remove("user_token");
+
                                   Navigator.of(context).pushNamedAndRemoveUntil(LoginView.routeName, (obj) => true);
                                 },
                                 buttonTitle: "Exit",
@@ -142,7 +146,33 @@ class _ProfileTabState extends State<ProfileTab> {
           body: TabBarView(
             children: [
               watchList(),
-              history(),
+              BlocBuilder<UpdateProfileViewModel, UpdateProfileStates>(
+                bloc: viewModel..getProfileData(),
+                builder: (context, state) {
+                  if (state is GetProfileDataState) {
+                    return state.historyMovies.isEmpty
+                        ? Center(
+                      child: Image.asset(
+                          AssetsManager.noItemsFoundImage),
+                    )
+                        : GridView.builder(
+                      shrinkWrap: true,
+                      padding: const EdgeInsets.symmetric(horizontal:10 ,vertical:8 ),
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                        childAspectRatio: 0.65,
+                      ),
+                      itemBuilder: (context, index) => MovieItem(
+                        movie: state.historyMovies[index],
+                      ),
+                      itemCount: state.historyMovies.length,
+                    );
+                  }
+                  return Center(child: CircularProgressIndicator(color: AppColors.orangeColor,));
+                },
+              ),
             ],
           ),
         ),
@@ -157,6 +187,4 @@ Widget watchList() {
   return Image.asset(AssetsManager.noItemsFoundImage);
 }
 
-Widget history() {
-  return Image.asset(AssetsManager.noItemsFoundImage);
-}
+

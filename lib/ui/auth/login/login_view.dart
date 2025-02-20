@@ -6,6 +6,7 @@ import 'package:graduation_movie_app/core/di/di.dart';
 import 'package:graduation_movie_app/ui/auth/login/login_connector.dart';
 import 'package:graduation_movie_app/ui/home_screen/home_screen.dart';
 import '../../../core/cubit/app_language_cubit.dart';
+import '../../../core/shared_preferences/history.dart';
 import '../../../core/utils/app_color.dart';
 import '../../../core/utils/app_styles.dart';
 import '../../../core/utils/assets_manager.dart';
@@ -61,6 +62,7 @@ class _LoginViewState extends State<LoginView> implements LoginConnector {
             DialogUtils.showMessage(context: context, message: state.errorMessage);
             // showMassage(state.errorMessage);
           }else if (state is LoginSuccess) {
+
             hideLoading();
             showMassage(state.message);
             // navigateToScreen();
@@ -142,7 +144,9 @@ class _LoginViewState extends State<LoginView> implements LoginConnector {
                       await  viewModel.validateAndLogin(
                             viewModel.emailController.text,
                             viewModel.passwordController.text, viewModel.formKey);
+
                       }
+
                       ,
                       buttonTitle: AppLocalizations.of(context)!.login,
                     ),
