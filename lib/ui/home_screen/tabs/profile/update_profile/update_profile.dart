@@ -125,6 +125,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
   }
   void saveAvatarImage(String image) {
       viewModel.selectedAvatar = image;
+      viewModel.avatarId = viewModel.getAvatarId(image);
       setState(() {
 
       });
