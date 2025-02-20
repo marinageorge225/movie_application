@@ -49,6 +49,7 @@ import '../../ui/home_screen/tabs/home_tab/cubit/home_tap_view_model.dart'
     as _i368;
 import '../../ui/home_screen/tabs/profile/update_profile/cubit/update_profile_view_model.dart'
     as _i554;
+import '../../ui/see_more/cubit/see_more_view_model.dart' as _i933;
 import '../api/api_manger.dart' as _i339;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -89,6 +90,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i28.ResetPasswordViewModel>(() => _i28.ResetPasswordViewModel(
         resetPasswordRepository: gh<_i192.ResetPasswordRepository>()));
     gh.factory<_i368.HomeTabViewModel>(() => _i368.HomeTabViewModel(
+        movieListRepository: gh<_i176.MovieListRepository>()));
+    gh.factory<_i933.SeeMoreViewModel>(() => _i933.SeeMoreViewModel(
         movieListRepository: gh<_i176.MovieListRepository>()));
     gh.factory<_i554.UpdateProfileViewModel>(() => _i554.UpdateProfileViewModel(
         updateProfileRepository: gh<_i942.UpdateProfileRepository>()));

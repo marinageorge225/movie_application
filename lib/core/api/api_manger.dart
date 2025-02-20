@@ -76,7 +76,7 @@ class ApiManager {
 
   Future<MovieListResponse?> getMovieListByGenre(String genre) async {
     Uri url = Uri.https(ApiConstants.movieListBaseServer, EndPoints.listMoviesApi,
-    {'genre' : genre});
+    {'genre' : genre, 'limit' : '50', 'page' : '1'});
     try {
       var response = await http.get(url);
       var responseBody = response.body;
