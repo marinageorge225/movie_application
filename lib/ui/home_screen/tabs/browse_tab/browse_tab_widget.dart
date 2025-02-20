@@ -79,10 +79,11 @@ class BrowseTab extends StatelessWidget {
                 ),
               );
             } else if (state is BrowseTabSuccessState) {
+              Set movieSet = state.movieList.toSet();
               return Expanded(
                   child: GridView.builder(
                     padding: EdgeInsets.only(right: (16/430)* width,left: (16/430)* width, bottom: 0.01 * height),
-                    itemCount: state.movieList.length,
+                    itemCount: movieSet.length ,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         childAspectRatio: 189/279,
                           crossAxisCount: 2,
@@ -90,11 +91,12 @@ class BrowseTab extends StatelessWidget {
                         crossAxisSpacing: (20/430) * width
                           ),
                       itemBuilder: (context, index) {
+                        var movie = movieSet.elementAt(index);
                         return MovieItem(
                           borderRadius: 10,
                           imageWidth: (189/430) * width,
                             imageHeight: (279/932) * height,
-                            movie: state.movieList[index]);
+                            movie: movie);
                       }));
             }
             return Container();

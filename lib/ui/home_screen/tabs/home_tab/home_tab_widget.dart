@@ -7,6 +7,7 @@ import 'package:graduation_movie_app/core/utils/assets_manager.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/home_tab/cubit/home_tab_states.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/home_tab/cubit/home_tap_view_model.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/home_tab/movie_item.dart';
+import 'package:graduation_movie_app/ui/see_more/see_more_screen.dart';
 import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/app_styles.dart';
 import '../../../../model/MovieListResponse.dart';
@@ -138,7 +139,10 @@ class _HomeTabState extends State<HomeTab> {
                   }
                 ),
                 TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(SeeMoreScreen.routeName,
+                      arguments: viewModel.selectedGenre);
+                    },
                     child: Row(
                       children: [
                         Text(
