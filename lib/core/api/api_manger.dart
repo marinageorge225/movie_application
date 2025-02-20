@@ -1,13 +1,15 @@
 import 'dart:convert';
+
+import 'package:graduation_movie_app/core/api/api_constants.dart';
 import 'package:graduation_movie_app/model/MovieDetailsResponse.dart';
 import 'package:graduation_movie_app/model/MovieListResponse.dart';
 import 'package:graduation_movie_app/model/user_model_register.dart';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
+
 import '../../model/GetProfileResponse.dart';
 import '../../model/LoginResponse.dart';
 import 'end_points.dart';
-import 'package:graduation_movie_app/core/api/api_constants.dart';
 
 @singleton
 class ApiManager {
@@ -85,7 +87,6 @@ class ApiManager {
       'sort_by': 'date_added',
       'order_by': 'desc',
     });
-
     try {
       var response = await http.get(url);
       if (response.statusCode == 200) {
@@ -191,6 +192,23 @@ class ApiManager {
       }
     } catch (e) {
       throw Exception("An error occurred: ${e.toString()}");
+    }
+  }
+
+  Future<MovieListResponse?> getAllMovies(String searchedText) async {
+    Uri url = Uri.https(ApiConstants.baseUrl, EndPoints.listMoviesApi,
+        {'query_term': searchedText});
+
+    try {
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        var json = jsonDecode(response.body);
+        return MovieListResponse.fromJson(json);
+      } else {
+        throw Exception('Failed to load movies: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('Error fetching movies: $e');
     }
   }
 
