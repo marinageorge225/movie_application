@@ -10,7 +10,7 @@ import '../../../../../../core/shared_preferences/history.dart';
 import '../../../../../../core/utils/assets_manager.dart';
 
 @injectable
-class UpdateProfileViewModel extends Cubit<UpdateProfileStates>{
+class UpdateProfileViewModel extends Cubit<ProfileStates>{
   UpdateProfileRepository updateProfileRepository;
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
@@ -41,14 +41,14 @@ class UpdateProfileViewModel extends Cubit<UpdateProfileStates>{
     try {
       final prefs = await SharedPreferences.getInstance();
       String token = prefs.getString("user_token") ?? "";
-
       var response = await updateProfileRepository.getProfile(token);
+      await prefs.setString("user_id", response!.data!.id.toString());
 
       List<Movie> historyMovies = await HistoryStorage.loadHistoryMovies();
 
-      emit(GetProfileDataState(data: response!.data!, historyMovies: historyMovies));
+      emit(GetProfileDataState(data: response.data!, historyMovies: historyMovies));
     } catch (e) {
-      emit(UpdateProfileErrorState(errorMsg: e.toString()));
+      emit(GetProfileErrorState(errorMsg: e.toString()));
     }
   }
 
