@@ -50,9 +50,9 @@ class BrowseTab extends StatelessWidget {
           bloc: viewModel..getMoviesByGenre(viewModel.genresList[viewModel.tabSelectedIndex]),
           builder: (context, state) {
             if (state is BrowseTabLoadingState) {
-              return const Center(
-                heightFactor: 20,
-                child: CircularProgressIndicator(
+              return  Center(
+                heightFactor: height / 50,
+                child: const CircularProgressIndicator(
                   color: AppColors.orangeColor,
                 ),
               );

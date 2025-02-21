@@ -47,9 +47,9 @@ class _HomeTabState extends State<HomeTab> {
               bloc: viewModel..getMovies(),
               builder: (context, state) {
                 if (state is HomeTabLoadingState) {
-                  return const Center(
-                      heightFactor: 18.3,
-                      child: CircularProgressIndicator(color: AppColors.orangeColor));
+                  return Center(
+                      heightFactor: height / 52,
+                      child: const CircularProgressIndicator(color: AppColors.orangeColor));
                 } else if (state is HomeTabTopPartErrorState) {
                   return Center(child: Text("Error: ${state.error}"));
                 } else if (state is HomeTabTopPartSuccessState) {
@@ -172,9 +172,9 @@ class _HomeTabState extends State<HomeTab> {
               bloc: viewModel..getMovieList(viewModel.selectedGenre),
                 builder: (context, state) {
                   if (state is HomeTabLoadingState) {
-                    return const Center(
-                        heightFactor: 5,
-                        child: CircularProgressIndicator(
+                    return Center(
+                        heightFactor: height / 170,
+                        child: const CircularProgressIndicator(
                           color: AppColors.orangeColor,
                         ));
                   } else if (state is HomeTabBottomPartErrorState) {
