@@ -37,7 +37,7 @@ class _ProfileTabState extends State<ProfileTab> {
                 SliverAppBar(
                   toolbarHeight:height*(340/932) ,
                  backgroundColor: AppColors.darkGrayColor,
-                 title:  BlocBuilder<UpdateProfileViewModel, UpdateProfileStates>(
+                 title:  BlocBuilder<UpdateProfileViewModel, ProfileStates>(
                   bloc: viewModel..getProfileData(),
                   builder: (context,state){
 
@@ -146,7 +146,7 @@ class _ProfileTabState extends State<ProfileTab> {
           body: TabBarView(
             children: [
               watchList(),
-              BlocBuilder<UpdateProfileViewModel, UpdateProfileStates>(
+              BlocBuilder<UpdateProfileViewModel, ProfileStates>(
                 bloc: viewModel..getProfileData(),
                 builder: (context, state) {
                   if (state is GetProfileDataState) {
