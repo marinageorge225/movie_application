@@ -1,3 +1,5 @@
+import 'dart:convert'; // ✅ تأكد من استيراد مكتبة `dart:convert`
+
 class LoginResponse {
   LoginResponse({
     this.message,
@@ -26,5 +28,14 @@ class LoginResponse {
     map['data'] = data;
     map['statusCode'] = statusCode;
     return map;
+  }
+
+  String? get token {
+    try {
+      final decodedData = jsonDecode(data ?? '{}'); // ✅ تحويل `data` إلى JSON
+      return decodedData['token']?.toString(); // ✅ استخراج التوكن
+    } catch (e) {
+      return null; // ✅ في حالة خطأ
+    }
   }
 }

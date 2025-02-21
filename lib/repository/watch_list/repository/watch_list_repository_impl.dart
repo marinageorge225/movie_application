@@ -1,31 +1,33 @@
-import 'package:graduation_movie_app/repository/watch_list/dataSources/watch_list_remote_data_source.dart';
-import 'package:graduation_movie_app/repository/watch_list/repository/watch_list_repository.dart';
-import 'package:graduation_movie_app/model/MovieDetailsResponse.dart';
+
+import 'package:graduation_movie_app/repository/watch_list/repository/watch_List_repository.dart';
 import 'package:injectable/injectable.dart';
+
+import '../../../model/MovieDetailsResponse.dart';
+import '../dataSources/watch_list_remote_data_source.dart';
 
 @Injectable(as: WatchListRepository)
 class WatchListRepositoryImpl implements WatchListRepository {
   final WatchListRemoteDataSource remoteDataSource;
-
-  WatchListRepositoryImpl(this.remoteDataSource);
+  WatchListRepositoryImpl({required this.remoteDataSource});
 
   @override
-  Future<MovieDetailsResponse?> addMovieToFavorites(Map<String, dynamic> movieData, String token) {
-    return remoteDataSource.addMovieToFavorites(movieData, token);
+  Future<void> addToWatchlist(MovieDetailsResponse movie, String token) {
+   return remoteDataSource.addToWatchlist(movie, token);
   }
 
   @override
-  Future<bool> removeMovieFromFavorites(String movieId, String token) {
-    return remoteDataSource.removeMovieFromFavorites(movieId, token);
+  Future<List<MovieDetailsResponse>> getWatchlist(String token) {
+    return remoteDataSource.getWatchlist(token);
   }
 
   @override
-  Future<List<MovieDetailsResponse>?> getAllFavoriteMovies(String token) {
-    return remoteDataSource.getAllFavoriteMovies(token);
+  Future<bool> isMovieInWatchlist(String movieId, String token) {
+     return remoteDataSource.isMovieInWatchlist(movieId, token);
   }
 
   @override
-  Future<bool> isMovieFavorite(String movieId, String token) {
-    return remoteDataSource.isMovieFavorite(movieId, token);
+  Future<void> removeFromWatchlist(String movieId, String token) {
+     return remoteDataSource.removeFromWatchlist(movieId, token);
   }
+ 
 }

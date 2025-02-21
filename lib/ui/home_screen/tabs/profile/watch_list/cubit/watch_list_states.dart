@@ -1,26 +1,22 @@
-import '../../../../../../model/MovieDetailsResponse.dart' show MovieDetailsResponse;
+import '../../../../../../model/MovieDetailsResponse.dart';
 
-abstract class WatchlistState {}
+abstract class WatchListState {}
 
-class WatchlistInitialState extends WatchlistState {}
+class WatchListInitial extends WatchListState {}
 
-class State extends WatchlistState {}
+class WatchListLoading extends WatchListState {}
 
-class WatchlistLoaded extends WatchlistState {
+class WatchListLoaded extends WatchListState {
   final List<MovieDetailsResponse> movies;
-  WatchlistLoaded(this.movies);
+  WatchListLoaded(this.movies);
 }
 
-class WatchlistError extends WatchlistState {
+class WatchListError extends WatchListState {
   final String message;
-  WatchlistError(this.message);
+  WatchListError(this.message);
 }
 
-class MovieAddedToWatchlist extends WatchlistState {}
-
-class MovieRemovedFromWatchlist extends WatchlistState {}
-
-class MovieFavoriteStatusChecked extends WatchlistState {
+ class MovieCheckState extends WatchListState {
   final bool isFavorite;
-  MovieFavoriteStatusChecked(this.isFavorite);
+  MovieCheckState(this.isFavorite);
 }

@@ -43,6 +43,7 @@ class _HomeTabState extends State<HomeTab> {
                   }
                   return false;
                 },
+
               bloc: viewModel..getMovies(),
               builder: (context, state) {
                 if (state is HomeTabLoadingState) {

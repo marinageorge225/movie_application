@@ -1,31 +1,33 @@
- import 'package:graduation_movie_app/repository/watch_list/dataSources/watch_list_remote_data_source.dart';
-import 'package:graduation_movie_app/model/MovieDetailsResponse.dart';
-import 'package:injectable/injectable.dart';
-import '../../../core/api/api_manger.dart';
 
-@Injectable(as: WatchListRemoteDataSource)
-class WatchListRemoteDataSourceImpl implements WatchListRemoteDataSource {
+  import '../../../core/api/api_manger.dart';
+  import '../../../model/MovieDetailsResponse.dart';
+  import 'watch_list_remote_data_source.dart';
+  import 'package:injectable/injectable.dart';
+
+  @Injectable(as: WatchListRemoteDataSource)
+  class WatchListRemoteDataSourceImpl implements WatchListRemoteDataSource {
   final ApiManager apiManager;
 
-  WatchListRemoteDataSourceImpl( this.apiManager );
+  WatchListRemoteDataSourceImpl({required this.apiManager});
 
   @override
-  Future<MovieDetailsResponse?> addMovieToFavorites(Map<String, dynamic> movieData, String token) {
-    return apiManager.addMovieToFavorites(movieData, token);
+  Future<void> addToWatchlist(MovieDetailsResponse movie, String token) async {
+  await apiManager.addToWatchlist(movie.toJson(), token);
   }
 
   @override
-  Future<bool> removeMovieFromFavorites(String movieId, String token) {
-    return apiManager.removeMovieFromFavorites(movieId, token);
+  Future<void> removeFromWatchlist(String movieId, String token) async {
+  await apiManager.removeFromWatchlist(movieId, token);
   }
 
   @override
-  Future<List<MovieDetailsResponse>?> getAllFavoriteMovies(String token) {
-    return apiManager.getAllFavoriteMovies(token);
+  Future<List<MovieDetailsResponse>> getWatchlist(String token) async {
+  var response = await apiManager.getWatchlist(token);
+  return response.map((e) => MovieDetailsResponse.fromJson(e)).toList();
   }
 
   @override
-  Future<bool> isMovieFavorite(String movieId, String token) {
-    return apiManager.isMovieFavorite(movieId, token);
+  Future<bool> isMovieInWatchlist(String movieId, String token) async {
+  return await apiManager.isMovieInWatchlist(movieId, token);
   }
-}
+  }

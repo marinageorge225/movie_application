@@ -1,60 +1,65 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation_movie_app/repository/watch_list/repository/watch_list_repository.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/profile/watch_list/cubit/watch_list_states.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../../../../model/MovieDetailsResponse.dart';
+import '../../../../../../repository/watch_list/repository/watch_List_repository.dart' show WatchListRepository;
+
 @injectable
-class WatchListViewModel extends Cubit<WatchlistState> {
-  final WatchListRepository watchListRepository;
+class WatchListCubit extends Cubit<WatchListState> {
+  final WatchListRepository repository;
 
-  WatchListViewModel(this.watchListRepository) : super(WatchlistInitialState());
+  WatchListCubit({required this.repository}) : super(WatchListInitial());
 
-  Future<void> getFavoriteMovies(String token) async {
-    emit(WatchlistInitialState());
+  Future<void> fetchWatchlist(String token) async {
+    emit(WatchListLoading());
     try {
-      final movies = await watchListRepository.getAllFavoriteMovies(token);
-      if (movies != null) {
-        emit(WatchlistLoaded(movies));
-      } else {
-        emit(WatchlistError("Failed to load watchlist."));
-      }
+      final movies = await repository.getWatchlist(token);
+      emit(WatchListLoaded(movies));
     } catch (e) {
-      emit(WatchlistError(e.toString()));
+      emit(WatchListError(e.toString()));
     }
   }
 
-  Future<void> addMovieToWatchlist(Map<String, dynamic> movieData, String token) async {
+  Future<void> addMovieToWatchlist(MovieDetailsResponse movie, String token) async {
     try {
-      final response = await watchListRepository.addMovieToFavorites(movieData, token);
-      if (response != null) {
-        emit(MovieAddedToWatchlist());
-        getFavoriteMovies(token); // تحديث القائمة بعد الإضافة
+      await repository.addToWatchlist(movie, token);
+
+      // تحديث القائمة بدون إعادة تحميلها من الـ API
+      if (state is WatchListLoaded) {
+        final updatedMovies = List<MovieDetailsResponse>.from((state as WatchListLoaded).movies)..add(movie);
+        emit(WatchListLoaded(updatedMovies));
       } else {
-        emit(WatchlistError("Failed to add movie to watchlist."));
+        fetchWatchlist(token);
       }
     } catch (e) {
-      emit(WatchlistError(e.toString()));
+      emit(WatchListError(e.toString()));
     }
   }
+
   Future<void> removeMovieFromWatchlist(String movieId, String token) async {
     try {
-      final success = await watchListRepository.removeMovieFromFavorites(movieId, token);
-      if (success) {
-        emit(MovieRemovedFromWatchlist());
-        getFavoriteMovies(token);
-      } else {
-        emit(WatchlistError("Failed to remove movie from watchlist."));
-      }
+      emit(WatchListLoading());
+      await repository.removeFromWatchlist(movieId, token);
+      await fetchWatchlist(token);
     } catch (e) {
-      emit(WatchlistError(e.toString()));
+      emit(WatchListError(e.toString()));
     }
   }
-  Future<void> checkIfMovieIsFavorite(String movieId, String token) async {
+
+
+  Future<void> checkMovieInWatchlist(String movieId, String token) async {
     try {
-      final isFavorite = await watchListRepository.isMovieFavorite(movieId, token);
-      emit(MovieFavoriteStatusChecked(isFavorite));
+      final isFavorite = await repository.isMovieInWatchlist(movieId, token);
+
+      if (state is MovieCheckState && (state as MovieCheckState).isFavorite == isFavorite) {
+        return;
+      }
+
+      emit(MovieCheckState(isFavorite));
     } catch (e) {
-      emit(WatchlistError(e.toString()));
+      emit(WatchListError(e.toString()));
     }
   }
+
 }

@@ -7,20 +7,20 @@ import 'package:graduation_movie_app/repository/movie_details/repository/movie_d
 import 'package:graduation_movie_app/repository/register/data_source/register_remote_data_source_impl.dart';
 import 'package:graduation_movie_app/repository/register/repository/register_repository_impl.dart';
 import 'package:graduation_movie_app/core/api/api_manger.dart';
-import 'package:graduation_movie_app/repository/reset_password/repository/reset_password_repository.dart';
 import 'package:graduation_movie_app/ui/auth/forget_password/reset_password.dart';
 import 'package:graduation_movie_app/ui/home_screen/home_screen.dart';
 import 'package:graduation_movie_app/profile.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/home_tab/home_tab_widget.dart';
-import 'package:graduation_movie_app/ui/movie_detailes_screen/cubit/movie_details_view_model.dart';
+import 'package:graduation_movie_app/ui/home_screen/tabs/profile/watch_list/cubit/watch_list_view_model.dart';
+import 'package:graduation_movie_app/ui/home_screen/tabs/profile/watch_list/shared_preferences/preferences_cubit_list_movie.dart';
+ import 'package:graduation_movie_app/ui/movie_detailes_screen/cubit/movie_details_view_model.dart';
 import 'package:graduation_movie_app/ui/splash_screen/splash_screen.dart';
 import 'package:graduation_movie_app/ui/auth/Reigster/Register_Screen.dart';
  import 'package:graduation_movie_app/ui/auth/login/login_view.dart';
 import 'package:graduation_movie_app/ui/auth/forget_password/forget_password.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/profile/update_profile/update_profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'core/api/api_manger.dart';
-import 'core/cubit/app_language_cubit.dart';
+ import 'core/cubit/app_language_cubit.dart';
 import 'ui/auth/Reigster/cubit/register_view_model.dart';
 import 'core/di/di.dart';
 import 'core/utils/app_theme.dart';
@@ -36,7 +36,9 @@ void main() async {
   runApp(
     MultiBlocProvider(
       providers: [
-        ///   Movie Details
+        BlocProvider(create: (context) => getIt<WatchListCubit>()),
+        BlocProvider(create: (context) => PreferenseWatchListCubit()),
+         ///   Movie Details
         RepositoryProvider(
           create: (context) => MovieDetailsRepositoryImpl(
             remoteDataSource: MovieDetailsRemoteDataSourceImpl(
@@ -88,7 +90,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: AppTheme.themeData,
           initialRoute: HomeScreen.routeName,
-          routes: {
+          routes: <String, WidgetBuilder>{
             HomeScreen.routeName: (context) => HomeScreen(),
             OnBoarding.routeName: (context) => OnBoarding(),
             SplashScreen.routeName: (context) => SplashScreen(  showOnBoarding: showOnBoarding,),
@@ -98,7 +100,9 @@ class MyApp extends StatelessWidget {
             RegisterScreen.routeName: (context) => RegisterScreen(),
             Profile.routeName: (context) => Profile(),
             HomeTab.routeName:(context)=>HomeTab(),
-            ResetPassword.routeName:(context)=>ResetPassword()
+            ResetPassword.routeName:(context)=>ResetPassword(),
+
+
           },
           locale: Locale(appLanguage),
         );

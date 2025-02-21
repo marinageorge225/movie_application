@@ -9,6 +9,7 @@ import 'package:graduation_movie_app/ui/movie_detailes_screen/show_screen_shot.d
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/utils/app_styles.dart';
 import '../../model/MovieDetailsResponse.dart';
+ import '../home_screen/tabs/profile/watch_list/shared_preferences/preferences_cubit_list_movie.dart';
 import '../widgets/custom_elevated_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'cubit/movie_details-states.dart';
@@ -88,12 +89,32 @@ class _MovieDetailsState extends State<MovieDetails> {
                           alignment: Alignment.topLeft,
                           child: Padding(
                             padding: const EdgeInsets.only(left: 2, top: 14),
-                            child: IconButton(
-                              icon: const Icon(Icons.arrow_back_ios,
-                                  color: Colors.white),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
+                            child: Row(
+                              children: [
+                                IconButton(
+                                  icon: const Icon(Icons.arrow_back_ios,
+                                      color: Colors.white),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                ),
+    BlocBuilder<PreferenseWatchListCubit, List<String>>(
+    builder: (context, watchlist) {
+            bool isSaved = watchlist.contains(widget.movieId.toString());
+            return IconButton(
+            icon: Icon(
+            isSaved ? Icons.bookmark : Icons.bookmark_border,
+            color: Colors.white,
+            ),
+            onPressed: () {
+            context.read<PreferenseWatchListCubit>().toggleMovieInWatchlist(widget.movieId.toString());
+            },
+            );
+            }
+    ),
+
+
+                              ],
                             ),
                           ),
                         ),
