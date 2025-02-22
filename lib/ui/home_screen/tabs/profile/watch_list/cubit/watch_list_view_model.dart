@@ -25,7 +25,7 @@ class WatchListCubit extends Cubit<WatchListState> {
     try {
       await repository.addToWatchlist(movie, token);
 
-      // تحديث القائمة بدون إعادة تحميلها من الـ API
+
       if (state is WatchListLoaded) {
         final updatedMovies = List<MovieDetailsResponse>.from((state as WatchListLoaded).movies)..add(movie);
         emit(WatchListLoaded(updatedMovies));

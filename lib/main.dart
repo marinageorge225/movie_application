@@ -35,12 +35,20 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final bool showOnBoarding = prefs.getBool(OnBoarding.routeName) ?? false;
-
+  WidgetsFlutterBinding.ensureInitialized(); 
+  final token = prefs.getString('user_token') ?? '';
   runApp(
     MultiBlocProvider(
+
       providers: [
-        BlocProvider(create: (context) => getIt<WatchListCubit>()),
-        BlocProvider(create: (context) => PreferenseWatchListCubit()),
+        BlocProvider(
+          create: (context) {
+            final cubit = getIt<WatchListCubit>();
+            cubit.fetchWatchlist(token);  
+            return cubit;
+          },
+        ),
+         BlocProvider(create: (context) => PreferenseWatchListCubit()),
         ///   Movie Details
         RepositoryProvider(
           create: (context) => MovieDetailsRepositoryImpl(
