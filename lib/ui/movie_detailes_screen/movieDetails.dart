@@ -17,6 +17,8 @@ import 'cubit/movie_details_view_model.dart';
 import 'custom_icon_with_text.dart';
 import 'package:readmore/readmore.dart';
 
+import 'movie_web_view.dart';
+
 class MovieDetails extends StatefulWidget {
   static const String routeName = "movie_details";
   final int movieId;
@@ -58,9 +60,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                 children: [
                   Positioned.fill(
                     child: Image.network(
-                      movie.backgroundImage ??
-                          movie.backgroundImageOriginal ??
-                          '',
+                      movie.mediumCoverImage ?? movie.mediumCoverImage ?? '',
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) {
                         return const Center(
@@ -293,6 +293,13 @@ class _MovieDetailsState extends State<MovieDetails> {
   void onWatchButton(Movie movie) async {
     final prefs = await SharedPreferences.getInstance();
     List<String> watchlist = prefs.getStringList('watchlist') ?? [];
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => MovieWebView( movieUrl: movie.url!), // Replace with your URL
+      ),
+    );
 
     String message;
 

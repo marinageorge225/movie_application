@@ -34,12 +34,11 @@ class _ProfileTabState extends State<ProfileTab> {
           headerSliverBuilder: (context, innerBoxIsScrolled) {
             return [
               SliverAppBar(
-                toolbarHeight:height*(340/932) ,
+                toolbarHeight:height*(280/932) ,
                 backgroundColor: AppColors.darkGrayColor,
                 title:  BlocBuilder<UpdateProfileViewModel, ProfileStates>(
                   bloc: viewModel..getProfileData(),
                   builder: (context,state){
-
                     if(state is GetProfileDataState){
                       return Column(
                         children: [
@@ -85,7 +84,7 @@ class _ProfileTabState extends State<ProfileTab> {
                                   buttonTitleStyle: AppStyles.regular20DarkGrayRoboto,
                                 ),
                               ),
-                              SizedBox(width: width * 0.02),
+                              SizedBox(width: width * 0.03),
                               Expanded(
                                 flex: 1,
                                 child: CustomElevatedButton(
@@ -115,7 +114,7 @@ class _ProfileTabState extends State<ProfileTab> {
                 elevation: 0,
                 leadingWidth: 0,
                 scrolledUnderElevation: 0,
-                //forceElevated: innerBoxIsScrolled,
+                forceElevated: innerBoxIsScrolled,
                 bottom: PreferredSize(
                   preferredSize: Size.fromHeight(height*(100/932)),
                   child: TabBar(
