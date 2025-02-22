@@ -275,4 +275,21 @@ class ApiManager {
       throw Exception('Failed to check movie status in watchlist');
     }
   }
+
+  Future<MovieListResponse?> getAllMovies(String searchedText) async {
+    Uri url = Uri.https(ApiConstants.baseUrl, EndPoints.listMoviesApi,
+        {'query_term': searchedText});
+
+    try {
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        var json = jsonDecode(response.body);
+        return MovieListResponse.fromJson(json);
+      } else {
+        throw Exception('Failed to load movies: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('Error fetching movies: $e');
+    }
+  }
 }

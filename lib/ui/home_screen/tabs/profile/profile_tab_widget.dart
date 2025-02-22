@@ -53,7 +53,7 @@ class _ProfileTabState extends State<ProfileTab> {
                 toolbarHeight:height*(340/932) ,
                 backgroundColor: AppColors.darkGrayColor,
                 title:  BlocBuilder<UpdateProfileViewModel, UpdateProfileStates>(
-                  bloc: viewModel..getProfileData(),
+                  bloc: viewModel..getProfile(),
                   builder: (context,state){
 
                     if(state is GetProfileDataState){
