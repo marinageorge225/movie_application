@@ -48,6 +48,7 @@ class _HomeTabState extends State<HomeTab> {
               builder: (context, state) {
                 if (state is HomeTabLoadingState) {
                   return const Center(
+                      heightFactor: 18.3,
                       child: CircularProgressIndicator(color: AppColors.orangeColor));
                 } else if (state is HomeTabTopPartErrorState) {
                   return Center(child: Text("Error: ${state.error}"));
@@ -169,6 +170,7 @@ class _HomeTabState extends State<HomeTab> {
                 builder: (context, state) {
                   if (state is HomeTabLoadingState) {
                     return const Center(
+                        heightFactor: 5,
                         child: CircularProgressIndicator(
                           color: AppColors.orangeColor,
                         ));

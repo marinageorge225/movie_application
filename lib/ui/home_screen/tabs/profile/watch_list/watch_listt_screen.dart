@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
  import '../../../../../../model/MovieDetailsResponse.dart';
 import 'cubit/watch_list_view_model.dart';
-
 class WatchListScreen extends StatelessWidget {
   final String token;
   const WatchListScreen({Key? key, required this.token}) : super(key: key);
@@ -12,14 +11,9 @@ class WatchListScreen extends StatelessWidget {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString('user_token');
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Watchlist"),
-        backgroundColor: Colors.black,
-      ),
       body: BlocBuilder<WatchListCubit, WatchListState>(
         builder: (context, state) {
           if (state is WatchListLoading) {

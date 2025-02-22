@@ -9,8 +9,7 @@ import 'package:graduation_movie_app/repository/register/repository/register_rep
 import 'package:graduation_movie_app/core/api/api_manger.dart';
 import 'package:graduation_movie_app/ui/auth/forget_password/reset_password.dart';
 import 'package:graduation_movie_app/ui/home_screen/home_screen.dart';
-import 'package:graduation_movie_app/profile.dart';
-import 'package:graduation_movie_app/ui/home_screen/tabs/home_tab/home_tab_widget.dart';
+ import 'package:graduation_movie_app/ui/home_screen/tabs/home_tab/home_tab_widget.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/profile/watch_list/cubit/watch_list_view_model.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/profile/watch_list/shared_preferences/preferences_cubit_list_movie.dart';
  import 'package:graduation_movie_app/ui/movie_detailes_screen/cubit/movie_details_view_model.dart';
@@ -98,8 +97,7 @@ class MyApp extends StatelessWidget {
             ForgetPassword.routeName: (context) => ForgetPassword(),
             UpdateProfile.routeName: (context) => UpdateProfile(),
             RegisterScreen.routeName: (context) => RegisterScreen(),
-            Profile.routeName: (context) => Profile(),
-            HomeTab.routeName:(context)=>HomeTab(),
+             HomeTab.routeName:(context)=>HomeTab(),
             ResetPassword.routeName:(context)=>ResetPassword(),
 
 
