@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_movie_app/core/utils/app_color.dart';
@@ -7,6 +8,7 @@ import 'package:graduation_movie_app/ui/auth/login/login_view.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/profile/update_profile/cubit/update_profile_states.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/profile/update_profile/cubit/update_profile_view_model.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/profile/update_profile/update_profile.dart';
+import 'package:graduation_movie_app/ui/home_screen/tabs/profile/watch_list/watch_listt_screen.dart';
 import 'package:graduation_movie_app/ui/widgets/custom_elevated_button.dart';
 import '../../../../core/di/di.dart';
 import '../home_tab/movie_item.dart';
@@ -44,12 +46,14 @@ class _ProfileTabState extends State<ProfileTab> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Column(
-                                children: [
-                                  Image.asset(viewModel.getAvatarImage(state.data.avaterId!)),
-                                  SizedBox(height: height * 0.02),
-                                  Text(state.data.name!, style: AppStyles.bold20WhiteRoboto),
-                                ],
+                              Expanded(
+                                child: Column(
+                                  children: [
+                                    Image.asset(viewModel.getAvatarImage(state.data.avaterId!)),
+                                    SizedBox(height: height * 0.02),
+                                    AutoSizeText(state.data.name!, style: AppStyles.bold20WhiteRoboto,),
+                                  ],
+                                ),
                               ),
                               Column(
                                 children: [
@@ -57,6 +61,7 @@ class _ProfileTabState extends State<ProfileTab> {
                                   Text("Wish List", style: AppStyles.bold24WhiteRoboto),
                                 ],
                               ),
+                              SizedBox(width: width * 0.05,),
                               Column(
                                 children: [
                                   Text("${state.historyMovies.length}", style: AppStyles.bold36WhiteRoboto),
@@ -109,9 +114,10 @@ class _ProfileTabState extends State<ProfileTab> {
                 leading: Container(),
                 elevation: 0,
                 leadingWidth: 0,
-                forceElevated: innerBoxIsScrolled,
+                scrolledUnderElevation: 0,
+                //forceElevated: innerBoxIsScrolled,
                 bottom: PreferredSize(
-                  preferredSize: Size.fromHeight(height*(60/932)),
+                  preferredSize: Size.fromHeight(height*(100/932)),
                   child: TabBar(
                     indicatorColor: AppColors.orangeColor,
                     indicatorSize: TabBarIndicatorSize.tab,
@@ -182,5 +188,6 @@ class _ProfileTabState extends State<ProfileTab> {
 
 
 Widget watchList() {
-  return Image.asset(AssetsManager.noItemsFoundImage);
+  return WatchListScreen(token: WatchListScreen.getToken().toString());
+  //return Image.asset(AssetsManager.noItemsFoundImage);
 }

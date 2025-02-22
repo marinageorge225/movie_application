@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_movie_app/core/api/api_manger.dart';
 import 'package:graduation_movie_app/core/utils/app_color.dart';
 import 'package:graduation_movie_app/core/utils/app_styles.dart';
+import 'package:graduation_movie_app/core/utils/assets_manager.dart';
 import 'package:graduation_movie_app/model/MovieListResponse.dart'
     as ListResponse;
 import 'package:graduation_movie_app/ui/home_screen/tabs/home_tab/movie_item.dart';
@@ -40,7 +41,7 @@ class _SearchTabState extends State<SearchTab> {
             controller: searchController,
             hintText: "Search movies...",
             keyBoardType: TextInputType.text,
-            prefixIcon: Icon(Icons.search, color: AppColors.whiteColor),
+            prefixIcon: const ImageIcon(AssetImage(AssetsManager.searchIcon)),
             onChanged: (value) {
               viewModel.searchMovies(value);
             },
@@ -50,7 +51,7 @@ class _SearchTabState extends State<SearchTab> {
           bloc: viewModel,
           builder: (context, state) {
             if (state is SearchLoadingState) {
-              return Center(
+              return const Center(
                   child: CircularProgressIndicator(
                 color: AppColors.orangeColor,
               ));
@@ -62,11 +63,12 @@ class _SearchTabState extends State<SearchTab> {
             } else if (state is SearchSuccessState) {
               return buildMovieList(state.moviesList);
             }
-            return Center(
-                child: Text(
-              "Search for a movie...",
-              style: AppStyles.regular20WhiteRoboto,
-            ));
+            return Expanded(
+              child: Center(
+                  heightFactor: height / 180,
+                  child: Image.asset(AssetsManager.noItemsFoundImage)
+              ),
+            );
           },
         ),
       ],
@@ -92,50 +94,6 @@ class _SearchTabState extends State<SearchTab> {
             imageHeight: 0.45 * height,
             imageWidth: 0.5 * width,
           );
-          //Container(
-          //   margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-          //   decoration: BoxDecoration(
-          //     color: AppColors.greenColor,
-          //     borderRadius: BorderRadius.circular(12),
-          //   ),
-          //   child: Stack(
-          //     children: [
-          //       ClipRRect(
-          //         borderRadius: BorderRadius.circular(12),
-          //         child: Image.network(
-          //           movie.largeCoverImage!,
-          //           width: double.infinity,
-          //           height: double.infinity,
-          //           fit: BoxFit.cover,
-          //         ),
-          //       ),
-          //       Positioned(
-          //         top: 8,
-          //         left: 8,
-          //         child: Container(
-          //           padding: const EdgeInsets.symmetric(
-          //               horizontal: 6, vertical: 4),
-          //           decoration: BoxDecoration(
-          //             color: Colors.black.withOpacity(0.7),
-          //             borderRadius: BorderRadius.circular(8),
-          //           ),
-          //           child: Row(
-          //             mainAxisSize: MainAxisSize.min,
-          //             children: [
-          //               const Icon(Icons.star,
-          //                   color: AppColors.orangeColor, size: 14),
-          //               const SizedBox(width: 4),
-          //               Text(
-          //                 "${movie.rating}",
-          //                 style: AppStyles.regular14WhiteRoboto,
-          //               ),
-          //             ],
-          //           ),
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // ),
         },
       ),
     );
