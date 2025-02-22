@@ -91,7 +91,7 @@ class _ProfileTabState extends State<ProfileTab> {
                                     Navigator.of(context).pushNamedAndRemoveUntil(LoginView.routeName, (obj) => true);
                                   },
                                   buttonTitle: "Exit",
-                                  buttonIcon: Icon(Icons.exit_to_app_rounded, color: AppColors.whiteColor),
+                                  buttonIcon: const Icon(Icons.exit_to_app_rounded, color: AppColors.whiteColor),
                                   buttonColor: AppColors.redColor,
                                   buttonTitleStyle: AppStyles.regular20WhiteRoboto,
                                 ),
@@ -100,7 +100,7 @@ class _ProfileTabState extends State<ProfileTab> {
                           ),
                         ],
                       );}
-                    return Center(child: CircularProgressIndicator(color: AppColors.orangeColor,));
+                    return const Center(child: CircularProgressIndicator(color: AppColors.orangeColor,));
                   },
 
                 ),
@@ -111,17 +111,18 @@ class _ProfileTabState extends State<ProfileTab> {
                 leadingWidth: 0,
                 forceElevated: innerBoxIsScrolled,
                 bottom: PreferredSize(
-                  preferredSize: Size.fromHeight(height*(70/932)),
+                  preferredSize: Size.fromHeight(height*(60/932)),
                   child: TabBar(
                     indicatorColor: AppColors.orangeColor,
                     indicatorSize: TabBarIndicatorSize.tab,
                     dividerHeight: 0,
-
+                    indicatorWeight: 2,
+                    labelPadding: EdgeInsets.symmetric(vertical: height * 0.02),
                     tabs: [
                       Tab(
                         child: Column(
                           children: [
-                            ImageIcon(AssetImage(AssetsManager.watchListIcon), color: AppColors.orangeColor),
+                            const ImageIcon(AssetImage(AssetsManager.watchListIcon), color: AppColors.orangeColor),
                             Expanded(child: Text("Watch List", style: AppStyles.regular20WhiteRoboto)),
                           ],
                         ),
@@ -129,7 +130,7 @@ class _ProfileTabState extends State<ProfileTab> {
                       Tab(
                         child: Column(
                           children: [
-                            ImageIcon(AssetImage(AssetsManager.historyIcon), color: AppColors.orangeColor),
+                            const ImageIcon(AssetImage(AssetsManager.historyIcon), color: AppColors.orangeColor),
                             Expanded(child: Text("History", style: AppStyles.regular20WhiteRoboto)),
                           ],
                         ),
@@ -167,7 +168,7 @@ class _ProfileTabState extends State<ProfileTab> {
                       itemCount: state.historyMovies.length,
                     );
                   }
-                  return Center(child: CircularProgressIndicator(color: AppColors.orangeColor,));
+                  return const Center(child: CircularProgressIndicator(color: AppColors.orangeColor,));
                 },
               ),
             ],

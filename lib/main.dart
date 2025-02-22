@@ -12,6 +12,8 @@ import 'package:graduation_movie_app/ui/auth/forget_password/reset_password.dart
 import 'package:graduation_movie_app/ui/home_screen/home_screen.dart';
  import 'package:graduation_movie_app/ui/home_screen/tabs/home_tab/home_tab_widget.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/home_tab/home_tab_widget.dart';
+import 'package:graduation_movie_app/ui/home_screen/tabs/profile/watch_list/cubit/watch_list_view_model.dart';
+import 'package:graduation_movie_app/ui/home_screen/tabs/profile/watch_list/shared_preferences/preferences_cubit_list_movie.dart';
 import 'package:graduation_movie_app/ui/movie_detailes_screen/cubit/movie_details_view_model.dart';
 import 'package:graduation_movie_app/ui/see_more/see_more_screen.dart';
 import 'package:graduation_movie_app/ui/splash_screen/splash_screen.dart';
@@ -66,7 +68,8 @@ void main() async {
             RepositoryProvider.of<RegisterRepositoryImpl>(context),
           ),
         ),
-
+        BlocProvider(create: (context) => getIt<WatchListCubit>()),
+        BlocProvider(create: (context) => PreferenseWatchListCubit()),
         BlocProvider(create: (context) => AppLanguageCubit()),
       ],
       child: MyApp(showOnBoarding: showOnBoarding),
