@@ -54,7 +54,7 @@ class _ProfileTabState extends State<ProfileTab> {
           headerSliverBuilder: (context, innerBoxIsScrolled) {
             return [
               SliverAppBar(
-                toolbarHeight:height*(340/932) ,
+                toolbarHeight:height*(280/932) ,
                 backgroundColor: AppColors.darkGrayColor,
                 title:  BlocBuilder<UpdateProfileViewModel, ProfileStates>(
                   bloc: viewModel..getProfileData(),
@@ -129,32 +129,35 @@ class _ProfileTabState extends State<ProfileTab> {
                 ),
                 pinned: true,
                 floating: true,
+                scrolledUnderElevation: 0,
                 leading: Container(),
                 elevation: 0,
                 leadingWidth: 0,
                 forceElevated: innerBoxIsScrolled,
                 bottom: PreferredSize(
-                  preferredSize: Size.fromHeight(height*(60/932)),
+                  preferredSize: Size.fromHeight(height*(100/932)),
                   child: TabBar(
                     indicatorColor: AppColors.orangeColor,
                     indicatorSize: TabBarIndicatorSize.tab,
                     dividerHeight: 0,
                     indicatorWeight: 2,
+                    labelStyle: AppStyles.regular20WhiteRoboto,
+                    unselectedLabelStyle: AppStyles.regular20WhiteRoboto,
                     labelPadding: EdgeInsets.symmetric(vertical: height * 0.02),
-                    tabs: [
+                    tabs: const [
                       Tab(
                         child: Column(
                           children: [
-                            const ImageIcon(AssetImage(AssetsManager.watchListIcon), color: AppColors.orangeColor),
-                            Expanded(child: Text("Watch List", style: AppStyles.regular20WhiteRoboto)),
+                            ImageIcon(AssetImage(AssetsManager.watchListIcon), color: AppColors.orangeColor),
+                            Expanded(child: Text("Watch List",)),
                           ],
                         ),
                       ),
                       Tab(
                         child: Column(
                           children: [
-                            const ImageIcon(AssetImage(AssetsManager.historyIcon), color: AppColors.orangeColor),
-                            Expanded(child: Text("History", style: AppStyles.regular20WhiteRoboto)),
+                            ImageIcon(AssetImage(AssetsManager.historyIcon), color: AppColors.orangeColor),
+                            Expanded(child: Text("History")),
                           ],
                         ),
                       ),
