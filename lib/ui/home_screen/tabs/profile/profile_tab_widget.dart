@@ -7,14 +7,12 @@ import 'package:graduation_movie_app/ui/auth/login/login_view.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/profile/update_profile/cubit/update_profile_states.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/profile/update_profile/cubit/update_profile_view_model.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/profile/update_profile/update_profile.dart';
-import 'package:graduation_movie_app/ui/home_screen/tabs/profile/watch_list/cubit/watch_list_states.dart';
-import 'package:graduation_movie_app/ui/home_screen/tabs/profile/watch_list/cubit/watch_list_view_model.dart' show WatchListCubit;
+ import 'package:graduation_movie_app/ui/home_screen/tabs/profile/watch_list/cubit/watch_list_view_model.dart' show WatchListCubit;
 import 'package:graduation_movie_app/ui/home_screen/tabs/profile/watch_list/watch_listt_screen.dart';
 import 'package:graduation_movie_app/ui/widgets/custom_elevated_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../core/di/di.dart';
-import '../../../../model/MovieDetailsResponse.dart';
-import '../home_tab/movie_item.dart';
+ import '../home_tab/movie_item.dart';
 
 class ProfileTab extends StatefulWidget {
   @override
