@@ -188,6 +188,5 @@ class _ProfileTabState extends State<ProfileTab> {
 
 
 Widget watchList() {
-  return WatchListScreen(token: WatchListScreen.getToken().toString());
-  //return Image.asset(AssetsManager.noItemsFoundImage);
+  return Image.asset(AssetsManager.noItemsFoundImage);
 }
