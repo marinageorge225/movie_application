@@ -7,13 +7,8 @@ class HistoryStorage {
 
   static Future<void> saveToHistory(Movie movie) async {
     final prefs = await SharedPreferences.getInstance();
-    String? userToken = prefs.getString('user_token');
-    print(userToken);
 
-    if (userToken == null) return;
 
-    String userHistoryKey = "$movieHistory$userToken";
-    print(userHistoryKey);
     List<String> history = prefs.getStringList(userHistoryKey) ?? [];
 
     String movieJson = jsonEncode({
@@ -31,11 +26,7 @@ class HistoryStorage {
 
   static Future<List<Movie>> loadHistoryMovies() async {
     final prefs = await SharedPreferences.getInstance();
-    String? userToken = prefs.getString('user_token');
 
-    if (userToken == null) return [];
-
-    String userHistoryKey = "$movieHistory$userToken";
 
     List<String> history = prefs.getStringList(userHistoryKey) ?? [];
 

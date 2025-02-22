@@ -1,12 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation_movie_app/model/MovieListResponse.dart';
 import 'package:graduation_movie_app/repository/update_profile_repository/repository/update_profile_repository.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/profile/update_profile/cubit/update_profile_states.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../../../core/shared_preferences/history.dart';
 import '../../../../../../core/utils/assets_manager.dart';
 
 @injectable
@@ -19,38 +17,20 @@ class UpdateProfileViewModel extends Cubit<UpdateProfileStates>{
 
   UpdateProfileViewModel({required this.updateProfileRepository}):super(UpdateProfileInitialState());
 
-  Future getProfile() async {
+  Future getProfile()async{
     try {
-      final prefs = await SharedPreferences.getInstance();
-      String token = prefs.getString("user_token") ?? "";
-
-      var response = await updateProfileRepository.getProfile(token);
-
-      nameController.text = response!.data!.name!;
+    final prefs = await SharedPreferences.getInstance();
+    String token = prefs.get("user_token").toString();
+    var response = await updateProfileRepository.getProfile(token);
+      nameController.text =response!.data!.name!;
       phoneController.text = response.data!.phone!;
       avatarId = response.data!.avaterId!;
       selectedAvatar = getAvatarImage(avatarId);
-
-      emit(LoadProfileDataState());
-    } catch (e) {
-      emit(UpdateProfileErrorState(errorMsg: e.toString()));
     }
-  }
-
-  Future getProfileData() async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      String token = prefs.getString("user_token") ?? "";
-
-      var response = await updateProfileRepository.getProfile(token);
-
-      List<Movie> historyMovies = await HistoryStorage.loadHistoryMovies();
-
-      emit(GetProfileDataState(data: response!.data!, historyMovies: historyMovies));
-    } catch (e) {
+        catch (e){
       emit(UpdateProfileErrorState(errorMsg: e.toString()));
+        }
     }
-  }
 
   Future<void> updateProfile() async {
     try {
@@ -65,8 +45,6 @@ class UpdateProfileViewModel extends Cubit<UpdateProfileStates>{
       selectedAvatar = getAvatarImage(avatarId);
 
       emit(UpdateProfileSuccessState(successMsg: response!.message!));
-      await getProfile();
-
     } catch (e) {
       emit(UpdateProfileErrorState(errorMsg: e.toString()));
     }
@@ -82,7 +60,6 @@ class UpdateProfileViewModel extends Cubit<UpdateProfileStates>{
       emit(UpdateProfileErrorState(errorMsg: e.toString()));
     }
   }
-
 
   String getAvatarImage(int id) {
     List<String> avatars = [
@@ -114,9 +91,8 @@ class UpdateProfileViewModel extends Cubit<UpdateProfileStates>{
       AssetsManager.avatar9,
     ];
 
-    int index = avatars.indexOf(imagePath) + 1;
+    int index = avatars.indexOf(imagePath) + 1; // IDs start from 1
     return index;
   }
-
 
 }
