@@ -1,16 +1,14 @@
 import 'dart:convert';
-
-import 'package:graduation_movie_app/core/api/api_constants.dart';
 import 'package:graduation_movie_app/model/MovieDetailsResponse.dart';
 import 'package:graduation_movie_app/model/MovieListResponse.dart';
 import 'package:graduation_movie_app/model/user_model_register.dart';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
-
 import '../../model/GetProfileResponse.dart';
 import '../../model/LoginResponse.dart';
 import 'end_points.dart';
-
+import 'package:graduation_movie_app/core/api/api_constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 @singleton
 class ApiManager {
   Future<UserModel> registerUser(UserModel user) async {
@@ -37,6 +35,8 @@ class ApiManager {
   }
 
 
+
+
   final Uri url = Uri.parse(ApiConstants.urlLoginAuth);
 
   Future<LoginResponse> login(String email, String password) async {
@@ -52,9 +52,15 @@ class ApiManager {
         }),
       );
 
-
       if (response.statusCode == 200) {
-        return LoginResponse.fromJson(jsonDecode(response.body));
+        final loginResponse = LoginResponse.fromJson(jsonDecode(response.body));
+
+        if (loginResponse.token != null) {
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setString('token', loginResponse.token!);
+        }
+
+        return loginResponse;
       } else {
         return LoginResponse(
           message: jsonDecode(response.body)['message']?.toString() ?? "Unknown error",
@@ -65,6 +71,7 @@ class ApiManager {
       throw Exception('Error occurred while making API request: $e');
     }
   }
+
 
 
   Future<MovieListResponse?> getMovieListByGenre(String genre) async {
@@ -87,6 +94,7 @@ class ApiManager {
       'sort_by': 'date_added',
       'order_by': 'desc',
     });
+
     try {
       var response = await http.get(url);
       if (response.statusCode == 200) {
@@ -195,24 +203,76 @@ class ApiManager {
     }
   }
 
-  Future<MovieListResponse?> getAllMovies(String searchedText) async {
-    Uri url = Uri.https(ApiConstants.baseUrl, EndPoints.listMoviesApi,
-        {'query_term': searchedText});
 
-    try {
-      var response = await http.get(url);
-      if (response.statusCode == 200) {
-        var json = jsonDecode(response.body);
-        return MovieListResponse.fromJson(json);
-      } else {
-        throw Exception('Failed to load movies: ${response.statusCode}');
-      }
-    } catch (e) {
-      throw Exception('Error fetching movies: $e');
+///////////////////////////
+
+
+  final String baseUrl = "https://route-movie-apis.vercel.app/favorites";
+
+  Future<void> addToWatchlist(Map<String, dynamic> movieData, String token) async {
+    Uri url = Uri.parse("$baseUrl/add");
+
+    var response = await http.post(
+      url,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token",
+      },
+      body: jsonEncode(movieData),
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to add movie to watchlist');
     }
   }
 
+  Future<void> removeFromWatchlist(String movieId, String token) async {
+    Uri url = Uri.parse("$baseUrl/remove/$movieId");
 
+    var response = await http.delete(
+      url,
+      headers: {
+        "Authorization": "Bearer $token",
+      },
+    );
 
+    if (response.statusCode != 200) {
+      throw Exception('Failed to remove movie from watchlist');
+    }
+  }
 
+  Future<List<Map<String, dynamic>>> getWatchlist(String token) async {
+    Uri url = Uri.parse("$baseUrl/all");
+
+    var response = await http.get(
+      url,
+      headers: {
+        "Authorization": "Bearer $token",
+      },
+    );
+
+    if (response.statusCode == 200) {
+      List<dynamic> data = jsonDecode(response.body);
+      return List<Map<String, dynamic>>.from(data);
+    } else {
+      throw Exception('Failed to fetch watchlist');
+    }
+  }
+
+  Future<bool> isMovieInWatchlist(String movieId, String token) async {
+    Uri url = Uri.parse("$baseUrl/check/$movieId");
+
+    var response = await http.get(
+      url,
+      headers: {
+        "Authorization": "Bearer $token",
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body)['isInWatchlist'] ?? false;
+    } else {
+      throw Exception('Failed to check movie status in watchlist');
+    }
+  }
 }

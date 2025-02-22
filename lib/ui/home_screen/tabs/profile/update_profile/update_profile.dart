@@ -34,7 +34,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
           title: const Text("Pick Avatar"),
           scrolledUnderElevation: 0,
         ),
-        body: BlocConsumer<UpdateProfileViewModel, ProfileStates>(
+        body: BlocConsumer<UpdateProfileViewModel, UpdateProfileStates>(
           bloc: viewModel..getProfile(),
           listener: (context, state) {
             if (state is UpdateProfileSuccessState) {
