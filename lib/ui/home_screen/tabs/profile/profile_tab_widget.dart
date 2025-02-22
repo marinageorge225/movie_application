@@ -7,12 +7,9 @@ import 'package:graduation_movie_app/ui/auth/login/login_view.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/profile/update_profile/cubit/update_profile_states.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/profile/update_profile/cubit/update_profile_view_model.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/profile/update_profile/update_profile.dart';
-import 'package:graduation_movie_app/ui/home_screen/tabs/profile/watch_list/watch_listt_screen.dart';
- import 'package:graduation_movie_app/ui/widgets/custom_elevated_button.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:graduation_movie_app/ui/widgets/custom_elevated_button.dart';
 import '../../../../core/di/di.dart';
- import '../home_tab/movie_item.dart';
+import '../home_tab/movie_item.dart';
 
 class ProfileTab extends StatefulWidget {
   @override
@@ -21,21 +18,6 @@ class ProfileTab extends StatefulWidget {
 
 class _ProfileTabState extends State<ProfileTab> {
   UpdateProfileViewModel viewModel = getIt<UpdateProfileViewModel>();
-  String? token;
-
-  @override
-  void initState() {
-    super.initState();
-    _getToken();
-  }
-
-
-  Future<void> _getToken() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      token = prefs.getString('user_token');
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +34,8 @@ class _ProfileTabState extends State<ProfileTab> {
               SliverAppBar(
                 toolbarHeight:height*(340/932) ,
                 backgroundColor: AppColors.darkGrayColor,
-                title:  BlocBuilder<UpdateProfileViewModel, UpdateProfileStates>(
-                  bloc: viewModel..getProfile(),
+                title:  BlocBuilder<UpdateProfileViewModel, ProfileStates>(
+                  bloc: viewModel..getProfileData(),
                   builder: (context,state){
 
                     if(state is GetProfileDataState){
@@ -161,10 +143,7 @@ class _ProfileTabState extends State<ProfileTab> {
           body: TabBarView(
             children: [
               watchList(),
-              token == null
-                  ? Center(child:   watchList(),)
-                  : WatchListScreen(token: token!),
-              BlocBuilder<UpdateProfileViewModel, UpdateProfileStates>(
+              BlocBuilder<UpdateProfileViewModel, ProfileStates>(
                 bloc: viewModel..getProfileData(),
                 builder: (context, state) {
                   if (state is GetProfileDataState) {
