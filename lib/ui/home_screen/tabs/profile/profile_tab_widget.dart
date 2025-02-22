@@ -84,7 +84,7 @@ class _ProfileTabState extends State<ProfileTab> {
                                   buttonTitleStyle: AppStyles.regular20DarkGrayRoboto,
                                 ),
                               ),
-                              SizedBox(width: width * 0.03),
+                              SizedBox(width: width * 0.02),
                               Expanded(
                                 flex: 1,
                                 child: CustomElevatedButton(
@@ -122,13 +122,16 @@ class _ProfileTabState extends State<ProfileTab> {
                     indicatorSize: TabBarIndicatorSize.tab,
                     dividerHeight: 0,
                     indicatorWeight: 2,
+                    padding: EdgeInsets.zero,
+                    labelStyle: AppStyles.regular20WhiteRoboto,
+                    unselectedLabelStyle: AppStyles.regular20WhiteRoboto,
                     labelPadding: EdgeInsets.symmetric(vertical: height * 0.02),
-                    tabs: [
+                    tabs: const [
                       Tab(
                         child: Column(
                           children: [
-                            const ImageIcon(AssetImage(AssetsManager.watchListIcon), color: AppColors.orangeColor),
-                            Expanded(child: Text("Watch List", style: AppStyles.regular20WhiteRoboto)),
+                            ImageIcon(AssetImage(AssetsManager.watchListIcon), color: AppColors.orangeColor),
+                            Expanded(child: Text("Watch List")),
                           ],
                         ),
                       ),
@@ -136,7 +139,7 @@ class _ProfileTabState extends State<ProfileTab> {
                         child: Column(
                           children: [
                             const ImageIcon(AssetImage(AssetsManager.historyIcon), color: AppColors.orangeColor),
-                            Expanded(child: Text("History", style: AppStyles.regular20WhiteRoboto)),
+                            Expanded(child: Text("History")),
                           ],
                         ),
                       ),
