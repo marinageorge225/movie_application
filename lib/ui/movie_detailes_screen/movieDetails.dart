@@ -98,8 +98,8 @@ class _MovieDetailsState extends State<MovieDetails> {
                                     Navigator.pop(context);
                                   },
                                 ),
-    BlocBuilder<PreferenseWatchListCubit, List<String>>(
-    builder: (context, watchlist) {
+          BlocBuilder<PreferenseWatchListCubit, List<String>>(
+               builder: (context, watchlist) {
             bool isSaved = watchlist.contains(widget.movieId.toString());
             return IconButton(
             icon: Icon(

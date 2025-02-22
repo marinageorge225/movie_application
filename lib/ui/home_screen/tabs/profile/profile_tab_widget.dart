@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_movie_app/core/utils/app_color.dart';
@@ -8,9 +7,13 @@ import 'package:graduation_movie_app/ui/auth/login/login_view.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/profile/update_profile/cubit/update_profile_states.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/profile/update_profile/cubit/update_profile_view_model.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/profile/update_profile/update_profile.dart';
+import 'package:graduation_movie_app/ui/home_screen/tabs/profile/watch_list/cubit/watch_list_states.dart';
+import 'package:graduation_movie_app/ui/home_screen/tabs/profile/watch_list/cubit/watch_list_view_model.dart' show WatchListCubit;
 import 'package:graduation_movie_app/ui/home_screen/tabs/profile/watch_list/watch_listt_screen.dart';
 import 'package:graduation_movie_app/ui/widgets/custom_elevated_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../core/di/di.dart';
+import '../../../../model/MovieDetailsResponse.dart';
 import '../home_tab/movie_item.dart';
 
 class ProfileTab extends StatefulWidget {
@@ -20,6 +23,25 @@ class ProfileTab extends StatefulWidget {
 
 class _ProfileTabState extends State<ProfileTab> {
   UpdateProfileViewModel viewModel = getIt<UpdateProfileViewModel>();
+  WatchListCubit watchListCubit = getIt<WatchListCubit>();
+
+  String? token;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadToken();
+  }
+
+  Future<void> _loadToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      token = prefs.getString("auth_token");
+    });
+    if (token != null) {
+      watchListCubit.fetchWatchlist(token!);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,33 +56,32 @@ class _ProfileTabState extends State<ProfileTab> {
           headerSliverBuilder: (context, innerBoxIsScrolled) {
             return [
               SliverAppBar(
-                toolbarHeight:height*(280/932) ,
+                toolbarHeight:height*(340/932) ,
                 backgroundColor: AppColors.darkGrayColor,
                 title:  BlocBuilder<UpdateProfileViewModel, ProfileStates>(
                   bloc: viewModel..getProfileData(),
                   builder: (context,state){
+
                     if(state is GetProfileDataState){
                       return Column(
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Expanded(
-                                child: Column(
-                                  children: [
-                                    Image.asset(viewModel.getAvatarImage(state.data.avaterId!)),
-                                    SizedBox(height: height * 0.02),
-                                    AutoSizeText(state.data.name!, style: AppStyles.bold20WhiteRoboto,),
-                                  ],
-                                ),
+                              Column(
+                                children: [
+                                  Image.asset(viewModel.getAvatarImage(state.data.avaterId!)),
+                                  SizedBox(height: height * 0.02),
+                                  Text(state.data.name!, style: AppStyles.bold20WhiteRoboto),
+                                ],
                               ),
                               Column(
                                 children: [
-                                  Text("12", style: AppStyles.bold36WhiteRoboto),
+                                  Text("${state.data.watchList?.length}", style: AppStyles.bold36WhiteRoboto),
                                   Text("Wish List", style: AppStyles.bold24WhiteRoboto),
                                 ],
                               ),
-                              SizedBox(width: width * 0.05,),
+
                               Column(
                                 children: [
                                   Text("${state.historyMovies.length}", style: AppStyles.bold36WhiteRoboto),
@@ -113,25 +134,21 @@ class _ProfileTabState extends State<ProfileTab> {
                 leading: Container(),
                 elevation: 0,
                 leadingWidth: 0,
-                scrolledUnderElevation: 0,
                 forceElevated: innerBoxIsScrolled,
                 bottom: PreferredSize(
-                  preferredSize: Size.fromHeight(height*(100/932)),
+                  preferredSize: Size.fromHeight(height*(60/932)),
                   child: TabBar(
                     indicatorColor: AppColors.orangeColor,
                     indicatorSize: TabBarIndicatorSize.tab,
                     dividerHeight: 0,
                     indicatorWeight: 2,
-                    padding: EdgeInsets.zero,
-                    labelStyle: AppStyles.regular20WhiteRoboto,
-                    unselectedLabelStyle: AppStyles.regular20WhiteRoboto,
                     labelPadding: EdgeInsets.symmetric(vertical: height * 0.02),
-                    tabs: const [
+                    tabs: [
                       Tab(
                         child: Column(
                           children: [
-                            ImageIcon(AssetImage(AssetsManager.watchListIcon), color: AppColors.orangeColor),
-                            Expanded(child: Text("Watch List")),
+                            const ImageIcon(AssetImage(AssetsManager.watchListIcon), color: AppColors.orangeColor),
+                            Expanded(child: Text("Watch List", style: AppStyles.regular20WhiteRoboto)),
                           ],
                         ),
                       ),
@@ -139,7 +156,7 @@ class _ProfileTabState extends State<ProfileTab> {
                         child: Column(
                           children: [
                             const ImageIcon(AssetImage(AssetsManager.historyIcon), color: AppColors.orangeColor),
-                            Expanded(child: Text("History")),
+                            Expanded(child: Text("History", style: AppStyles.regular20WhiteRoboto)),
                           ],
                         ),
                       ),
@@ -151,7 +168,8 @@ class _ProfileTabState extends State<ProfileTab> {
           },
           body: TabBarView(
             children: [
-              watchList(),
+              WatchListScreen(token: token ?? ''),
+
               BlocBuilder<UpdateProfileViewModel, ProfileStates>(
                 bloc: viewModel..getProfileData(),
                 builder: (context, state) {

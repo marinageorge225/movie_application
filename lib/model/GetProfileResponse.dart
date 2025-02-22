@@ -1,3 +1,5 @@
+import 'MovieDetailsResponse.dart';
+
 /// message : "Profile fetched successfully"
 /// data : {"_id":"67a55f72e31c5028c2f0733a","email":"rowansherif182@gmail.com","password":"$2b$10$1AWqTCPOHpblxK3oHYUaguHQuR57Ivk7KA28RWtatXPYfakJYwARK","name":"rowan","phone":"+201275794886","avaterId":2,"createdAt":"2025-02-07T01:18:42.615Z","updatedAt":"2025-02-07T01:18:42.615Z","__v":0}
 
@@ -42,15 +44,17 @@ class GetProfileResponse {
 
 class UserData {
   UserData({
-      this.id, 
-      this.email, 
-      this.password, 
-      this.name, 
-      this.phone, 
-      this.avaterId, 
-      this.createdAt, 
-      this.updatedAt, 
-      this.v,});
+    this.id,
+    this.email,
+    this.password,
+    this.name,
+    this.phone,
+    this.avaterId,
+    this.createdAt,
+    this.updatedAt,
+    this.v,
+    this.watchList,
+  });
 
   UserData.fromJson(dynamic json) {
     id = json['_id'];
@@ -62,7 +66,11 @@ class UserData {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     v = json['__v'];
+    watchList = json['watchList'] != null
+        ? List<Movie>.from(json['watchList'].map((x) => Movie.fromJson(x)))
+        : [];
   }
+
   String? id;
   String? email;
   String? password;
@@ -72,6 +80,7 @@ class UserData {
   String? createdAt;
   String? updatedAt;
   int? v;
+  List<Movie>? watchList;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -84,7 +93,11 @@ class UserData {
     map['createdAt'] = createdAt;
     map['updatedAt'] = updatedAt;
     map['__v'] = v;
-    return map;
-  }
 
+    if (watchList != null) {
+      map['watchList'] = watchList!.map((x) => x.toJson()).toList();
+    }
+
+    return map; // تأكد من أن return يحدث في جميع الحالات
+  }
 }

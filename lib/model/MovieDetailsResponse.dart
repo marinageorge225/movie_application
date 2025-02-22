@@ -203,6 +203,10 @@ class Movie {
     return map;
   }
 
+  static fromResponse(MovieDetailsResponse movie) {
+
+  }
+
 }
 
 class Torrents {

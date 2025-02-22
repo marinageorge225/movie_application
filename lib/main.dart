@@ -39,6 +39,8 @@ void main() async {
   runApp(
     MultiBlocProvider(
       providers: [
+        BlocProvider(create: (context) => getIt<WatchListCubit>()),
+        BlocProvider(create: (context) => PreferenseWatchListCubit()),
         ///   Movie Details
         RepositoryProvider(
           create: (context) => MovieDetailsRepositoryImpl(
@@ -68,8 +70,7 @@ void main() async {
             RepositoryProvider.of<RegisterRepositoryImpl>(context),
           ),
         ),
-        BlocProvider(create: (context) => getIt<WatchListCubit>()),
-        BlocProvider(create: (context) => PreferenseWatchListCubit(),),
+
         BlocProvider(create: (context) => AppLanguageCubit()),
       ],
       child: MyApp(showOnBoarding: showOnBoarding),
@@ -100,6 +101,7 @@ class MyApp extends StatelessWidget {
             ForgetPassword.routeName: (context) => ForgetPassword(),
             UpdateProfile.routeName: (context) => UpdateProfile(),
             RegisterScreen.routeName: (context) => RegisterScreen(),
+            // Profile.routeName: (context) => Profile(),
             HomeTab.routeName:(context)=>HomeTab(),
             ResetPassword.routeName:(context)=>ResetPassword(),
             SeeMoreScreen.routeName : (context) => SeeMoreScreen()
