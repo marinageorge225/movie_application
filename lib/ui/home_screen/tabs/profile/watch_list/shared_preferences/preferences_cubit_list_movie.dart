@@ -9,8 +9,17 @@ class PreferenseWatchListCubit extends Cubit<List<String>> {
     emit(movies);
   }
 
-   Future<void> toggleMovieInWatchlist(String movieId) async {
+  Future<void> toggleMovieInWatchlist(String movieId) async {
+    final movies = List<String>.from(state);
+
+    if (movies.contains(movieId)) {
+      movies.remove(movieId);
+    } else {
+      movies.add(movieId);
+    }
+
     await WatchlistService.saveMovieToWatchlist(movieId);
-    await loadWatchlist();
+    emit(movies);
   }
+
 }

@@ -1,7 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class WatchlistService {
-   static Future<void> saveMovieToWatchlist(String movieId) async {
+  static Future<void> saveMovieToWatchlist(String movieId) async {
     final prefs = await SharedPreferences.getInstance();
     List<String> watchlist = prefs.getStringList('watchlist') ?? [];
 
@@ -13,6 +13,7 @@ class WatchlistService {
 
     await prefs.setStringList('watchlist', watchlist);
   }
+
 
 
   static Future<List<String>> getWatchlistMovies() async {
