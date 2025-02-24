@@ -203,79 +203,6 @@ class ApiManager {
     }
   }
 
-
-///////////////////////////
-
-
-  final String baseUrl = "https://route-movie-apis.vercel.app/favorites";
-
-  Future<void> addToWatchlist(Map<String, dynamic> movieData, String token) async {
-    Uri url = Uri.parse("$baseUrl/add");
-
-    var response = await http.post(
-      url,
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer $token",
-      },
-      body: jsonEncode(movieData),
-    );
-
-    if (response.statusCode != 200) {
-      throw Exception('Failed to add movie to watchlist');
-    }
-  }
-
-  Future<void> removeFromWatchlist(String movieId, String token) async {
-    Uri url = Uri.parse("$baseUrl/remove/$movieId");
-
-    var response = await http.delete(
-      url,
-      headers: {
-        "Authorization": "Bearer $token",
-      },
-    );
-
-    if (response.statusCode != 200) {
-      throw Exception('Failed to remove movie from watchlist');
-    }
-  }
-
-  Future<List<Map<String, dynamic>>> getWatchlist(String token) async {
-    Uri url = Uri.parse("$baseUrl/all");
-
-    var response = await http.get(
-      url,
-      headers: {
-        "Authorization": "Bearer $token",
-      },
-    );
-
-    if (response.statusCode == 200) {
-      List<dynamic> data = jsonDecode(response.body);
-      return List<Map<String, dynamic>>.from(data);
-    } else {
-      throw Exception('Failed to fetch watchlist');
-    }
-  }
-
-  Future<bool> isMovieInWatchlist(String movieId, String token) async {
-    Uri url = Uri.parse("$baseUrl/check/$movieId");
-
-    var response = await http.get(
-      url,
-      headers: {
-        "Authorization": "Bearer $token",
-      },
-    );
-
-    if (response.statusCode == 200) {
-      return jsonDecode(response.body)['isInWatchlist'] ?? false;
-    } else {
-      throw Exception('Failed to check movie status in watchlist');
-    }
-  }
-
   Future<MovieListResponse?> getAllMovies(String searchedText) async {
     Uri url = Uri.https(ApiConstants.baseUrl, EndPoints.listMoviesApi,
         {'query_term': searchedText});
@@ -292,4 +219,90 @@ class ApiManager {
       throw Exception('Error fetching movies: $e');
     }
   }
+
+
+///////////////////////////
+
+
+  final String baseUrl = "https://route-movie-apis.vercel.app/favorites";
+
+  Future<void> addToWatchlist(String token, Map<String, dynamic> movieData) async {
+    Uri url = Uri.parse("$baseUrl/add");
+
+    var response = await http.post(
+      url,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token",  // ✅ إضافة التوكن هنا
+      },
+      body: jsonEncode(movieData),
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to add movie to watchlist');
+    }
+  }
+
+  Future<void> removeFromWatchlist(String token, String movieId) async {
+    Uri url = Uri.parse("$baseUrl/remove/$movieId");
+
+    var response = await http.delete(
+      url,
+      headers: {
+        "Authorization": "Bearer $token",  // ✅ إضافة التوكن هنا
+      },
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to remove movie from watchlist');
+    }
+  }
+
+  Future<List<Map<String, dynamic>>> getWatchlist(String token) async {
+    Uri url = Uri.parse("$baseUrl/all");
+
+    var response = await http.get(
+      url,
+      headers: {
+        "Authorization": "Bearer $token",  // ✅ إضافة التوكن هنا
+      },
+    );
+
+    if (response.statusCode == 200) {
+      List<dynamic> data = jsonDecode(response.body);
+      return List<Map<String, dynamic>>.from(data);
+    } else {
+      throw Exception('Failed to fetch watchlist');
+    }
+  }
+
+  Future<bool> isMovieInWatchlist(String token, String movieId) async {
+    Uri url = Uri.parse("$baseUrl/check/$movieId");
+
+    var response = await http.get(
+      url,
+      headers: {
+        "Authorization": "Bearer $token",  // ✅ إضافة التوكن هنا
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body)['isInWatchlist'] ?? false;
+    } else {
+      throw Exception('Failed to check movie status in watchlist');
+    }
+  }
+
+
+  Future<void> saveMovie(MovieListResponse movie) async {
+    final prefs = await SharedPreferences.getInstance();
+    List<String> savedMovies = prefs.getStringList("watchlist") ?? [];
+
+     String movieJson = jsonEncode(movie.toJson());
+    savedMovies.add(movieJson);
+
+    await prefs.setStringList("watchlist", savedMovies);
+  }
+
+
 }

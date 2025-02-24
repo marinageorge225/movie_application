@@ -11,23 +11,23 @@
   WatchListRemoteDataSourceImpl({required this.apiManager});
 
   @override
-  Future<void> addToWatchlist(MovieDetailsResponse movie, String token) async {
-  await apiManager.addToWatchlist(movie.toJson(), token);
+  Future<void> addToWatchlist(String token, Map<String, dynamic> movieData) async {
+     return await apiManager.addToWatchlist(token, movieData);
   }
 
   @override
-  Future<void> removeFromWatchlist(String movieId, String token) async {
-  await apiManager.removeFromWatchlist(movieId, token);
+  Future<List<Map<String, dynamic>>> getWatchlist(String token) async {
+    return await apiManager.getWatchlist(token);
   }
 
   @override
-  Future<List<MovieDetailsResponse>> getWatchlist(String token) async {
-  var response = await apiManager.getWatchlist(token);
-  return response.map((e) => MovieDetailsResponse.fromJson(e)).toList();
+  Future<bool> isMovieInWatchlist(String token, String movieId) async {
+    return await apiManager.isMovieInWatchlist(token, movieId);
   }
 
   @override
-  Future<bool> isMovieInWatchlist(String movieId, String token) async {
-  return await apiManager.isMovieInWatchlist(movieId, token);
+  Future<void> removeFromWatchlist(String token, String movieId) async {
+    return await apiManager.removeFromWatchlist(token, movieId);
   }
+
   }

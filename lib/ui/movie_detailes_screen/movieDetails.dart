@@ -9,7 +9,8 @@ import 'package:graduation_movie_app/ui/movie_detailes_screen/show_screen_shot.d
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/utils/app_styles.dart';
 import '../../model/MovieDetailsResponse.dart';
- import '../home_screen/tabs/profile/watch_list/shared_preferences/preferences_cubit_list_movie.dart';
+ import '../home_screen/tabs/profile/watch_list/cubit/watch_list_states.dart';
+import '../home_screen/tabs/profile/watch_list/cubit/watch_list_view_model.dart';
 import '../widgets/custom_elevated_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'cubit/movie_details-states.dart';
@@ -30,11 +31,9 @@ class MovieDetails extends StatefulWidget {
 }
 
 class _MovieDetailsState extends State<MovieDetails> {
-  @override
-  void initState() {
-    super.initState();
-    BlocProvider.of<MovieDetailsCubit>(context).getMovieDetails(widget.movieId);
-  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -98,20 +97,26 @@ class _MovieDetailsState extends State<MovieDetails> {
                                     Navigator.pop(context);
                                   },
                                 ),
-          BlocBuilder<PreferenseWatchListCubit, List<String>>(
-               builder: (context, watchlist) {
-            bool isSaved = watchlist.contains(widget.movieId.toString());
-            return IconButton(
-            icon: Icon(
-            isSaved ? Icons.bookmark : Icons.bookmark_border,
-            color: Colors.white,
-            ),
-            onPressed: () {
-            context.read<PreferenseWatchListCubit>().toggleMovieInWatchlist(widget.movieId.toString());
-            },
-            );
-            }
-    ),
+                                const Spacer(),
+                        //todo:icon save
+                                BlocBuilder<WatchListCubit, WatchListState>(
+                                  builder: (context, state) {
+                                    final cubit = context.read<WatchListCubit>();
+
+                                    bool isSaved = false;
+                                    if (state is MovieCheckState) {
+                                      isSaved = state.isFavorite;
+                                    }
+
+                                    return IconButton(
+                                      icon: Icon(isSaved ? Icons.bookmark : Icons.bookmark_border, color: Colors.blue),
+                                      onPressed: () async {
+                                        await cubit.toggleWatchlist(movie.id as String, movie.toJson());
+                                      },
+                                    );
+                                  },
+                                ),
+
 
 
                               ],
@@ -323,4 +328,5 @@ class _MovieDetailsState extends State<MovieDetails> {
 
     setState(() {});
   }
+
 }

@@ -17,7 +17,8 @@ class MovieItem extends StatelessWidget {
   double? imageHeight;
   double? imageWidth;
   double? borderRadius;
-  MovieItem({required this.movie, this.imageHeight, this.imageWidth, this.borderRadius});
+
+  MovieItem({required this.movie, this.imageHeight, this.imageWidth, this.borderRadius, });
 
   @override
   Widget build(BuildContext context) {

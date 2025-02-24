@@ -11,23 +11,23 @@ class WatchListRepositoryImpl implements WatchListRepository {
   WatchListRepositoryImpl({required this.remoteDataSource});
 
   @override
-  Future<void> addToWatchlist(MovieDetailsResponse movie, String token) {
-   return remoteDataSource.addToWatchlist(movie, token);
+  Future<void> addToWatchlist(String token, Map<String, dynamic> movieData) async{
+  return await remoteDataSource.addToWatchlist(token, movieData);
   }
 
   @override
-  Future<List<MovieDetailsResponse>> getWatchlist(String token) {
-    return remoteDataSource.getWatchlist(token);
+  Future<List<Map<String, dynamic>>> getWatchlist(String token) async {
+    return await remoteDataSource.getWatchlist(token);
   }
 
   @override
-  Future<bool> isMovieInWatchlist(String movieId, String token) {
-     return remoteDataSource.isMovieInWatchlist(movieId, token);
+  Future<bool> isMovieInWatchlist(String token, String movieId) async {
+    return await remoteDataSource.isMovieInWatchlist(token, movieId);
   }
 
   @override
-  Future<void> removeFromWatchlist(String movieId, String token) {
-     return remoteDataSource.removeFromWatchlist(movieId, token);
+  Future<void> removeFromWatchlist(String token, String movieId) async {
+    return await remoteDataSource.removeFromWatchlist(token, movieId);
   }
- 
+
 }

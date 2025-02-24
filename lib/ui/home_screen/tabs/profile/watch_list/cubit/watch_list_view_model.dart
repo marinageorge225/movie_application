@@ -1,65 +1,90 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/profile/watch_list/cubit/watch_list_states.dart';
 import 'package:injectable/injectable.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../../../model/MovieDetailsResponse.dart';
+ import '../../../../../../model/MovieDetailsResponse.dart';
 import '../../../../../../repository/watch_list/repository/watch_List_repository.dart' show WatchListRepository;
 
 @injectable
 class WatchListCubit extends Cubit<WatchListState> {
   final WatchListRepository repository;
 
-  WatchListCubit({required this.repository}) : super(WatchListInitial());
+  WatchListCubit({required this.repository}) : super(WatchListInitialState());
 
-  Future<void> fetchWatchlist(String token) async {
-    emit(WatchListLoading());
+
+   Future<String?> getToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('user_token');
+  }
+  Future<void> addToWatchlist(String movieId, Map<String, dynamic> movieData) async {
+    emit(WatchListLoadingState());
     try {
-      final movies = await repository.getWatchlist(token);
-      emit(WatchListLoaded(movies));
+      final token = await getToken();
+      if (token == null) throw Exception("User not logged in");
+      await repository.addToWatchlist(token, movieData);
+      emit(WatchListSuccessState([]));
     } catch (e) {
-      emit(WatchListError(e.toString()));
+      emit(WatchListErrorState(e.toString()));
     }
   }
 
-  Future<void> addMovieToWatchlist(MovieDetailsResponse movie, String token) async {
+  Future<void> removeFromWatchlist(String movieId) async {
+    emit(WatchListLoadingState());
     try {
-      await repository.addToWatchlist(movie, token);
-
-
-      if (state is WatchListLoaded) {
-        final updatedMovies = List<MovieDetailsResponse>.from((state as WatchListLoaded).movies)..add(movie);
-        emit(WatchListLoaded(updatedMovies));
-      } else {
-        fetchWatchlist(token);
-      }
+      final token = await getToken();
+      if (token == null) throw Exception("User not logged in");
+      await repository.removeFromWatchlist(token, movieId);
+      emit(WatchListSuccessState([]));
     } catch (e) {
-      emit(WatchListError(e.toString()));
+      emit(WatchListErrorState(e.toString()));
     }
   }
 
-  Future<void> removeMovieFromWatchlist(String movieId, String token) async {
+  Future<void> getWatchlist() async {
+    emit(WatchListLoadingState());
     try {
-      emit(WatchListLoading());
-      await repository.removeFromWatchlist(movieId, token);
-      await fetchWatchlist(token);
+      final token = await getToken();
+      if (token == null) throw Exception("User not logged in");
+      final watchlistData = await repository.getWatchlist(token);
+      final movies = watchlistData.map((movie) => MovieDetailsResponse.fromJson(movie)).toList();
+      emit(WatchListSuccessState(movies));
     } catch (e) {
-      emit(WatchListError(e.toString()));
+      emit(WatchListErrorState(e.toString()));
     }
   }
 
-
-  Future<void> checkMovieInWatchlist(String movieId, String token) async {
+  Future<void> isMovieInWatchlist(String movieId) async {
+    emit(WatchListLoadingState());
     try {
-      final isFavorite = await repository.isMovieInWatchlist(movieId, token);
-
-      if (state is MovieCheckState && (state as MovieCheckState).isFavorite == isFavorite) {
-        return;
-      }
-
+      final token = await getToken();
+      if (token == null) throw Exception("User not logged in");
+      final isFavorite = await repository.isMovieInWatchlist(token, movieId);
       emit(MovieCheckState(isFavorite));
     } catch (e) {
-      emit(WatchListError(e.toString()));
+      emit(WatchListErrorState(e.toString()));
+    }
+  }
+  Future<void> toggleWatchlist(String movieId, Map<String, dynamic> movieData) async {
+    emit(WatchListLoadingState());
+    try {
+      final token = await getToken();
+      if (token == null) throw Exception("User not logged in");
+
+      final isSaved = await repository.isMovieInWatchlist(token, movieId);
+      if (isSaved) {
+        await repository.removeFromWatchlist(token, movieId);
+      } else {
+        await repository.addToWatchlist(token, movieData);
+      }
+
+      emit(WatchListSuccessState([]));
+      await isMovieInWatchlist(movieId);
+    } catch (e) {
+      emit(WatchListErrorState(e.toString()));
     }
   }
 
 }
+
+

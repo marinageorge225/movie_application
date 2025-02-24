@@ -7,14 +7,15 @@ import 'package:graduation_movie_app/repository/movie_details/repository/movie_d
 import 'package:graduation_movie_app/repository/register/data_source/register_remote_data_source_impl.dart';
 import 'package:graduation_movie_app/repository/register/repository/register_repository_impl.dart';
 import 'package:graduation_movie_app/core/api/api_manger.dart';
-import 'package:graduation_movie_app/repository/reset_password/repository/reset_password_repository.dart';
+ import 'package:graduation_movie_app/repository/watch_list/dataSources/watch_list_remote_data_source_impl.dart';
+import 'package:graduation_movie_app/repository/watch_list/repository/watch_List_repository.dart';
+import 'package:graduation_movie_app/repository/watch_list/repository/watch_List_repository.dart';
+import 'package:graduation_movie_app/repository/watch_list/repository/watch_list_repository_impl.dart';
 import 'package:graduation_movie_app/ui/auth/forget_password/reset_password.dart';
 import 'package:graduation_movie_app/ui/home_screen/home_screen.dart';
  import 'package:graduation_movie_app/ui/home_screen/tabs/home_tab/home_tab_widget.dart';
-import 'package:graduation_movie_app/ui/home_screen/tabs/home_tab/home_tab_widget.dart';
-import 'package:graduation_movie_app/ui/home_screen/tabs/profile/watch_list/cubit/watch_list_view_model.dart';
-import 'package:graduation_movie_app/ui/home_screen/tabs/profile/watch_list/shared_preferences/preferences_cubit_list_movie.dart';
-import 'package:graduation_movie_app/ui/movie_detailes_screen/cubit/movie_details_view_model.dart';
+ import 'package:graduation_movie_app/ui/home_screen/tabs/profile/watch_list/cubit/watch_list_view_model.dart';
+ import 'package:graduation_movie_app/ui/movie_detailes_screen/cubit/movie_details_view_model.dart';
 import 'package:graduation_movie_app/ui/see_more/see_more_screen.dart';
 import 'package:graduation_movie_app/ui/splash_screen/splash_screen.dart';
 import 'package:graduation_movie_app/ui/auth/Reigster/Register_Screen.dart';
@@ -22,8 +23,7 @@ import 'package:graduation_movie_app/ui/auth/Reigster/Register_Screen.dart';
 import 'package:graduation_movie_app/ui/auth/forget_password/forget_password.dart';
 import 'package:graduation_movie_app/ui/home_screen/tabs/profile/update_profile/update_profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'core/api/api_manger.dart';
-import 'core/cubit/app_language_cubit.dart';
+ import 'core/cubit/app_language_cubit.dart';
 import 'ui/auth/Reigster/cubit/register_view_model.dart';
 import 'core/di/di.dart';
 import 'core/utils/app_theme.dart';
@@ -35,22 +35,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final bool showOnBoarding = prefs.getBool(OnBoarding.routeName) ?? false;
-  WidgetsFlutterBinding.ensureInitialized(); 
-  final token = prefs.getString('user_token') ?? '';
-  runApp(
+  WidgetsFlutterBinding.ensureInitialized();
+   runApp(
     MultiBlocProvider(
 
       providers: [
-        BlocProvider(
-          create: (context) {
-            final cubit = getIt<WatchListCubit>();
-            cubit.fetchWatchlist(token);  
-            return cubit;
-          },
-        ),
-         BlocProvider(create: (context) => PreferenseWatchListCubit()),
-        ///   Movie Details
-        RepositoryProvider(
+     BlocProvider(create: (context) => WatchListCubit(repository: WatchListRepositoryImpl(remoteDataSource: WatchListRemoteDataSourceImpl(apiManager: ApiManager()))) ),
+         RepositoryProvider(
           create: (context) => MovieDetailsRepositoryImpl(
             remoteDataSource: MovieDetailsRemoteDataSourceImpl(
               apiManager: ApiManager(),
@@ -100,7 +91,7 @@ class MyApp extends StatelessWidget {
           supportedLocales: AppLocalizations.supportedLocales,
           debugShowCheckedModeBanner: false,
           theme: AppTheme.themeData,
-          initialRoute: SplashScreen.routeName,
+          initialRoute: HomeScreen.routeName,
           routes: {
             HomeScreen.routeName: (context) => HomeScreen(),
             OnBoarding.routeName: (context) => OnBoarding(),

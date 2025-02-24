@@ -1,19 +1,20 @@
+
 import '../../../../../../model/MovieDetailsResponse.dart';
 
 abstract class WatchListState {}
 
-class WatchListInitial extends WatchListState {}
+class WatchListInitialState extends WatchListState {}
 
-class WatchListLoading extends WatchListState {}
+class WatchListLoadingState extends WatchListState {}
 
-class WatchListLoaded extends WatchListState {
+class WatchListSuccessState extends WatchListState {
   final List<MovieDetailsResponse> movies;
-  WatchListLoaded(this.movies);
+  WatchListSuccessState(this.movies);
 }
 
-class WatchListError extends WatchListState {
+class WatchListErrorState extends WatchListState {
   final String message;
-  WatchListError(this.message);
+  WatchListErrorState(this.message);
 }
 
  class MovieCheckState extends WatchListState {
