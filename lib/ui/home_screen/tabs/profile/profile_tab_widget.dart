@@ -56,11 +56,23 @@ class _ProfileTabState extends State<ProfileTab> {
                                 ],
                               ),
                               Column(
+                                //todo:no movies
                                 children: [
-                             //     Text("${watchlist.length}", style: AppStyles.bold36WhiteRoboto),
+                                  BlocBuilder<WatchListCubit, WatchListState>(
+                                    builder: (context, state) {
+                                      if (state is WatchListSuccessState) {
+                                        return Text(
+                                          "${state.movies.length}",
+                                          style: AppStyles.bold36WhiteRoboto,
+                                        );
+                                      }
+                                      return const CircularProgressIndicator(color: AppColors.orangeColor);
+                                    },
+                                  ),
                                   Text("Wish List", style: AppStyles.bold24WhiteRoboto),
                                 ],
                               ),
+
 
                               Column(
                                 children: [
