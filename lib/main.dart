@@ -1,34 +1,76 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:graduation_movie_app/OnBoarding_Screen/OnBoarding.dart';
- import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:graduation_movie_app/cubit/register_view_model.dart';
-import 'package:graduation_movie_app/profile.dart';
-import 'package:graduation_movie_app/splash_screen.dart';
-import 'package:graduation_movie_app/ui/auth/Reigster/Register_Screen.dart';
-
- import 'package:graduation_movie_app/ui/auth/login/login_view.dart';
+import 'package:graduation_movie_app/repository/movie_details/dataSourcesMovieDetails/movie_details_data_source_impl.dart';
+import 'package:graduation_movie_app/repository/movie_details/repository/movie_details_source_repository_impl.dart';
+import 'package:graduation_movie_app/repository/register/data_source/register_remote_data_source_impl.dart';
+import 'package:graduation_movie_app/repository/register/repository/register_repository_impl.dart';
+import 'package:graduation_movie_app/core/api/api_manger.dart';
+ import 'package:graduation_movie_app/repository/watch_list/dataSources/watch_list_remote_data_source_impl.dart';
+import 'package:graduation_movie_app/repository/watch_list/repository/watch_List_repository.dart';
+import 'package:graduation_movie_app/repository/watch_list/repository/watch_List_repository.dart';
+import 'package:graduation_movie_app/repository/watch_list/repository/watch_list_repository_impl.dart';
+import 'package:graduation_movie_app/ui/auth/forget_password/reset_password.dart';
 import 'package:graduation_movie_app/ui/home_screen/home_screen.dart';
-import 'package:graduation_movie_app/ui/home_screen/tabs/profile/update_profile.dart';
- import 'package:graduation_movie_app/utils/app_theme.dart';
+ import 'package:graduation_movie_app/ui/home_screen/tabs/home_tab/home_tab_widget.dart';
+ import 'package:graduation_movie_app/ui/home_screen/tabs/profile/watch_list/cubit/watch_list_view_model.dart';
+ import 'package:graduation_movie_app/ui/movie_detailes_screen/cubit/movie_details_view_model.dart';
+import 'package:graduation_movie_app/ui/see_more/see_more_screen.dart';
+import 'package:graduation_movie_app/ui/splash_screen/splash_screen.dart';
+import 'package:graduation_movie_app/ui/auth/Reigster/Register_Screen.dart';
+ import 'package:graduation_movie_app/ui/auth/login/login_view.dart';
 import 'package:graduation_movie_app/ui/auth/forget_password/forget_password.dart';
+import 'package:graduation_movie_app/ui/home_screen/tabs/profile/update_profile/update_profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'api/api_service_register.dart';
-import 'cubit/app_language_cubit.dart';
+ import 'core/cubit/app_language_cubit.dart';
+import 'ui/auth/Reigster/cubit/register_view_model.dart';
+import 'core/di/di.dart';
+import 'core/utils/app_theme.dart';
+import 'core/utils/my_bloc_observer.dart';
 
 void main() async {
+  Bloc.observer = MyBlocObserver();
+  configureDependencies();
   WidgetsFlutterBinding.ensureInitialized();
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final bool showOnBoarding = prefs.getBool(OnBoarding.routeName) ?? false;
-
-  runApp(
+  WidgetsFlutterBinding.ensureInitialized();
+   runApp(
     MultiBlocProvider(
+
       providers: [
-        BlocProvider(create: (context) => AppLanguageCubit()),
-        BlocProvider(
-          create: (_) => RegisterCubit(ApiService()),
+     BlocProvider(create: (context) => WatchListCubit(repository: WatchListRepositoryImpl(remoteDataSource: WatchListRemoteDataSourceImpl(apiManager: ApiManager()))) ),
+         RepositoryProvider(
+          create: (context) => MovieDetailsRepositoryImpl(
+            remoteDataSource: MovieDetailsRemoteDataSourceImpl(
+              apiManager: ApiManager(),
+            ),
+          ),
         ),
+
+        ///  Register Repository
+        RepositoryProvider(
+          create: (context) => RegisterRepositoryImpl(
+            registerRemoteDataSource: RegisterRemoteDataSourceImpl(
+              apiManager: ApiManager(),
+            ),
+          ),
+        ),
+
+        BlocProvider(
+          create: (context) => MovieDetailsCubit(
+            repository: RepositoryProvider.of<MovieDetailsRepositoryImpl>(context),
+          ),
+        ),
+
+        BlocProvider(
+          create: (context) => RegisterCubit(
+            RepositoryProvider.of<RegisterRepositoryImpl>(context),
+          ),
+        ),
+
+        BlocProvider(create: (context) => AppLanguageCubit()),
       ],
       child: MyApp(showOnBoarding: showOnBoarding),
     ),
@@ -49,7 +91,7 @@ class MyApp extends StatelessWidget {
           supportedLocales: AppLocalizations.supportedLocales,
           debugShowCheckedModeBanner: false,
           theme: AppTheme.themeData,
-          initialRoute: SplashScreen.routeName,
+          initialRoute: HomeScreen.routeName,
           routes: {
             HomeScreen.routeName: (context) => HomeScreen(),
             OnBoarding.routeName: (context) => OnBoarding(),
@@ -58,14 +100,14 @@ class MyApp extends StatelessWidget {
             ForgetPassword.routeName: (context) => ForgetPassword(),
             UpdateProfile.routeName: (context) => UpdateProfile(),
             RegisterScreen.routeName: (context) => RegisterScreen(),
-            Profile.routeName: (context) => Profile(),
+            // Profile.routeName: (context) => Profile(),
+            HomeTab.routeName:(context)=>HomeTab(),
+            ResetPassword.routeName:(context)=>ResetPassword(),
+            SeeMoreScreen.routeName : (context) => SeeMoreScreen()
           },
           locale: Locale(appLanguage),
         );
       },
-
-
-
 
     );
   }

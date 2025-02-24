@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:graduation_movie_app/utils/app_color.dart';
-import '../../../../utils/assets_manager.dart';
+import '../../../../core/utils/app_color.dart';
+import '../../../../core/utils/assets_manager.dart';
 import 'image_item.dart';
 
 class BottomSheetShowAvatars extends StatefulWidget {
@@ -48,8 +48,8 @@ class _BottomSheetShowAvatarsState extends State<BottomSheetShowAvatars> {
                 return InkWell(
                   onTap: (){
                     setState(() {
+                      selectedAvatar = avatars[index];  // Update local state
                       widget.saveImage(avatars[index]);
-
                     });
                   },
                     child:
